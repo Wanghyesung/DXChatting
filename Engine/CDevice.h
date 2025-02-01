@@ -9,6 +9,11 @@ public:
 
 	bool init(HWND _hwnd, UINT _iWidth, UINT _iHeight);
 
+public:
+	ID3D11Device* GetDevice() { return m_device.Get(); }
+	ID3D11DeviceContext* GetContext() { return m_deviceContex.Get(); }
+
+	Vec2 GetResolution() { return m_vRenderResolution; }
 private:
 	int CreateSwapChain();
 	int CreateView();
@@ -18,9 +23,9 @@ private:
 	int CreateBlendState();
 	int CreateSampler();
 
+
 private:
 	HWND m_hwnd; //윈도우 창 핸들
-
 
 	ComPtr<ID3D11Device> m_device; //gpu 메모리 할당
 	ComPtr<ID3D11DeviceContext> m_deviceContex; //gpu 제어, 렌더링

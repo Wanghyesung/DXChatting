@@ -6,6 +6,7 @@
 #include <string>
 #include <unordered_map>
 #include <queue>
+#include <memory>
 
 using std::vector;
 using std::list;
@@ -17,11 +18,13 @@ using std::unordered_map;
 using std::pair;
 using std::priority_queue;
 using std::queue;
+using std::shared_ptr;
 
 
 #include <typeinfo>
 #include <assert.h>
 #include <random>
+
 
 // FileSystem
 #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING

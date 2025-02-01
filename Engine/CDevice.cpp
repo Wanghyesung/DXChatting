@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CDevice.h"
+#include "CTexture.h"
 
 CDevice::CDevice()
 {
@@ -90,8 +91,19 @@ int CDevice::CreateSwapChain()
     return hr;
 }
 
+//렌더타겟
 int CDevice::CreateView()
 {
+    //RenderTarget
+    ComPtr<ID3D11Texture2D> pTex;
+    m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)pTex.GetAddressOf());
+    
+
+    //DepthStencil
+    //깊이에 24비트, 스텐실에 8비트를 지원하는 32비트 z 버퍼 형식입니다.
+    //CreateTex(m_vRenderResolution.y, m_vRenderResolution.x, DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT,
+    //    D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT);
+
     return 0;
 }
 
@@ -102,6 +114,7 @@ int CDevice::CreateRasterizerState()
 
 int CDevice::CreateDepthStencilState()
 {
+
     return 0;
 }
 

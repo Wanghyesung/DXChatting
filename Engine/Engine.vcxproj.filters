@@ -10,6 +10,12 @@
     <Filter Include="Common">
       <UniqueIdentifier>{0d23e100-d539-44ca-992b-399772b8664e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{d97ba8c8-554c-43db-aca1-4a08261329e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{708a7799-6b31-44fa-a845-07cad86d607d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -30,6 +36,21 @@
     <ClInclude Include="SimpleMath.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CResource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntity.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CResMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -46,6 +67,18 @@
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CResource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntity.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CResMgr.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
