@@ -1,13 +1,44 @@
 #include "pch.h"
 #include "CResMgr.h"
 
-std::shared_ptr<CTexture> CResMgr::CreateTexture(const wstring& _strKey, UINT _Width, UINT _Height, DXGI_FORMAT _pixelformat, UINT _BindFlag, D3D11_USAGE _Usage)
+CResMgr::CResMgr()
 {
+
+}
+
+CResMgr::~CResMgr()
+{
+
+}
+
+std::shared_ptr<CTexture> CResMgr::CreateTexture(const wstring& _strKey, UINT _iWidth, UINT _iHeight, DXGI_FORMAT _pixelformat, UINT _iBindFlag, D3D11_USAGE _Usage)
+{
+	shared_ptr<CTexture> pTex = make_shared<CTexture>();
 	
-	return std::shared_ptr<CTexture>();
+	assert(FindRes<CTexture>(_strKey, RESOURCE_TYPE::TEXTURE) == nullptr);
+
+	if (FAILED(pTex->CreateTex(_iWidth, _iHeight, _pixelformat, _iBindFlag, _Usage)))
+	{
+		assert(nullptr);
+	}
+	
+	AddRes<CTexture>(_strKey, pTex, RESOURCE_TYPE::TEXTURE);
+
+	return pTex;
 }
 
 std::shared_ptr<CTexture> CResMgr::CreateTexture(const wstring& _strKey, ComPtr<ID3D11Texture2D> _Tex2D)
 {
-	return std::shared_ptr<CTexture>();
+	shared_ptr<CTexture> pTex = make_shared<CTexture>();
+
+	assert(FindRes<CTexture>(_strKey, RESOURCE_TYPE::TEXTURE) == nullptr);
+
+	if (FAILED(pTex->CreateTex(_Tex2D)))
+	{
+		assert(nullptr);
+	}
+
+	AddRes<CTexture>(_strKey, pTex, RESOURCE_TYPE::TEXTURE);
+
+	return pTex;
 }

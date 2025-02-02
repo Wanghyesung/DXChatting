@@ -25,5 +25,7 @@ protected:
 private:
 	RESOURCE_TYPE m_eType;
 
+
+	friend class CResMgr;
 };
 

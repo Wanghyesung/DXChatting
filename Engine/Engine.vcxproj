@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CConstBuffer.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CResMgr.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="SimpleMath.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CConstBuffer.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CResMgr.cpp" />

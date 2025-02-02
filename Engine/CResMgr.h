@@ -20,8 +20,8 @@ public:
 	std::shared_ptr<T> Load(const wstring& _strKey, const wstring& _strPath, RESOURCE_TYPE _eType);
 
 public:
-	 std::shared_ptr<CTexture> CreateTexture(const wstring& _strKey, UINT _Width, UINT _Height
-		, DXGI_FORMAT _pixelformat, UINT _BindFlag, D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
+	 std::shared_ptr<CTexture> CreateTexture(const wstring& _strKey, UINT _iWidth, UINT _iHeight
+		, DXGI_FORMAT _pixelformat, UINT _iBindFlag, D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
 
 	 std::shared_ptr<CTexture> CreateTexture(const wstring& _strKey, ComPtr<ID3D11Texture2D> _Tex2D);
 

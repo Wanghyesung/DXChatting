@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CDevice.h"
 #include "CTexture.h"
+#include "CResMgr.h"
 
 CDevice::CDevice()
 {
@@ -42,8 +43,58 @@ bool CDevice::init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
         return E_FAIL;
     }
     
+    if (FAILED(CreateView()))
+    {
+        MessageBox(nullptr, L"View 생성 실패", L"Device 초기화 에러", MB_OK);
+        return E_FAIL;
+    }
 
-    return true;
+    //레스터라이저 단계에서 설정
+    //NDC와 뷰포트의 1:1 맵핑을 보장
+    m_viewPort.TopLeftX = 0.f;
+    m_viewPort.TopLeftY = 0.f;
+    m_viewPort.Width = m_vRenderResolution.x;
+    m_viewPort.Height = m_vRenderResolution.y;
+
+    m_viewPort.MinDepth = 0;
+    m_viewPort.MaxDepth = 1.f;
+
+    m_deviceContex->RSSetViewports(1, &m_viewPort);
+
+    if (FAILED(CreateRasterizerState()))
+    {
+        MessageBox(nullptr, L"레스터라이져 스테이트 생성 실패", L"Device 초기화 에러", MB_OK);
+        return E_FAIL;
+    }
+
+    
+    // DepthStencilState 생성
+    if (FAILED(CreateDepthStencilState()))
+    {
+        MessageBox(nullptr, L"DepthStencilState 생성 실패", L"Device 초기화 에러", MB_OK);
+        return E_FAIL;
+    }
+
+    // BlendState 생성
+    if (FAILED(CreateBlendState()))
+    {
+        MessageBox(nullptr, L"BlendState 생성 실패", L"Device 초기화 에러", MB_OK);
+        return E_FAIL;
+    }
+
+    // 샘플러 생성
+    if (FAILED(CreateSampler()))
+    {
+        MessageBox(nullptr, L"샘플러 생성 실패", L"Device 초기화 에러", MB_OK);
+        return E_FAIL;
+    }
+
+    CreateConstBuffer();
+   
+
+   
+
+    return S_OK;
 }
 
 int CDevice::CreateSwapChain()
@@ -97,34 +148,189 @@ int CDevice::CreateView()
     //RenderTarget
     ComPtr<ID3D11Texture2D> pTex;
     m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)pTex.GetAddressOf());
-    
-
-    //DepthStencil
+    CResMgr::GetInst()->CreateTexture(L"RenderTargetTex", pTex);
+  
     //깊이에 24비트, 스텐실에 8비트를 지원하는 32비트 z 버퍼 형식입니다.
-    //CreateTex(m_vRenderResolution.y, m_vRenderResolution.x, DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT,
-    //    D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT);
+    CResMgr::GetInst()->CreateTexture(L"DepthStencil", m_vRenderResolution.y, m_vRenderResolution.x, DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT,
+        D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT);
 
-    return 0;
+    return S_OK;
 }
 
 int CDevice::CreateRasterizerState()
 {
-    return 0;
+    m_RSState[(UINT)RS_TYPE::CULL_BACK] = nullptr;
+
+    D3D11_RASTERIZER_DESC desc = {};
+    desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
+    desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+    m_device->CreateRasterizerState(&desc, m_RSState[(UINT)RS_TYPE::CULL_FRONT].GetAddressOf());
+ 
+    desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+    desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+    m_device->CreateRasterizerState(&desc, m_RSState[(UINT)RS_TYPE::CULL_NONE].GetAddressOf());
+
+    desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+    desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+    m_device->CreateRasterizerState(&desc, m_RSState[(UINT)RS_TYPE::WIRE_FRAME].GetAddressOf());
+
+    return S_OK;
 }
 
 int CDevice::CreateDepthStencilState()
 {
+    m_DSState[(UINT)DS_TYPE::LESS] = nullptr;
 
-    return 0;
+    // Less Equal
+    D3D11_DEPTH_STENCIL_DESC Desc = {};
+    Desc.DepthEnable = true;
+    Desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+    Desc.StencilEnable = false;
+    Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+    m_device->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::LESS_EQUAL].GetAddressOf());
+
+    // Greater
+    Desc.DepthEnable = true;
+    Desc.DepthFunc = D3D11_COMPARISON_GREATER;
+    Desc.StencilEnable = false;
+    Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+    m_device->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::GREATER].GetAddressOf());
+
+    // Greater Equal
+    Desc.DepthEnable = true;
+    Desc.DepthFunc = D3D11_COMPARISON_GREATER_EQUAL;
+    Desc.StencilEnable = false;
+    Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+    m_device->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::GREATER_EQUAL].GetAddressOf());
+
+    // No Write
+    Desc.DepthEnable = true;
+    Desc.DepthFunc = D3D11_COMPARISON_LESS;
+    Desc.StencilEnable = false;
+    Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+    m_device->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::NO_WRITE].GetAddressOf());
+
+    // NoTest NoWrite
+    Desc.DepthEnable = false;
+    Desc.StencilEnable = false;
+    Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+    m_device->CreateDepthStencilState(&Desc, m_DSState[(UINT)DS_TYPE::NO_TEST_NO_WRITE].GetAddressOf());
+
+    return S_OK;
 }
 
 int CDevice::CreateBlendState()
 {
-    return 0;
+    //출력 병합(Output-Merger)
+
+    // No Blend
+    m_BSState[(UINT)BS_TYPE::DEFAULT] = nullptr;
+
+    //Src : 픽셀 셰이더에서 계산된 출력 색상
+    //Dsc : 렌더 타겟에 이미 그려져 있는 기존 픽셀의 색상
+
+    // Mask
+    D3D11_BLEND_DESC Desc = {};
+    Desc.AlphaToCoverageEnable = true;                  //픽셀 알파에 따라 샘플 활성 
+    Desc.IndependentBlendEnable = false;
+
+    Desc.RenderTarget[0].BlendEnable = true;            
+    Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;  // 기본 합 연산 (Src + Dest)
+    Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;    // 소스 색상 100%
+    Desc.RenderTarget[0].DestBlend = D3D11_BLEND_ZERO;  // 대상 색상 0%
+
+    Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;  //알파 값도 소스만 출력.
+    Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+    Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+
+    Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+    m_device->CreateBlendState(&Desc, m_BSState[(UINT)BS_TYPE::MASK].GetAddressOf());
+
+
+    // Alpha Blend
+    //(SrcColor * SrcAlpha) + (DestColor * (1 - SrcAlpha))
+    Desc.AlphaToCoverageEnable = false;                             // 알파 투명도 비활성화
+    Desc.IndependentBlendEnable = false;
+
+    Desc.RenderTarget[0].BlendEnable = true;
+    Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;              // 소스와 대상 색상의 합
+    Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;          // 소스 알파값 사용
+    Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;     // (1 - 소스 알파)
+
+    Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;         // 알파값 합산
+    Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;          // 소스 알파 0%
+    Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;          // 대상 알파 100%
+
+    //알파값 기반의 투명 효과를 구현
+    Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+    m_device->CreateBlendState(&Desc, m_BSState[(UINT)BS_TYPE::ALPHA_BLEND].GetAddressOf());
+
+
+    // One One
+    //SrcColor + DestColor 1: 1 색상 혼합 : 더 밝은 효과
+    Desc.AlphaToCoverageEnable = false;
+    Desc.IndependentBlendEnable = false;
+
+    Desc.RenderTarget[0].BlendEnable = true;
+    Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;      // 소스와 대상 색상의 합
+    Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;        // 소스 색상 100%
+    Desc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;       // 대상 색상 100%
+
+    Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD; // 알파값 합산
+    Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;   // 소스 알파 100%
+    Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO; // 대상 알파 0%
+
+    Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+    m_device->CreateBlendState(&Desc, m_BSState[(UINT)BS_TYPE::ONE_ONE].GetAddressOf());
+
+    return S_OK;
+
 }
 
 int CDevice::CreateSampler()
 {
-    return 0;
+    //텍스처를 샘플링(픽셀 데이터를 가져오는)할 때의 동작 방식
+    D3D11_SAMPLER_DESC tSamDesc = {};
+
+    //텍스처 좌표가 0~1 범위를 벗어나면 반복
+    tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    tSamDesc.Filter = D3D11_FILTER_ANISOTROPIC;//텍스처를 비스듬히 보거나 확대/축소할 때 품질을 개선.
+    tSamDesc.MaxLOD = D3D11_FLOAT32_MAX;
+    m_device->CreateSamplerState(&tSamDesc, m_sampler[0].GetAddressOf());
+
+    tSamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    tSamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    tSamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    tSamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;//텍스처를 샘플링할 때 가장 가까운 텍셀(Texel) 값을 그대로 사용.
+    tSamDesc.MaxLOD = D3D11_FLOAT32_MAX;
+    m_device->CreateSamplerState(&tSamDesc, m_sampler[1].GetAddressOf());
+
+
+    m_deviceContex->VSSetSamplers(0, 1, m_sampler[0].GetAddressOf());
+    m_deviceContex->HSSetSamplers(0, 1, m_sampler[0].GetAddressOf());
+    m_deviceContex->DSSetSamplers(0, 1, m_sampler[0].GetAddressOf());
+    m_deviceContex->GSSetSamplers(0, 1, m_sampler[0].GetAddressOf());
+    m_deviceContex->PSSetSamplers(0, 1, m_sampler[0].GetAddressOf());
+    m_deviceContex->CSSetSamplers(0, 1, m_sampler[0].GetAddressOf());
+                                        
+    m_deviceContex->VSSetSamplers(1, 1, m_sampler[1].GetAddressOf());
+    m_deviceContex->HSSetSamplers(1, 1, m_sampler[1].GetAddressOf());
+    m_deviceContex->DSSetSamplers(1, 1, m_sampler[1].GetAddressOf());
+    m_deviceContex->GSSetSamplers(1, 1, m_sampler[1].GetAddressOf());
+    m_deviceContex->PSSetSamplers(1, 1, m_sampler[1].GetAddressOf());
+    m_deviceContex->CSSetSamplers(1, 1, m_sampler[1].GetAddressOf());
+
+    return S_OK;
+   
+}
+
+void CDevice::CreateConstBuffer()
+{
+
+
+    return;
 }
 

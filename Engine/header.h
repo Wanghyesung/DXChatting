@@ -19,7 +19,7 @@ using std::pair;
 using std::priority_queue;
 using std::queue;
 using std::shared_ptr;
-
+using std::make_shared;
 
 #include <typeinfo>
 #include <assert.h>
