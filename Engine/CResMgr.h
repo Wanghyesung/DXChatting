@@ -4,9 +4,20 @@
 
 class CResMgr : public CSingleton< CResMgr>
 {
-public:
+	friend class CSingleton;
+private:
 	CResMgr();
 	virtual ~CResMgr();
+
+
+public:
+	void Init();
+
+private:
+	void InitMesh();
+	void InitShader();
+	void InitMaterial();
+	void InitTexture();
 
 
 public:
@@ -19,15 +30,24 @@ public:
 	template<typename T>
 	std::shared_ptr<T> Load(const wstring& _strKey, const wstring& _strPath, RESOURCE_TYPE _eType);
 
+	const vector<D3D11_INPUT_ELEMENT_DESC>& GetInputDesc() { return m_vecInputDesc; }
 public:
+	void AddInputLayout(DXGI_FORMAT _eFormat, const char* _strSemanticName, UINT _iSlotNum, UINT _iSemanticIdx);
+
 	 std::shared_ptr<CTexture> CreateTexture(const wstring& _strKey, UINT _iWidth, UINT _iHeight
 		, DXGI_FORMAT _pixelformat, UINT _iBindFlag, D3D11_USAGE _Usage = D3D11_USAGE_DEFAULT);
 
 	 std::shared_ptr<CTexture> CreateTexture(const wstring& _strKey, ComPtr<ID3D11Texture2D> _Tex2D);
 
-
-
 private:
+	//inputLayout
+	/*
+	입력 어셈블러(Input Assembler, IA) 단계에서 정점(Vertex) 데이터를 어떻게 해석할지 지정
+	*/
+
+	UINT m_iLayoutOffset;
+	vector<D3D11_INPUT_ELEMENT_DESC> m_vecInputDesc;
+
 	map<wstring, std::shared_ptr<CResource>> m_arrResource[(UINT)RESOURCE_TYPE::END];
 };
 

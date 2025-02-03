@@ -42,9 +42,6 @@
     <ClInclude Include="CResource.h">
       <Filter>Resource</Filter>
     </ClInclude>
-    <ClInclude Include="CEntity.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
     <ClInclude Include="Define.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -53,6 +50,21 @@
     </ClInclude>
     <ClInclude Include="CConstBuffer.h">
       <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntity.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CGraphicsShader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CPathMgr.h">
+      <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,14 +89,26 @@
     <ClCompile Include="CResource.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="CEntity.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
     <ClCompile Include="CResMgr.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="CConstBuffer.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntity.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraphicsShader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathMgr.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

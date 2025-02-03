@@ -17,6 +17,7 @@
 #include "header.h"
 
 #include "Define.h"
+#include "func.h"
 
 
 #endif //PCH_H

@@ -162,8 +162,12 @@
     <ClInclude Include="CConstBuffer.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CEntity.h" />
+    <ClInclude Include="CGraphicsShader.h" />
+    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CPathMgr.h" />
     <ClInclude Include="CResMgr.h" />
     <ClInclude Include="CResource.h" />
+    <ClInclude Include="CShader.h" />
     <ClInclude Include="CSingleton.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="Define.h" />
@@ -176,8 +180,12 @@
     <ClCompile Include="CConstBuffer.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CEntity.cpp" />
+    <ClCompile Include="CGraphicsShader.cpp" />
+    <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CPathMgr.cpp" />
     <ClCompile Include="CResMgr.cpp" />
     <ClCompile Include="CResource.cpp" />
+    <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSingleton.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="Engine.cpp" />
