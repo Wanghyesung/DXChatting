@@ -17,8 +17,9 @@ public:
 	virtual ~CTexture();
 
 
-	int UpdateData();
-
+	void UpdateData(UINT _iRegiserNum, int _iShaderFlag);
+	static void Clear(UINT _iRegisterNum);
+	static void Clear();
 public:
 	int CreateTex(UINT _iHeight, UINT _iWidth, DXGI_FORMAT _pixelFormat,
 		UINT _iBindFlag, D3D11_USAGE _Usage);
@@ -37,5 +38,7 @@ private:
 
 
 	ScratchImage m_Image;
+
+	static UINT m_iPreRegisterNum;
 };
 

@@ -33,7 +33,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
-   CDevice::GetInst()->init()
+    CDevice::GetInst()->init(g_hWnd, 1280, 740);
 
    
     // 메세지 루프

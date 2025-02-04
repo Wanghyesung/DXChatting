@@ -13,10 +13,51 @@ CTexture::~CTexture()
 
 }
 
-int CTexture::UpdateData()
+void CTexture::UpdateData(UINT _iRegiserNum, int _iShaderFlag)
 {
-    return 0;
+    m_iPreRegisterNum = _iRegiserNum;
+    if (SHADER_FLAG::VS & _iShaderFlag)
+    {
+        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+    }
+    if (SHADER_FLAG::HS & _iShaderFlag)
+    {
+        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+    }
+    if (SHADER_FLAG::DS & _iShaderFlag)
+    {
+        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+    }
+    if (SHADER_FLAG::GS & _iShaderFlag)
+    {
+        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+    }
+    if (SHADER_FLAG::PS & _iShaderFlag)
+    {
+        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+    }
 }
+
+void CTexture::Clear()
+{
+    ID3D11ShaderResourceView** SRV = nullptr;
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+}
+
+void CTexture::Clear(UINT _iRegisterNum)
+{
+    ID3D11ShaderResourceView** SRV = nullptr;
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
+}
+
 
 int CTexture::CreateTex(UINT _iHeight, UINT _iWidth, DXGI_FORMAT _pixelFormat, UINT _iBindFlag, D3D11_USAGE _Usage)
 {

@@ -31,6 +31,12 @@ struct VS_OUT
 // btex_0              : Output Texture
 // ============================
 
+#define bAnimUse        int_0
+#define LeftTop         vec2_0
+#define Slice           vec2_1
+#define Offset          vec2_2
+#define BackSize        vec2_3
+
 VS_OUT VS_Std2D(VS_IN _in)
 {
     
@@ -49,22 +55,20 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     
     if(btex_0)
     {
-        if(int_0)
+        if (bAnimUse)
         {
+          
+            float2 vUV = LeftTop + (BackSize * _in.vUV);
+            vUV -= ((BackSize - Slice) / 2.f);
+            vUV -= Offset;
            
-           
-            float2 vUV = vec2_0 + (vec2_3 * _in.vUV);
-            vUV -= ((vec2_3 - vec2_1) / 2.f);
-            vUV -= vec2_2;
-           
-            if (vec2_0.x < vUV.x && vec2_1.x < vec2_0.x + vec2_1.x
-           && vec2_0.y < vUV.y && vec2_1.y < vec2_0.y + vec2_1.y)
+            if (LeftTop.x < vUV.x && Slice.x < LeftTop.x + Slice.x
+           && LeftTop.y < vUV.y && Slice.y < LeftTop.y + Slice.y)
            {
                output = tex_0.Sample(sam_0, vUV);
            }
            else
            {
-                 //discard;
                 discard;
                 //output = float4(1.f, 1.f, 0.f, 1.f);
            }

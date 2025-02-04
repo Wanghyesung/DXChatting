@@ -30,7 +30,7 @@ public:
 	template<typename T>
 	std::shared_ptr<T> Load(const wstring& _strKey, const wstring& _strPath, RESOURCE_TYPE _eType);
 
-	const vector<D3D11_INPUT_ELEMENT_DESC>& GetInputDesc() { return m_vecInputDesc; }
+	const vector<D3D11_INPUT_ELEMENT_DESC>& GetInputLayoutDesc() { return m_vecInputDesc; }
 public:
 	void AddInputLayout(DXGI_FORMAT _eFormat, const char* _strSemanticName, UINT _iSlotNum, UINT _iSemanticIdx);
 

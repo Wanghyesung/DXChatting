@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CResMgr.h"
 #include "CMesh.h"
+#include "CGraphicsShader.h"
+#include "CMaterial.h"
 
 CResMgr::CResMgr():
 	m_iLayoutOffset(0)
@@ -16,6 +18,9 @@ CResMgr::~CResMgr()
 void CResMgr::Init()
 {
 	InitMesh();
+	InitShader();
+	InitMaterial();
+	InitTexture();
 }
 
 void CResMgr::InitMesh()
@@ -84,18 +89,24 @@ void CResMgr::InitMesh()
 
 void CResMgr::InitShader()
 {
-
+	shared_ptr<CGraphicsShader> pShader;
+	pShader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
+	AddRes<CShader>(L"std2dShader", pShader, RESOURCE_TYPE::SHADER);
 }
 
 
 void CResMgr::InitMaterial()
 {
-
+	shared_ptr<CMaterial> pDefaultMaterial;
+	pDefaultMaterial->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
+	AddRes<CMaterial>(L"DefaultMaterial", pDefaultMaterial, RESOURCE_TYPE::MATERIAL);
 }
 
 void CResMgr::InitTexture()
 {
-
+	shared_ptr<CTexture> pTexture;
+    pTexture->Load(L"Texture\\tem");
+	AddRes<CTexture>(L"TemTex", pTexture, RESOURCE_TYPE::TEXTURE);
 }
 
 void CResMgr::AddInputLayout(DXGI_FORMAT _eFormat, const char* _strSemanticName, UINT _iSlotNum, UINT _iSemanticIdx)

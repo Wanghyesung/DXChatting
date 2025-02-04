@@ -2,6 +2,7 @@
 #include "CDevice.h"
 #include "CTexture.h"
 #include "CResMgr.h"
+#include "CConstBuffer.h"
 
 CDevice::CDevice()
 {
@@ -90,8 +91,6 @@ bool CDevice::init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
     }
 
     CreateConstBuffer();
-   
-
    
 
     return S_OK;
@@ -329,8 +328,18 @@ int CDevice::CreateSampler()
 
 void CDevice::CreateConstBuffer()
 {
+    CConstBuffer* pTrConstBuffer = new CConstBuffer((UINT)CB_TYPE::TRANSFORM);
+    CConstBuffer* pMtrlConstBuffer = new CConstBuffer((UINT)CB_TYPE::MATERIAL);
+    CConstBuffer* pGlConstBuffer = new CConstBuffer((UINT)CB_TYPE::GLOBAL);
 
+    m_arrConstBuffer[(UINT)CB_TYPE::TRANSFORM] = pTrConstBuffer;
+    pTrConstBuffer->Create(sizeof(tTransform), 1);
 
-    return;
+    m_arrConstBuffer[(UINT)CB_TYPE::MATERIAL] = pMtrlConstBuffer;
+    pTrConstBuffer->Create(sizeof(tMtrlConst), 1);
+
+    m_arrConstBuffer[(UINT)CB_TYPE::GLOBAL] = pGlConstBuffer;
+    pTrConstBuffer->Create(sizeof(tGlobal), 1);
+
 }
 

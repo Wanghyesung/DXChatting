@@ -83,7 +83,6 @@ void CMesh::Render()
 {
     //렌더링 전에 버퍼를 바인딩
     UpdateData();
-
     CDevice::GetInst()->GetContext()->DrawIndexed(m_iIndexCount,0,0);
 }
 

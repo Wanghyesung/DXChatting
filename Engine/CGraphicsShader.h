@@ -7,11 +7,11 @@ public:
 	CGraphicsShader();
 	virtual ~CGraphicsShader();
 
-	int CreateVertexShader(const wstring& _strFileName, const wstring& _strFunctionName);
-	int CreateHullShader(const wstring& _strFileName, const wstring& _strFunctionName);
-	int CreateDomainShader(const wstring& _strFileName, const wstring& _strFunctionName);
-	int CreateGeometryShader(const wstring& _strFileName, const wstring& _strFunctionName);
-	int CreatePixelShader(const wstring& _strFileName, const wstring& _strFunctionName);
+	int CreateVertexShader(const wstring& _strFileName, const string& _strFunctionName);
+	int CreateHullShader(const wstring& _strFileName, const string& _strFunctionName);
+	int CreateDomainShader(const wstring& _strFileName, const string& _strFunctionName);
+	int CreateGeometryShader(const wstring& _strFileName, const string& _strFunctionName);
+	int CreatePixelShader(const wstring& _strFileName, const string& _strFunctionName);
 
 
 public:
@@ -39,7 +39,5 @@ private:
 	DS_TYPE m_eDSType;
 	BS_TYPE m_eBSType;
 	RS_TYPE m_eRSType;
-
-
 };
 

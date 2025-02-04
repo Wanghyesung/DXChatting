@@ -10,10 +10,12 @@ CGraphicsShader::CGraphicsShader():
 	m_eDSType(DS_TYPE::LESS),	
 	m_eBSType(BS_TYPE::DEFAULT)
 {
+
 }
 
 CGraphicsShader::~CGraphicsShader()
 {
+
 }
 
 int CGraphicsShader::CreateVertexShader(const wstring& _strFileName, const string& _strFunctionName)

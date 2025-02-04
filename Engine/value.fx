@@ -44,10 +44,7 @@ cbuffer MATERIAL : register(b1)
     int btex_5;
     int btex_6;
     int btex_7;
-    int btexcube_0;
-    int btexcube_1;
-    int btexarr_0;
-    int btexarr_1;
+  
     
     //Animation Á¤º¸
     //int g_iAnim; 

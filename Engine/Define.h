@@ -3,9 +3,8 @@ enum class RESOURCE_TYPE
 {
 	MESH,			// 형태
 	TEXTURE,		// 이미지
-	
 	SHADER,
-
+	MATERIAL,
 	END,
 };
 
@@ -53,4 +52,56 @@ struct tVertex
 	Vec3 vPos;
 	Vec4 vColor;
 	Vec2 vUV;
+};
+
+enum TEX_PARAM
+{
+	TEX_0,
+	TEX_1,
+	TEX_2,
+	TEX_3,
+	TEX_4,
+	TEX_5,
+	TEX_6,
+	TEX_7,
+
+	TEX_END,
+};
+
+enum SHADER_FLAG
+{
+	VS = 1 << 0,  
+	HS = 1 << 1,  
+	DS = 1 << 2,  
+	GS = 1 << 3,  
+	PS = 1 << 4,  
+	ALL = VS | HS | DS | GS | PS ,
+};
+
+enum MTRL_PARAM
+{
+	INT_0,
+	INT_1,
+	INT_2,
+	INT_3,
+
+	FLOAT_0,
+	FLOAT_1,
+	FLOAT_2,
+	FLOAT_3,
+
+	VEC2_0,
+	VEC2_1,
+	VEC2_2,
+	VEC2_3,
+
+	VEC4_0,
+	VEC4_1,
+	VEC4_2,
+	VEC4_3,
+
+	MAT_0,
+	MAT_1,
+	MAT_2,
+	MAT_3,
 };

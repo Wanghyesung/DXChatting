@@ -18,6 +18,7 @@
 
 #include "Define.h"
 #include "func.h"
+#include "struct.h"
 
 
 #endif //PCH_H
