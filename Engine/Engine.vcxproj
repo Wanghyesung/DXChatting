@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="CConstBuffer.h" />
     <ClInclude Include="CDevice.h" />
+    <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CGraphicsShader.h" />
     <ClInclude Include="CMaterial.h" />
@@ -182,6 +183,7 @@
   <ItemGroup>
     <ClCompile Include="CConstBuffer.cpp" />
     <ClCompile Include="CDevice.cpp" />
+    <ClCompile Include="CEngine.cpp" />
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CGraphicsShader.cpp" />
     <ClCompile Include="CMaterial.cpp" />

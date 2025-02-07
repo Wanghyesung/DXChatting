@@ -3,6 +3,8 @@
 #include "CMesh.h"
 #include "CGraphicsShader.h"
 #include "CMaterial.h"
+#include "CPathMgr.h"
+
 
 CResMgr::CResMgr():
 	m_iLayoutOffset(0)
@@ -89,23 +91,31 @@ void CResMgr::InitMesh()
 
 void CResMgr::InitShader()
 {
-	shared_ptr<CGraphicsShader> pShader;
-	pShader->CreateVertexShader(L"shader\\std2d.fx", "VS_Std2D");
+	AddInputLayout(DXGI_FORMAT_R32G32B32_FLOAT, "POSITION", 0, 0);
+	AddInputLayout(DXGI_FORMAT_R32G32B32A32_FLOAT, "COLOR", 0, 0);
+	AddInputLayout(DXGI_FORMAT_R32G32_FLOAT, "TEXCOORD", 0, 0);
+
+	shared_ptr<CGraphicsShader> pShader = make_shared<CGraphicsShader>();
+	pShader->CreateVertexShader(L"std2d.fx", "VS_Std2D");
+	pShader->CreatePixelShader(L"std2d.fx", "PS_Std2D");
 	AddRes<CShader>(L"std2dShader", pShader, RESOURCE_TYPE::SHADER);
 }
 
 
 void CResMgr::InitMaterial()
 {
-	shared_ptr<CMaterial> pDefaultMaterial;
+	shared_ptr<CMaterial> pDefaultMaterial = make_shared<CMaterial>();
 	pDefaultMaterial->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
 	AddRes<CMaterial>(L"DefaultMaterial", pDefaultMaterial, RESOURCE_TYPE::MATERIAL);
 }
 
 void CResMgr::InitTexture()
 {
-	shared_ptr<CTexture> pTexture;
-    pTexture->Load(L"Texture\\tem");
+	shared_ptr<CTexture> pTexture = make_shared<CTexture>();
+	
+	wstring strCurPath = CPathMgr::GetInst()->GetCurrentPath();
+
+    pTexture->Load(strCurPath+ L"Texture\\tem.jpg");
 	AddRes<CTexture>(L"TemTex", pTexture, RESOURCE_TYPE::TEXTURE);
 }
 
@@ -125,7 +135,7 @@ void CResMgr::AddInputLayout(DXGI_FORMAT _eFormat, const char* _strSemanticName,
 	
 	m_vecInputDesc.push_back(desc);
 
-	m_iLayoutOffset += GetSizeofFormat(_eFormat);		//정점 속성 offset 더하기
+	m_iLayoutOffset += GetSizeofFormat_(_eFormat);		//정점 속성 offset 더하기
 }
 
 std::shared_ptr<CTexture> CResMgr::CreateTexture(const wstring& _strKey, UINT _iWidth, UINT _iHeight, DXGI_FORMAT _pixelformat, UINT _iBindFlag, D3D11_USAGE _Usage)

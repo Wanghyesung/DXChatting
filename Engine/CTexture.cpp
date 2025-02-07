@@ -2,6 +2,7 @@
 #include "CTexture.h"
 #include "CDevice.h"
 
+UINT CTexture::m_iPreRegisterNum = 0;
 CTexture::CTexture():
     m_desc{}
 {

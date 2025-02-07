@@ -5,13 +5,13 @@
 
 struct VS_IN
 {
-    float3 vLocalPos : POSITIONT;
+    float3 vLocalPos : POSITION;
     float2 vUV : TEXCOORD;
 };
 
 struct VS_OUT
 {
-    float3 vLocalPos : SV_Position;
+    float4 vLocalPos : SV_Position; //쉐이더에서 출력 위치를 정의
     float4 vColor : COLOR;
     float2 vUV : TEXCOORD;
 };
@@ -44,26 +44,26 @@ VS_OUT VS_Std2D(VS_IN _in)
     
     output.vLocalPos = mul(float4(_in.vLocalPos, 1.f), matWVP);
     output.vUV = _in.vUV;
-    
+   
     return output;
 }
 
 // 레스터라이저 스테이트
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
-    float output = (float4)0.f;
+    float4 output = (float4)0.f;
     
     if(btex_0)
     {
         if (bAnimUse)
         {
           
-            float2 vUV = LeftTop + (BackSize * _in.vUV);
-            vUV -= ((BackSize - Slice) / 2.f);
-            vUV -= Offset;
+           float2 vUV = LeftTop + (BackSize * _in.vUV);
+           vUV -= ((BackSize - Slice) / 2.f);
+           vUV -= Offset;
            
-            if (LeftTop.x < vUV.x && Slice.x < LeftTop.x + Slice.x
-           && LeftTop.y < vUV.y && Slice.y < LeftTop.y + Slice.y)
+           if (LeftTop.x < vUV.x && vUV.x < LeftTop.x + Slice.x
+               && LeftTop.y < vUV.y && vUV.y < LeftTop.y + Slice.y)
            {
                output = tex_0.Sample(sam_0, vUV);
            }
@@ -72,7 +72,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
                 discard;
                 //output = float4(1.f, 1.f, 0.f, 1.f);
            }
-
+        
         }
         else
         {

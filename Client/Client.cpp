@@ -1,8 +1,12 @@
 ﻿// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
+
+#include "pch.h"
+
 #include "framework.h"
 #include "Client.h"
-#include "CDevice.h"
+//#include "CDevice.h"
+#include "CEngine.h"
 
 // Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
@@ -33,7 +37,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
-    CDevice::GetInst()->init(g_hWnd, 1280, 740);
+    //CDevice::GetInst()->init(g_hWnd, 1280, 740);
+    if (CEngine::GetInst()->init(g_hWnd, 1280, 740) == FALSE)
+        assert(nullptr);
 
    
     // 메세지 루프
@@ -57,6 +63,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         else
         {
+            CEngine::GetInst()->progress();
             // =======
             // 1 Frame
             // =======

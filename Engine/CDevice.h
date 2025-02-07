@@ -5,10 +5,13 @@ class CConstBuffer;
 
 class CDevice : public CSingleton<CDevice>
 {
-public:
+	friend class CSingleton;
+
+private:
 	CDevice();
 	virtual ~CDevice();
 
+public:
 	bool init(HWND _hwnd, UINT _iWidth, UINT _iHeight);
 
 public:

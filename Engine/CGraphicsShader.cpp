@@ -21,7 +21,8 @@ CGraphicsShader::~CGraphicsShader()
 int CGraphicsShader::CreateVertexShader(const wstring& _strFileName, const string& _strFunctionName)
 {
 	// Shader 파일 경로
-	wstring strShaderFile = CPathMgr::GetInst()->GetCurrentPath();
+	wstring strShaderFile = L"C:\\Users\\wangh\\source\\source\\Chatting\\Engine\\";
+	CPathMgr::GetInst()->GetCurrentPath();
 	strShaderFile += _strFileName;
 
 	// VertexShader Compile
@@ -43,7 +44,7 @@ int CGraphicsShader::CreateVertexShader(const wstring& _strFileName, const strin
 
 	//inputlayout
 	const vector<D3D11_INPUT_ELEMENT_DESC>& vecDesc = CResMgr::GetInst()->GetInputLayoutDesc();
-	if (FAILED(CDevice::GetInst()->GetDevice()->CreateInputLayout(vecDesc.data(), vecDesc.size(),
+	if (FAILED(CDevice::GetInst()->GetDevice()->CreateInputLayout(vecDesc.data(), (UINT)vecDesc.size(),
 		m_VSBlob->GetBufferPointer(), m_VSBlob->GetBufferSize(), m_inputLayout.GetAddressOf())))
 	{
 		assert(nullptr);
@@ -133,7 +134,7 @@ int CGraphicsShader::CreateGeometryShader(const wstring& _strFileName, const str
 int CGraphicsShader::CreatePixelShader(const wstring& _strFileName, const string& _strFunctionName)
 {
 	// Shader 파일 경로
-	wstring strShaderFile = CPathMgr::GetInst()->GetCurrentPath();
+	wstring strShaderFile = L"C:\\Users\\wangh\\source\\source\\Chatting\\Engine\\"; //CPathMgr::GetInst()->GetCurrentPath();
 	strShaderFile += _strFileName;
 
 	// VertexShader Compile

@@ -3,9 +3,10 @@
 
 void CPathMgr::Init()
 {
-	SetCurrentDirectoryW(m_strCurrentPath.c_str());
+	GetCurrentDirectory(256,m_strCurrentPath);
 
-	int iLen = m_strCurrentPath.size();
+	
+	int iLen = wcslen(m_strCurrentPath);
 
 	for (int i = iLen - 1; i >= 0; --i)
 	{
@@ -16,5 +17,5 @@ void CPathMgr::Init()
 		}
 	}
 
-	m_strCurrentPath += L"\\Release\\content\\";
+	wcscat_s(m_strCurrentPath, L"\\Release\\content\\");
 }

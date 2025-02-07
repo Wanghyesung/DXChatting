@@ -9,10 +9,10 @@ private:
 public:
 	void Init();
 
-	const wstring& GetCurrentPath() { return m_strCurrentPath; }
+	const WCHAR* GetCurrentPath() { return m_strCurrentPath; }
 
 private:
-	wstring m_strCurrentPath;
+	WCHAR m_strCurrentPath[256];
 
 };
 

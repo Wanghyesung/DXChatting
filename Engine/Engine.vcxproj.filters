@@ -19,6 +19,9 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{2d7bcbb2-66be-495b-8204-d3a15062d4b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{851e92a2-25f8-430d-911a-5989f0ab985a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -78,6 +81,9 @@
     <ClInclude Include="struct.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="CEngine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -127,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="CMaterial.cpp">
       <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CEngine.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

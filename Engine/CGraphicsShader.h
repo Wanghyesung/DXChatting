@@ -17,6 +17,9 @@ public:
 public:
 	virtual void UpdateData()override;
 
+	virtual int Load(const wstring& _strPath) { return S_OK; }
+	virtual int Save(const wstring& _strPath) { return S_OK; }
+
 private:
 	//IA
 	ComPtr<ID3D11InputLayout> m_inputLayout;
