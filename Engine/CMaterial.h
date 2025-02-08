@@ -15,6 +15,9 @@ public:
 	void SetShader(shared_ptr<CGraphicsShader> _pShader) { m_pShader = _pShader; }
 	void SetTex(shared_ptr<CTexture> _pTex, TEX_PARAM _iIdx){ m_arrTex[(UINT)_iIdx] = _pTex;}
 	void SetMtrlParm(MTRL_PARAM _eParm, void* _src);
+
+
+
 protected:
 	virtual int Load(const wstring& _strPath) { return S_OK; }
 	virtual int Save(const wstring& _strPath) { return S_OK; }

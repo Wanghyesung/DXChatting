@@ -3,7 +3,7 @@
 #include "CConstBuffer.h"
 #include "CTexture.h"
 #include "CDevice.h"
-
+#include "CGraphicsShader.h"
 CMaterial::CMaterial():
 	m_pShader(nullptr),
 	m_arrTex{}
@@ -21,6 +21,7 @@ void CMaterial::UpdateData()
 	if (m_pShader == nullptr)
 		return;
 
+	m_pShader->UpdateData();
 
 	for (UINT i = 0; i < TEX_PARAM::TEX_END; ++i)
 	{

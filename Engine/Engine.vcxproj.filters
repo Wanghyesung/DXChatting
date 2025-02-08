@@ -22,6 +22,9 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{851e92a2-25f8-430d-911a-5989f0ab985a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{42af996a-4edb-4478-9ff0-ec4de67052b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -84,6 +87,27 @@
     <ClInclude Include="CEngine.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshRender.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CObject.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimation2D.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimator2D.h">
+      <Filter>Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -136,6 +160,27 @@
     </ClCompile>
     <ClCompile Include="CEngine.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="CComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshRender.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CObject.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimation2D.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimator2D.cpp">
+      <Filter>Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
