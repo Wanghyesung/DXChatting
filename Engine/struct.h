@@ -13,9 +13,6 @@ struct tTransform
 
 };
 
-extern tTransform g_transform;
-
-
 
 struct tMtrlConst
 {
@@ -37,5 +34,10 @@ struct tGlobal
 	float tDT;
 	float tAccTime;
 	UINT  Light2DCount;
+
 	int	  globalpadding[3];
 };
+
+extern tTransform g_transform;
+extern tGlobal g_Glbobal;
+

@@ -20,16 +20,20 @@ public:
 
 	void Create(const wstring& _strName, shared_ptr<CTexture> _pAtlasTex, Vector2 _vLeftTop, Vector2 _vSliceSize, Vector2 _vBackSize,
 				UINT _iFrameSize, float _fFPS);
+
+	const tAnim2DFrame& GetCurAnimFrame() { return m_vecFrame[m_iCurFrame]; }
+	const Vector2& GetBackSize() { return m_vBackSize; }
 private:
 	void finaltick();
-
+	void reset();
 private:
 	shared_ptr<CTexture> m_pAtlasTex;
 	Vector2 m_vBackSize;
 	CAnimator2D* m_pOwner;
 	vector< tAnim2DFrame> m_vecFrame;
 
-	UINT m_iCurFrame;
+	UINT  m_iCurFrame;
 	float m_fCurTime;
+	bool m_bCompleted;
 };
 

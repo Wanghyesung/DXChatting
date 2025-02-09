@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CMeshRender.h"
 #include "CTransform.h"
-
+#include "CAnimator2D.h"
 CMeshRender::CMeshRender(COMPONENT_TYPE _eComponentType) :
 	CRenderComponent(_eComponentType)
 {
@@ -35,7 +35,8 @@ void CMeshRender::render()
 	pTransform->UpdateData();
 
 	//anim
-
+	CAnimator2D* pAnimator = GetComponent<CAnimator2D>(COMPONENT_TYPE::ANIMATOR);
+	pAnimator->UpdateData();
 
 	pMtrl->UpdateData();
 	pMesh->Render();

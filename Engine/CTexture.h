@@ -25,6 +25,11 @@ public:
 		UINT _iBindFlag, D3D11_USAGE _Usage);
 	int CreateTex(ComPtr<ID3D11Texture2D> _tTex);
 
+public:
+	UINT GetWidth() { return m_desc.Width; }
+	UINT GetHeight() { return m_desc.Height; }
+
+
 	virtual int Load(const wstring& _strPath)override;
 	virtual int Save(const wstring& _strPath)override;
 private:

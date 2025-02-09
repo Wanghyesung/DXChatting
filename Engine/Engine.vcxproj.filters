@@ -108,6 +108,9 @@
     <ClInclude Include="CAnimator2D.h">
       <Filter>Component</Filter>
     </ClInclude>
+    <ClInclude Include="CTimeMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -181,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="CAnimator2D.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeMgr.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
