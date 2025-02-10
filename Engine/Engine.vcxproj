@@ -162,6 +162,7 @@
     <ClInclude Include="CAnimation2D.h" />
     <ClInclude Include="CAnimator2D.h" />
     <ClInclude Include="CComponent.h" />
+    <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CConstBuffer.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CEngine.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CSingleton.h" />
+    <ClInclude Include="CStructuredBuffer.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimeMgr.h" />
     <ClInclude Include="CTransform.h" />
@@ -192,6 +194,7 @@
     <ClCompile Include="CAnimation2D.cpp" />
     <ClCompile Include="CAnimator2D.cpp" />
     <ClCompile Include="CComponent.cpp" />
+    <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CConstBuffer.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CEngine.cpp" />
@@ -207,6 +210,7 @@
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSingleton.cpp" />
+    <ClCompile Include="CStructuredBuffer.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />
     <ClCompile Include="CTransform.cpp" />

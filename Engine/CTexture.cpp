@@ -23,19 +23,19 @@ void CTexture::UpdateData(UINT _iRegiserNum, int _iShaderFlag)
     }
     if (SHADER_FLAG::HS & _iShaderFlag)
     {
-        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+        CDevice::GetInst()->GetContext()->HSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
     }
     if (SHADER_FLAG::DS & _iShaderFlag)
     {
-        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+        CDevice::GetInst()->GetContext()->DSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
     }
     if (SHADER_FLAG::GS & _iShaderFlag)
     {
-        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+        CDevice::GetInst()->GetContext()->GSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
     }
     if (SHADER_FLAG::PS & _iShaderFlag)
     {
-        CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
+        CDevice::GetInst()->GetContext()->PSSetShaderResources(_iRegiserNum, 1, m_SRV.GetAddressOf());
     }
 }
 
@@ -43,20 +43,20 @@ void CTexture::Clear()
 {
     ID3D11ShaderResourceView** SRV = nullptr;
     CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->DSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->HSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->GSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->PSSetShaderResources(m_iPreRegisterNum, 1, SRV);
 }
 
 void CTexture::Clear(UINT _iRegisterNum)
 {
     ID3D11ShaderResourceView** SRV = nullptr;
     CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->DSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->HSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->GSSetShaderResources(_iRegisterNum, 1, SRV);
+    CDevice::GetInst()->GetContext()->PSSetShaderResources(_iRegisterNum, 1, SRV);
 }
 
 

@@ -116,3 +116,9 @@ enum COMPONENT_TYPE
 	MESH_RENDER,
 	END,
 };
+
+enum BUFFER_TYPE
+{
+	READ,
+	WRITE,
+};

@@ -24,10 +24,15 @@ void CConstBuffer::Create(UINT _iElementSize, UINT _iElementCount)
 
 	assert(iBufferSize % 16 == 0); //16바이트 정렬
 
+	/*
+	GPU는 VSSetConstantBuffers() 또는 PSSetConstantBuffers()를 통해 읽기 가능
+	CPU는 Map(D3D11_MAP_WRITE_DISCARD)을 사용하여 데이터를 업데이트해야 함
+	CPU에서 아주 자주 변경해야 하는 경우 D3D11_USAGE_DYNAMIC
+	*/
 	m_desc.ByteWidth = iBufferSize;
 	m_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	m_desc.Usage =  D3D11_USAGE_DYNAMIC;			//CPU가 주기적으로 데이터를 업데이트하고, GPU는 읽기 전용으로 사
-	m_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; //CPU가 주기적으로 데이터를 업데이트하고, GPU는 읽기 전용으로 사
+	m_desc.Usage =  D3D11_USAGE_DYNAMIC;			//CPU가 주기적으로 데이터를 업데이트하고, GPU는 읽기 전용으로 사용
+	m_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; 
 
 	if (FAILED(CDevice::GetInst()->GetDevice()->CreateBuffer(&m_desc, nullptr, m_ConstBuffer.ReleaseAndGetAddressOf())))
 	{
