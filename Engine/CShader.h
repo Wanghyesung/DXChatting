@@ -4,7 +4,7 @@
 class CShader : public CResource
 {
 public:
-	CShader():m_errorBlob(){};
+	CShader();
 	virtual ~CShader() {};
 
 public:

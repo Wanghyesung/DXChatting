@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CTimeMgr.h"
 
+float CTimeMgr::m_fDeltaTime = 0.f;
+
 CTimeMgr::CTimeMgr()
 {
 
@@ -45,8 +47,8 @@ void CTimeMgr::tick()
 	m_llPrevCount = m_llCurCount;
 
 	// GlobalData °»½Å
-	g_Glbobal.tDT = m_fDeltaTime;
-	g_Glbobal.tAccTime += m_fDeltaTime;
+	g_Global.tDT = m_fDeltaTime;
+	g_Global.tAccTime += m_fDeltaTime;
 }
 
 void CTimeMgr::render()

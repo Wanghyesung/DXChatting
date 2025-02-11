@@ -3,6 +3,9 @@
 #include "CDevice.h"
 #include "CPathMgr.h"
 #include "CResMgr.h"
+#include "CRoomMgr.h"
+#include "CTimeMgr.h"
+
 int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 {
     m_hWnd = _hWnd;
@@ -35,11 +38,13 @@ void CEngine::progress()
     tick();
 
     render();
-
 }
 
 void CEngine::tick()
 {
+    CTimeMgr::GetInst()->tick();
+
+    CRoomMgr::GetInst()->tick();
 
 }
 
@@ -47,6 +52,7 @@ void CEngine::render()
 {
 
 }
+
 
 CEngine::CEngine()
 {

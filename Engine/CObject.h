@@ -5,12 +5,16 @@ class CComponent;
 class CRenderComponent;
 class CObject : public CEntity
 {
+	friend class CLayer;
+	friend class CCamera;
+
 public:
 	CObject();
 	virtual ~CObject();
 
-	void begine();
-	void tick();
+private:
+	void begin();
+	virtual void tick();
 	void finaltick();
 	void render();
 

@@ -4,7 +4,7 @@
 class CResource : public CEntity
 {
 public:
-	CResource();
+	CResource(RESOURCE_TYPE _eResType);
 	virtual ~CResource();
 
 	wstring m_strKey;

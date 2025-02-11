@@ -112,6 +112,7 @@ enum COMPONENT_TYPE
 	ANIMATOR,
 	COLLISION,
 
+	CAMERA,
 
 	MESH_RENDER,
 	END,
@@ -121,4 +122,24 @@ enum BUFFER_TYPE
 {
 	READ,
 	WRITE,
+};
+
+enum class LAYER_TYPE
+{
+	PLAYER,
+	BUBBLE,
+	END,
+};
+
+enum class PROJ_TYPE
+{
+	ORTHOGRAPHIC,
+	PERSPECTIVE,
+};
+
+enum class RENDER_TYPE
+{
+	R_OPAQUE,
+	R_TRANSLUCENT,
+	R_TRANSPARENT,
 };

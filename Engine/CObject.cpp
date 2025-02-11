@@ -21,7 +21,7 @@ CObject::~CObject()
 	}
 }
 
-void CObject::begine()
+void CObject::begin()
 {
 	for (int i = 0; i < COMPONENT_TYPE::END; ++i)
 	{

@@ -3,6 +3,7 @@
 #include "CDevice.h"
 
 CMesh::CMesh():
+    CResource(RESOURCE_TYPE::MESH),
     m_indexBuffer{},
     m_vertexBuffer{},
     m_vertexBufferDesc{},

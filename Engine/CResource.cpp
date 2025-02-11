@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "CResource.h"
 
-CResource::CResource()
+CResource::CResource(RESOURCE_TYPE _eResType):
+	m_eType(_eResType)
 {
 }
 

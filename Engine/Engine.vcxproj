@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="CAnimation2D.h" />
     <ClInclude Include="CAnimator2D.h" />
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CConstBuffer.h" />
@@ -168,14 +169,18 @@
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CGraphicsShader.h" />
+    <ClInclude Include="CLayer.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshRender.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="CPathMgr.h" />
     <ClInclude Include="CRenderComponent.h" />
+    <ClInclude Include="CRenderMgr.h" />
     <ClInclude Include="CResMgr.h" />
     <ClInclude Include="CResource.h" />
+    <ClInclude Include="CRoom.h" />
+    <ClInclude Include="CRoomMgr.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CSingleton.h" />
     <ClInclude Include="CStructuredBuffer.h" />
@@ -193,6 +198,7 @@
   <ItemGroup>
     <ClCompile Include="CAnimation2D.cpp" />
     <ClCompile Include="CAnimator2D.cpp" />
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CConstBuffer.cpp" />
@@ -200,14 +206,18 @@
     <ClCompile Include="CEngine.cpp" />
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CGraphicsShader.cpp" />
+    <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
     <ClCompile Include="CObject.cpp" />
     <ClCompile Include="CPathMgr.cpp" />
     <ClCompile Include="CRenderComponent.cpp" />
+    <ClCompile Include="CRenderMgr.cpp" />
     <ClCompile Include="CResMgr.cpp" />
     <ClCompile Include="CResource.cpp" />
+    <ClCompile Include="CRoom.cpp" />
+    <ClCompile Include="CRoomMgr.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSingleton.cpp" />
     <ClCompile Include="CStructuredBuffer.cpp" />
@@ -215,6 +225,7 @@
     <ClCompile Include="CTimeMgr.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="extern_struct.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

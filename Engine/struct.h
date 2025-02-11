@@ -39,5 +39,5 @@ struct tGlobal
 };
 
 extern tTransform g_transform;
-extern tGlobal g_Glbobal;
+extern tGlobal g_Global;
 

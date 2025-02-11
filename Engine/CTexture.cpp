@@ -4,6 +4,7 @@
 
 UINT CTexture::m_iPreRegisterNum = 0;
 CTexture::CTexture():
+    CResource(RESOURCE_TYPE::TEXTURE),
     m_desc{}
 {
 

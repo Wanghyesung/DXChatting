@@ -5,6 +5,7 @@
 #include "CDevice.h"
 #include "CGraphicsShader.h"
 CMaterial::CMaterial():
+	CResource(RESOURCE_TYPE::MATERIAL),
 	m_pShader(nullptr),
 	m_arrTex{}
 {
