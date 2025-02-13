@@ -4,7 +4,7 @@
 class CMeshRender : public CRenderComponent
 {
 public:
-	CMeshRender(COMPONENT_TYPE _eComponentType);
+	CMeshRender();
 	virtual ~CMeshRender();
 
 public:

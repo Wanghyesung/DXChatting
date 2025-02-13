@@ -3,6 +3,15 @@
 
 #include "value.fx"
 
+/*
+1.월드 공간에서 정점(Vertex Position)이 주어짐
+2.뷰 행렬(View Matrix)을 곱하여 카메라 공간으로 변환
+3.투영 행렬(Projection Matrix)을 곱하여 클리핑 공간(Clipping Space)으로 변환
+4.클리핑 후, w 값으로 나누어 NDC(-1 ~ 1) 변환
+5.뷰포트 변환(Viewport Transform) → 최종 화면 출력
+*/
+
+
 struct VS_IN
 {
     float3 vLocalPos : POSITION;

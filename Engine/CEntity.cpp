@@ -9,6 +9,12 @@ CEntity::CEntity():
 
 }
 
+CEntity::CEntity(const CEntity& _other):
+	m_iID(GID++),
+	m_strName(_other.m_strName)
+{
+}
+
 CEntity::~CEntity()
 {
 }

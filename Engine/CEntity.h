@@ -3,6 +3,7 @@ class CEntity
 {
 public:
 	CEntity();
+	CEntity(const CEntity& _other);
 	~CEntity();
 
 	const wstring& GetName() { return m_strName; }

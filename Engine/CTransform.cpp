@@ -2,12 +2,13 @@
 #include "CTransform.h"
 #include "CConstBuffer.h"
 #include "CDevice.h"
+#include "CCamera.h"
 
-CTransform::CTransform(COMPONENT_TYPE _eComponentType) :
-	CComponent(_eComponentType),
-	m_vRotation{},
-	m_vPosition{},
-	m_vScale{}
+CTransform::CTransform() :
+	CComponent(COMPONENT_TYPE::TRANSFORM),
+	m_vRotation(Vector3::Zero),
+	m_vPosition(Vector3::Zero),
+	m_vScale(Vector3::Zero)
 {
 
 }
@@ -49,7 +50,12 @@ void CTransform::UpdateData()
 {
 	//상수버퍼 대응 구조체
 	tTransform srcTrasnform = {};
-	srcTrasnform.matWVP = m_matWorld;
+	srcTrasnform.matWorld = m_matWorld;
+	srcTrasnform.matView = CCamera::GetViewMat();
+	srcTrasnform.matProj = CCamera::GetProjMat();
+	srcTrasnform.matWV = srcTrasnform.matWorld * srcTrasnform.matView;
+	srcTrasnform.matWVP = srcTrasnform.matWV * srcTrasnform.matProj;
+
 
 	CConstBuffer* pTrConstBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	pTrConstBuffer->SetData(&srcTrasnform, sizeof(Matrix));

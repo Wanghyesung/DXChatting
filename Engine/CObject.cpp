@@ -25,7 +25,8 @@ void CObject::begin()
 {
 	for (int i = 0; i < COMPONENT_TYPE::END; ++i)
 	{
-		m_arrComponent[i]->begin();
+		if (m_arrComponent[i] != nullptr)
+			m_arrComponent[i]->begin();
 	}
 }
 
@@ -33,7 +34,8 @@ void CObject::tick()
 {
 	for (int i = 0; i < COMPONENT_TYPE::END; ++i)
 	{
-		m_arrComponent[i]->tick();
+		if(m_arrComponent[i] != nullptr)
+			m_arrComponent[i]->tick();
 	}
 }
 
@@ -41,7 +43,8 @@ void CObject::finaltick()
 {
 	for (int i = 0; i < COMPONENT_TYPE::END; ++i)
 	{
-		m_arrComponent[i]->final_tick();
+		if (m_arrComponent[i] != nullptr)
+			m_arrComponent[i]->final_tick();
 	}
 }
 
@@ -49,7 +52,8 @@ void CObject::render()
 {
 	if (m_pRenderComponent != nullptr)
 	{
-		m_pRenderComponent->render();
+		if (m_pRenderComponent != nullptr)
+			m_pRenderComponent->render();
 	}
 }
 
@@ -61,6 +65,7 @@ void CObject::SetComponent(CComponent* _pComponent)
 	if (m_arrComponent[eType] == nullptr)
 	{
 		m_arrComponent[eType] = _pComponent;
+		_pComponent->SetOwner(this);
 	}
 	
 

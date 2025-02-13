@@ -52,12 +52,12 @@ void CTexture::Clear()
 
 void CTexture::Clear(UINT _iRegisterNum)
 {
-    ID3D11ShaderResourceView** SRV = nullptr;
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->DSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->HSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->GSSetShaderResources(_iRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->PSSetShaderResources(_iRegisterNum, 1, SRV);
+    ID3D11ShaderResourceView* SRV = nullptr;
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(_iRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->DSSetShaderResources(_iRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->HSSetShaderResources(_iRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->GSSetShaderResources(_iRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->PSSetShaderResources(_iRegisterNum, 1, &SRV);
 }
 
 

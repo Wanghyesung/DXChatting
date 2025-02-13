@@ -48,3 +48,8 @@ CObject* CLayer::FindObject(const wstring& _strName)
 
     return nullptr;
 }
+
+void CLayer::AddObject(CObject* _pObject)
+{
+    m_vecObject.push_back(_pObject);
+}

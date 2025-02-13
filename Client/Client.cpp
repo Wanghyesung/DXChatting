@@ -5,8 +5,7 @@
 
 #include "framework.h"
 #include "Client.h"
-//#include "CDevice.h"
-#include "CEngine.h"
+
 
 // Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
@@ -68,6 +67,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             // 1 Frame
             // =======
            // 렌더 종료
+            CDevice::GetInst()->Present();
         }
     }
 

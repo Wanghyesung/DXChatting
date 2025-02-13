@@ -18,7 +18,7 @@ public:
 private:
 	void tick();
 	void render();
-
+	
 public:
 	CEngine();
 	virtual ~CEngine() {} ;

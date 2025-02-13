@@ -7,6 +7,8 @@
 
 #include <header.h>
 #include<CEngine.h>
+#include <Define.h>
+#include <CDevice.h>
 
 #ifndef PCH_H
 #define PCH_H

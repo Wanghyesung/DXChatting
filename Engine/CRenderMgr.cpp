@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CRenderMgr.h"
-
+#include "CRoomMgr.h"
+#include "CCamera.h"
+#include "CDevice.h"
 CRenderMgr::CRenderMgr()
 {
 
@@ -13,18 +15,18 @@ CRenderMgr::~CRenderMgr()
 
 void CRenderMgr::render()
 {
-	sort();
+	CLayer* pLayer = CRoomMgr::GetInst()->GetCurLayer(LAYER_TYPE::CAMERA);
 
-	render_object();
+	for (CObject* pCamera : pLayer->m_vecObject)
+	{
+		
+		pCamera->GetComponent<CCamera>(COMPONENT_TYPE::CAMERA)->render();
+	}
 }
 
-void CRenderMgr::render_object()
+void CRenderMgr::clear()
 {
-
+	CDevice::GetInst()->Clear();
 }
 
-void CRenderMgr::sort()
-{
-
-}
 

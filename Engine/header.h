@@ -57,3 +57,4 @@ typedef Vector3 Vec3;
 typedef Vector4 Vec4;
 
 #include "CSingleton.h"
+

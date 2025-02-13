@@ -4,12 +4,11 @@
 class CRenderMgr : public CSingleton<CRenderMgr>
 {
 	friend class CSingleton;
-	friend class CEngines;
-
+	friend class CEngine;
+	
 private:
 	void render();
-	void render_object();
-	void sort();
+	void clear();
 
 private:
 	CRenderMgr();

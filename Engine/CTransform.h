@@ -5,7 +5,7 @@
 class CTransform : public CComponent
 {
 public:
-	CTransform(COMPONENT_TYPE _eComponentType);
+	CTransform();
 	virtual ~CTransform();
 
 public:
@@ -22,7 +22,7 @@ public:
 
 	void SetPostion(const Vector3& _vecPosition) { m_vPosition = _vecPosition; }
 	void SetRotation(const Vector3& _vecLotation) { m_vRotation = _vecLotation; }
-	void SetSostion(const Vector3& _vecScale) { m_vScale = _vecScale; }
+	void SetScale(const Vector3& _vecScale) { m_vScale = _vecScale; }
 
 	Vector3 Foward() { return m_vFoward; }
 	Vector3 Right() { return m_vRight; }

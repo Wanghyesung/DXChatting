@@ -34,7 +34,7 @@ void CConstBuffer::Create(UINT _iElementSize, UINT _iElementCount)
 	m_desc.Usage =  D3D11_USAGE_DYNAMIC;			//CPU가 주기적으로 데이터를 업데이트하고, GPU는 읽기 전용으로 사용
 	m_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; 
 
-	if (FAILED(CDevice::GetInst()->GetDevice()->CreateBuffer(&m_desc, nullptr, m_ConstBuffer.ReleaseAndGetAddressOf())))
+	if (FAILED(CDevice::GetInst()->GetDevice()->CreateBuffer(&m_desc, nullptr, m_ConstBuffer.GetAddressOf())))
 	{
 		assert(nullptr);
 	}

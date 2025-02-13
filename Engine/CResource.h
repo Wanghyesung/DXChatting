@@ -5,6 +5,7 @@ class CResource : public CEntity
 {
 public:
 	CResource(RESOURCE_TYPE _eResType);
+	CResource(const CResource& _other);
 	virtual ~CResource();
 
 	wstring m_strKey;
@@ -15,6 +16,8 @@ public:
 	const wstring& GetRelativePath() { return m_strRelativePath; }
 	RESOURCE_TYPE GetType() { return m_eType; }
 	
+public:
+	virtual CResource* Clone() { assert(nullptr); return nullptr; }
 protected:
 	void SetKey(const wstring& _strKey) { m_strKey = _strKey; }
 	void SetRelativePath(const wstring& _strPath) { m_strRelativePath = _strPath; }

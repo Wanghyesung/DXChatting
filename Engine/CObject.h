@@ -33,7 +33,7 @@ template<typename T>
 inline T* CObject::GetComponent(COMPONENT_TYPE _eType)
 {
 	if (m_arrComponent[_eType] != nullptr)
-		static_cast<T*>(m_arrComponent[_eType]);
+		return static_cast<T*>(m_arrComponent[_eType]);
 
 	return nullptr;
 }

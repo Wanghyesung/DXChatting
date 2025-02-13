@@ -7,10 +7,13 @@
 CMaterial::CMaterial():
 	CResource(RESOURCE_TYPE::MATERIAL),
 	m_pShader(nullptr),
-	m_arrTex{}
+	m_arrTex{},
+	m_eRenderType(RENDER_TYPE::R_OPAQUE)
 {
 
 }
+
+
 
 CMaterial::~CMaterial()
 {

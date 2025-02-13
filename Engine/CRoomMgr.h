@@ -8,6 +8,8 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CSingleton;
 	friend class CEngine;
 	friend class CCamera;
+	friend class CRenderMgr;
+
 private:
 	CRoomMgr();
 	virtual ~CRoomMgr();
@@ -17,9 +19,10 @@ private:
 	
 
 	const vector<CLayer*>& GetCurLayers();
+	CLayer* GetCurLayer(LAYER_TYPE _eLayerType);
 private:
 	void tick();
-
+	void init();
 private:
 	CRoom* m_pCurRoom;
 	map<wstring, CRoom*>m_mapRoom;

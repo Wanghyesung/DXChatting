@@ -5,6 +5,7 @@
 #include "CResMgr.h"
 #include "CRoomMgr.h"
 #include "CTimeMgr.h"
+#include "CRenderMgr.h"
 
 int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 {
@@ -30,6 +31,8 @@ int CEngine::init_mgr()
 
     CResMgr::GetInst()->Init();
 
+    CRoomMgr::GetInst()->init();
+
     return TRUE;
 }
 
@@ -50,7 +53,8 @@ void CEngine::tick()
 
 void CEngine::render()
 {
-
+    CRenderMgr::GetInst()->clear();
+    CRenderMgr::GetInst()->render();
 }
 
 

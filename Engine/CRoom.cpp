@@ -3,7 +3,13 @@
 
 CRoom::CRoom()
 {
-	m_vecLayer.resize((UINT)LAYER_TYPE::END);
+	m_vecLayer.resize((UINT)LAYER_TYPE::END, nullptr);
+
+	for (int i = 0; i < m_vecLayer.size(); ++i)
+	{
+		CLayer* pLayer = new CLayer();
+		m_vecLayer[i] = pLayer;
+	}
 }
 
 CRoom::~CRoom()
@@ -38,3 +44,10 @@ void CRoom::finaltick()
 		m_vecLayer[i]->finaltick();
 	}
 }
+
+void CRoom::AddObject(LAYER_TYPE _eType, CObject* _pObject)
+{
+	m_vecLayer[(UINT)_eType]->AddObject(_pObject);
+}
+
+

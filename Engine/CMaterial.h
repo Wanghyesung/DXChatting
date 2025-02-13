@@ -7,6 +7,7 @@ class CMaterial : public CResource
 {
 public:
 	CMaterial();
+	
 	virtual ~CMaterial();
 
 	
@@ -17,6 +18,9 @@ public:
 	void SetMtrlParm(MTRL_PARAM _eParm, void* _src);
 
 	RENDER_TYPE GetRenderType() { return m_eRenderType; }
+
+public:
+	virtual CMaterial* Clone() override{ return new CMaterial(*this); }
 
 protected:
 	virtual int Load(const wstring& _strPath) { return S_OK; }

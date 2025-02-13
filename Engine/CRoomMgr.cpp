@@ -1,5 +1,11 @@
 #include "pch.h"
 #include "CRoomMgr.h"
+#include "CLayer.h"
+#include "CTransform.h"
+#include "CMeshRender.h"
+#include "CResMgr.h"
+#include "CMaterial.h"
+#include "CCamera.h"
 
 CRoomMgr::CRoomMgr() :
 	m_pCurRoom(nullptr)
@@ -44,10 +50,59 @@ const vector<CLayer*>& CRoomMgr::GetCurLayers()
 	return m_pCurRoom->m_vecLayer;
 }
 
+CLayer* CRoomMgr::GetCurLayer(LAYER_TYPE _eLayerType)
+{
+	if (m_pCurRoom == nullptr)
+		assert(nullptr);
+
+	 return m_pCurRoom->m_vecLayer[(UINT)_eLayerType];
+}
+
 
 void CRoomMgr::tick()
 {
 	m_pCurRoom->tick();
 
 	m_pCurRoom->finaltick();
+}
+
+void CRoomMgr::init()
+{
+	m_pCurRoom = new CRoom();
+	m_mapRoom.insert(make_pair(L"StartRoom", m_pCurRoom));
+
+
+	CObject* pObject = new CObject();
+	pObject->SetName(L"TemObject");
+	m_pCurRoom->AddObject(LAYER_TYPE::PLAYER, pObject);
+	
+	CTransform* pTrasnform = new CTransform();
+	pTrasnform->SetPostion(Vector3::Zero);
+	pTrasnform->SetScale(Vector3{ 0.5f,0.5f,-1.f });
+	pObject->SetComponent(pTrasnform);
+
+
+	shared_ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DefaultMaterial", RESOURCE_TYPE::MATERIAL);
+	shared_ptr<CMesh> pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
+	CMeshRender* pMeshRender = new CMeshRender();
+	pMeshRender->SetMaterial(pMtrl);
+	pMeshRender->SetMesh(pMesh);
+
+	pMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"TemTex", RESOURCE_TYPE::TEXTURE));
+	pObject->SetComponent(pMeshRender);
+
+
+	/*///////////////////////
+			CMAERA
+	*////////////////////////
+	pObject = new CObject();
+	pObject->SetName(L"MAIN_CAMERA");
+	m_pCurRoom->AddObject(LAYER_TYPE::CAMERA, pObject);
+
+	pTrasnform = new CTransform();
+	pTrasnform->SetPostion(Vector3::Zero);
+	pObject->SetComponent(pTrasnform);
+
+	CCamera* pCamera = new CCamera();
+	pObject->SetComponent(pCamera);
 }

@@ -96,6 +96,17 @@ bool CDevice::init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
     return S_OK;
 }
 
+void CDevice::Clear()
+{
+    ComPtr<ID3D11RenderTargetView> RTV = CResMgr::GetInst()->FindRes<CTexture>(L"RenderTargetTex", RESOURCE_TYPE::TEXTURE)->GetRTV();
+    ComPtr<ID3D11DepthStencilView> DSV = CResMgr::GetInst()->FindRes<CTexture>(L"DepthStencil", RESOURCE_TYPE::TEXTURE)->GetDSV();
+
+    FLOAT fBackColor[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
+    m_deviceContex->ClearRenderTargetView(RTV.Get(), fBackColor);
+    m_deviceContex->ClearDepthStencilView(DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0.f);
+    m_deviceContex->OMSetRenderTargets(1, RTV.GetAddressOf(), DSV.Get());
+}
+
 int CDevice::CreateSwapChain()
 {
     /*
@@ -336,10 +347,10 @@ void CDevice::CreateConstBuffer()
     pTrConstBuffer->Create(sizeof(tTransform), 1);
 
     m_arrConstBuffer[(UINT)CB_TYPE::MATERIAL] = pMtrlConstBuffer;
-    pTrConstBuffer->Create(sizeof(tMtrlConst), 1);
+    pMtrlConstBuffer->Create(sizeof(tMtrlConst), 1);
 
     m_arrConstBuffer[(UINT)CB_TYPE::GLOBAL] = pGlConstBuffer;
-    pTrConstBuffer->Create(sizeof(tGlobal), 1);
+    pGlConstBuffer->Create(sizeof(tGlobal), 1);
 
 }
 

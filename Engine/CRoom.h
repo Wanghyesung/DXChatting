@@ -14,7 +14,7 @@ public:
 
 private:
 	CLayer* GetLayer(LAYER_TYPE _eType) { return m_vecLayer[(UINT)_eType];}
-
+	void AddObject(LAYER_TYPE _eType, CObject* _pObject);
 private:
 	vector<CLayer*> m_vecLayer;
 

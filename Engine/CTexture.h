@@ -32,6 +32,11 @@ public:
 
 	virtual int Load(const wstring& _strPath)override;
 	virtual int Save(const wstring& _strPath)override;
+
+public:
+	ComPtr<ID3D11RenderTargetView> GetRTV() { return m_RTV; }
+	ComPtr<ID3D11DepthStencilView> GetDSV() { return m_DSV; }
+
 private:
 	ComPtr<ID3D11Texture2D> m_2DTexture;
 	ComPtr<ID3D11ShaderResourceView> m_SRV;
