@@ -52,6 +52,8 @@ VS_OUT VS_Std2D(VS_IN _in)
     VS_OUT output = (VS_OUT)0;
     
     output.vLocalPos = mul(float4(_in.vLocalPos, 1.f), matWVP);
+    //output.vLocalPos = mul(output.vLocalPos, matView);
+    //output.vLocalPos = mul(output.vLocalPos, matProj);
     output.vUV = _in.vUV;
    
     return output;
@@ -61,7 +63,7 @@ VS_OUT VS_Std2D(VS_IN _in)
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
     float4 output = (float4)0.f;
-    
+   
     if(btex_0)
     {
         if (bAnimUse)
@@ -78,8 +80,8 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
            }
            else
            {
-                discard;
-                //output = float4(1.f, 1.f, 0.f, 1.f);
+                //discard;
+                output = float4(1.f, 1.f, 0.f, 1.f);
            }
         
         }
@@ -90,7 +92,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
     }
     else
     {
-        output = float4(1.f, 0.f, 1.f, 0.f);
+        output = float4(1.f, 0.f, 1.f, 1.f);
     }
     
     return output;

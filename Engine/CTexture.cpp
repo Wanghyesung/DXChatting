@@ -42,12 +42,12 @@ void CTexture::UpdateData(UINT _iRegiserNum, int _iShaderFlag)
 
 void CTexture::Clear()
 {
-    ID3D11ShaderResourceView** SRV = nullptr;
-    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->DSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->HSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->GSSetShaderResources(m_iPreRegisterNum, 1, SRV);
-    CDevice::GetInst()->GetContext()->PSSetShaderResources(m_iPreRegisterNum, 1, SRV);
+    ID3D11ShaderResourceView*SRV = nullptr;
+    CDevice::GetInst()->GetContext()->VSSetShaderResources(m_iPreRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->DSSetShaderResources(m_iPreRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->HSSetShaderResources(m_iPreRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->GSSetShaderResources(m_iPreRegisterNum, 1, &SRV);
+    CDevice::GetInst()->GetContext()->PSSetShaderResources(m_iPreRegisterNum, 1, &SRV);
 }
 
 void CTexture::Clear(UINT _iRegisterNum)
@@ -61,7 +61,7 @@ void CTexture::Clear(UINT _iRegisterNum)
 }
 
 
-int CTexture::CreateTex(UINT _iHeight, UINT _iWidth, DXGI_FORMAT _pixelFormat, UINT _iBindFlag, D3D11_USAGE _Usage)
+int CTexture::CreateTex(UINT _iWidth, UINT _iHeight, DXGI_FORMAT _pixelFormat, UINT _iBindFlag, D3D11_USAGE _Usage)
 {
     m_desc.Format = _pixelFormat;//DXGI 포맷이 들어가며, 예를 들어 RGBA 8비트 포맷
 
@@ -134,11 +134,6 @@ int CTexture::CreateTex(ComPtr<ID3D11Texture2D> _tTex)
 {
     m_2DTexture = _tTex;
     _tTex->GetDesc(&m_desc);
-
-    if (FAILED(CDevice::GetInst()->GetDevice()->CreateTexture2D(&m_desc, nullptr, m_2DTexture.GetAddressOf())))
-    {
-        return E_FAIL;
-    }
 
     if (m_desc.BindFlags & D3D11_BIND_DEPTH_STENCIL)
     {

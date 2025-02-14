@@ -11,7 +11,7 @@ CDevice::CDevice()
 
 CDevice::~CDevice()
 {
-
+    
 }
 
 bool CDevice::init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
@@ -96,15 +96,27 @@ bool CDevice::init(HWND _hwnd, UINT _iWidth, UINT _iHeight)
     return S_OK;
 }
 
+void CDevice::Present()
+{
+    HRESULT hr = m_swapChain->Present(0, 0);
+    if (FAILED(hr))
+    {
+        MessageBox(NULL, L"Present() 호출 실패!", L"Error", MB_OK);
+    }
+}
+
 void CDevice::Clear()
 {
     ComPtr<ID3D11RenderTargetView> RTV = CResMgr::GetInst()->FindRes<CTexture>(L"RenderTargetTex", RESOURCE_TYPE::TEXTURE)->GetRTV();
     ComPtr<ID3D11DepthStencilView> DSV = CResMgr::GetInst()->FindRes<CTexture>(L"DepthStencil", RESOURCE_TYPE::TEXTURE)->GetDSV();
 
-    FLOAT fBackColor[4] = { 0.5f, 0.5f, 0.5f, 0.5f };
+    m_deviceContex->OMSetRenderTargets(1, RTV.GetAddressOf(), DSV.Get());
+
+    FLOAT fBackColor[4] = { 0.2f, 0.2f, 0.2f, 0.2f };
     m_deviceContex->ClearRenderTargetView(RTV.Get(), fBackColor);
     m_deviceContex->ClearDepthStencilView(DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0.f);
-    m_deviceContex->OMSetRenderTargets(1, RTV.GetAddressOf(), DSV.Get());
+ 
+    m_deviceContex->RSSetViewports(1, &m_viewPort);
 }
 
 int CDevice::CreateSwapChain()
@@ -148,7 +160,7 @@ int CDevice::CreateSwapChain()
     hr = pAdapter->GetParent(__uuidof(IDXGIFactory), (void**)pFactory.GetAddressOf());
 
     hr = pFactory->CreateSwapChain(m_device.Get(), &tDesc, m_swapChain.GetAddressOf());
-
+    
     return hr;
 }
 
@@ -158,20 +170,32 @@ int CDevice::CreateView()
     //RenderTarget
     ComPtr<ID3D11Texture2D> pTex;
     m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)pTex.GetAddressOf());
-    CResMgr::GetInst()->CreateTexture(L"RenderTargetTex", pTex);
+   
+    shared_ptr<CTexture> pRenderTex = CResMgr::GetInst()->CreateTexture(L"RenderTargetTex", pTex);
   
     //깊이에 24비트, 스텐실에 8비트를 지원하는 32비트 z 버퍼 형식입니다.
-    CResMgr::GetInst()->CreateTexture(L"DepthStencil", m_vRenderResolution.y, m_vRenderResolution.x, DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT,
+    shared_ptr<CTexture> pDeapthTex = CResMgr::GetInst()->CreateTexture(L"DepthStencil", m_vRenderResolution.x, m_vRenderResolution.y, DXGI_FORMAT::DXGI_FORMAT_D24_UNORM_S8_UINT,
         D3D11_BIND_DEPTH_STENCIL, D3D11_USAGE_DEFAULT);
+
+    
+    int x1 =pRenderTex->GetDesc().Width;
+    int x2 = pDeapthTex->GetDesc().Width;
+  
+
+    m_deviceContex->OMSetRenderTargets(1, pRenderTex->GetRTV().GetAddressOf(), pDeapthTex->GetDSV().Get());
 
     return S_OK;
 }
 
 int CDevice::CreateRasterizerState()
 {
-    m_RSState[(UINT)RS_TYPE::CULL_BACK] = nullptr;
-
     D3D11_RASTERIZER_DESC desc = {};
+ 
+    desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;//뒷면제거
+    desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;//꼭짓점에서 형성된 삼각형을 채웁니다. 인접한 꼭짓점이 그려지지 않습니다.
+    m_device->CreateRasterizerState(&desc,m_RSState[(UINT)RS_TYPE::CULL_BACK].GetAddressOf());
+
+   
     desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
     desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
     m_device->CreateRasterizerState(&desc, m_RSState[(UINT)RS_TYPE::CULL_FRONT].GetAddressOf());

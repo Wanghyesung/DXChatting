@@ -9,8 +9,6 @@ struct tTransform
 
 	Matrix matWV;//view까지만 구한 행렬
 	Matrix matWVP;//투영까지 구한 행렬
-
-
 };
 
 

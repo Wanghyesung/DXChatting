@@ -8,6 +8,7 @@ CMaterial::CMaterial():
 	CResource(RESOURCE_TYPE::MATERIAL),
 	m_pShader(nullptr),
 	m_arrTex{},
+	m_mtrlConst{},
 	m_eRenderType(RENDER_TYPE::R_OPAQUE)
 {
 

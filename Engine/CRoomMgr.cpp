@@ -7,6 +7,8 @@
 #include "CMaterial.h"
 #include "CCamera.h"
 
+
+
 CRoomMgr::CRoomMgr() :
 	m_pCurRoom(nullptr)
 {
@@ -77,8 +79,8 @@ void CRoomMgr::init()
 	m_pCurRoom->AddObject(LAYER_TYPE::PLAYER, pObject);
 	
 	CTransform* pTrasnform = new CTransform();
-	pTrasnform->SetPostion(Vector3::Zero);
-	pTrasnform->SetScale(Vector3{ 0.5f,0.5f,-1.f });
+	pTrasnform->SetPostion(Vector3{1.f,1.f,-0.2f});
+	pTrasnform->SetScale(Vector3{ 1.f,1.f,1.f });
 	pObject->SetComponent(pTrasnform);
 
 
@@ -100,7 +102,7 @@ void CRoomMgr::init()
 	m_pCurRoom->AddObject(LAYER_TYPE::CAMERA, pObject);
 
 	pTrasnform = new CTransform();
-	pTrasnform->SetPostion(Vector3::Zero);
+	pTrasnform->SetPostion(Vector3(1.f, 1.f, 10.f));
 	pObject->SetComponent(pTrasnform);
 
 	CCamera* pCamera = new CCamera();

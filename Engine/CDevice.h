@@ -26,7 +26,7 @@ public:
 
 	CConstBuffer* GetConstBuffer(CB_TYPE _eType) { return m_arrConstBuffer[(UINT)_eType]; }
 
-	void Present() { m_swapChain->Present(0, 0); }//백 버퍼(Back Buffer)를 프론트 버퍼(Front Buffer)로 전환
+	void Present();//백 버퍼(Back Buffer)를 프론트 버퍼(Front Buffer)로 전환
 	void Clear();
 private:
 	int CreateSwapChain();

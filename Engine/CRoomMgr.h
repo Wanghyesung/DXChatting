@@ -10,6 +10,8 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CCamera;
 	friend class CRenderMgr;
 
+public:
+	
 private:
 	CRoomMgr();
 	virtual ~CRoomMgr();
@@ -17,7 +19,6 @@ private:
 	CRoom* FindRoom(const wstring& _strName);
 	void SetCurRoom(const wstring& _strName);
 	
-
 	const vector<CLayer*>& GetCurLayers();
 	CLayer* GetCurLayer(LAYER_TYPE _eLayerType);
 private:

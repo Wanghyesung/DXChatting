@@ -21,14 +21,14 @@ public:
 	static void Clear(UINT _iRegisterNum);
 	static void Clear();
 public:
-	int CreateTex(UINT _iHeight, UINT _iWidth, DXGI_FORMAT _pixelFormat,
+	int CreateTex(UINT _iWidth, UINT _iHeight, DXGI_FORMAT _pixelFormat,
 		UINT _iBindFlag, D3D11_USAGE _Usage);
 	int CreateTex(ComPtr<ID3D11Texture2D> _tTex);
 
 public:
 	UINT GetWidth() { return m_desc.Width; }
 	UINT GetHeight() { return m_desc.Height; }
-
+	const D3D11_TEXTURE2D_DESC& GetDesc() { return m_desc; }
 
 	virtual int Load(const wstring& _strPath)override;
 	virtual int Save(const wstring& _strPath)override;

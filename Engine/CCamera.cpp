@@ -22,7 +22,7 @@ bool CompareZSort( CObject* a,  CObject*  b)
 CCamera::CCamera():
 	CComponent(COMPONENT_TYPE::CAMERA),
 	m_fFar(1000),
-	m_fNear(10),
+	m_fNear(1),
 	m_fFOV(XM_2PI / 6.f),
 	m_OrthoHeight(0),
 	m_OrthoWidth(0),
@@ -106,11 +106,11 @@ void CCamera::alpha_sort()
 		{
 			CMeshRender* pMeshRender = pObj->GetComponent<CMeshRender>(COMPONENT_TYPE::MESH_RENDER);
 			if (pMeshRender == nullptr)
-				return;
+				continue;
 
 			shared_ptr<CMaterial> pMtrl = pMeshRender->GetMaterial();
 			if (pMtrl == nullptr)
-				return;
+				continue;
 
 			RENDER_TYPE eRenderType = pMtrl->GetRenderType();
 
@@ -152,7 +152,7 @@ void CCamera::create_view()
 	Vector3 vFoward = pTransform->Foward();
 
 	
-	Matrix matViewRotate;
+	Matrix matViewRotate = Matrix::Identity;
 	matViewRotate._11 = vRight.x;	matViewRotate._12 = vUp.x;	matViewRotate._13 = vFoward.x;
 	matViewRotate._21 = vRight.y;	matViewRotate._22 = vUp.y;	matViewRotate._23 = vFoward.y;
 	matViewRotate._31 = vRight.z;	matViewRotate._32 = vUp.z;	matViewRotate._33 = vFoward.z;

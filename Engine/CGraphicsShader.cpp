@@ -8,7 +8,7 @@ CGraphicsShader::CGraphicsShader():
 	m_topology(D3D_PRIMITIVE_TOPOLOGY::D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST),
 	m_eRSType(RS_TYPE::CULL_BACK),
 	m_eDSType(DS_TYPE::LESS),	
-	m_eBSType(BS_TYPE::ALPHA_BLEND)
+	m_eBSType(BS_TYPE::MASK)
 {
 
 }

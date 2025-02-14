@@ -32,8 +32,8 @@ public:
 	float GetorthoWidth() { return m_OrthoWidth; }
 	float GetOrthoHeight() { return m_OrthoHeight; }
 
-	static Matrix& GetViewMat() { return GView; }
-	static Matrix& GetProjMat() { return GProj; }
+	static const Matrix& GetViewMat() { return GView; }
+	static const Matrix& GetProjMat() { return GProj; }
 private:
 	void render();
 

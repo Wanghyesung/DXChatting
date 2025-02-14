@@ -8,7 +8,7 @@ CTransform::CTransform() :
 	CComponent(COMPONENT_TYPE::TRANSFORM),
 	m_vRotation(Vector3::Zero),
 	m_vPosition(Vector3::Zero),
-	m_vScale(Vector3::Zero)
+	m_vScale(Vector3::One)
 {
 
 }
@@ -49,15 +49,16 @@ void CTransform::final_tick()
 void CTransform::UpdateData()
 {
 	//상수버퍼 대응 구조체
-	tTransform srcTrasnform = {};
-	srcTrasnform.matWorld = m_matWorld;
-	srcTrasnform.matView = CCamera::GetViewMat();
-	srcTrasnform.matProj = CCamera::GetProjMat();
-	srcTrasnform.matWV = srcTrasnform.matWorld * srcTrasnform.matView;
-	srcTrasnform.matWVP = srcTrasnform.matWV * srcTrasnform.matProj;
+	//srcTrasnform은 지역 변수이므로 함수가 끝나면 스택에서 해제 결과적으로 SetData()가 사용하는 메모리가 유효하지 않게 될 가능성
+	//tTransform srcTrasnform = {};
+	g_transform.matWorld = m_matWorld;
+	g_transform.matView = CCamera::GetViewMat();
+	g_transform.matProj = CCamera::GetProjMat();
+	g_transform.matWV = g_transform.matWorld * g_transform.matView;
+	g_transform.matWVP = g_transform.matWV * g_transform.matProj;
 
 
 	CConstBuffer* pTrConstBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
-	pTrConstBuffer->SetData(&srcTrasnform, sizeof(Matrix));
+	pTrConstBuffer->SetData(&g_transform, sizeof(tTransform));
 	pTrConstBuffer->UpdateData();
 }
