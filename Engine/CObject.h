@@ -12,7 +12,7 @@ public:
 	CObject();
 	virtual ~CObject();
 
-private:
+protected:
 	void begin();
 	virtual void tick();
 	void finaltick();
@@ -24,7 +24,7 @@ public:
 
 	void SetComponent(CComponent* _pComponent);
 
-private:
+protected:
 	CComponent* m_arrComponent[COMPONENT_TYPE::END];
 	CRenderComponent* m_pRenderComponent;
 };

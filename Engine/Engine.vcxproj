@@ -169,6 +169,7 @@
     <ClInclude Include="CEngine.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CGraphicsShader.h" />
+    <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimeMgr.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="CUI.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="CUIMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAnimation2D.cpp" />
@@ -206,6 +209,7 @@
     <ClCompile Include="CEngine.cpp" />
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CGraphicsShader.cpp" />
+    <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMesh.cpp" />
@@ -224,6 +228,7 @@
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />
     <ClCompile Include="CTransform.cpp" />
+    <ClCompile Include="CUI.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="extern_struct.cpp" />
     <ClCompile Include="func.cpp" />
@@ -234,6 +239,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp" />
+    <ClCompile Include="CUIMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl" />

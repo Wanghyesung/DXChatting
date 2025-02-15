@@ -6,7 +6,7 @@
 #include "CResMgr.h"
 #include "CMaterial.h"
 #include "CCamera.h"
-
+#include "CUI.h"
 
 
 CRoomMgr::CRoomMgr() :
@@ -60,6 +60,11 @@ CLayer* CRoomMgr::GetCurLayer(LAYER_TYPE _eLayerType)
 	 return m_pCurRoom->m_vecLayer[(UINT)_eLayerType];
 }
 
+const vector<CObject*>& CRoomMgr::GetUIs()
+{
+	return m_pCurRoom->m_vecLayer[(UINT)LAYER_TYPE::UI]->m_vecObject;
+}
+
 
 void CRoomMgr::tick()
 {
@@ -74,14 +79,14 @@ void CRoomMgr::init()
 	m_mapRoom.insert(make_pair(L"StartRoom", m_pCurRoom));
 
 
-	CObject* pObject = new CObject();
-	pObject->SetName(L"TemObject");
-	m_pCurRoom->AddObject(LAYER_TYPE::PLAYER, pObject);
+	CUI* pUI = new CUI();
+	pUI->SetName(L"TemObject");
+	m_pCurRoom->AddObject(LAYER_TYPE::UI, pUI);
 	
 	CTransform* pTrasnform = new CTransform();
 	pTrasnform->SetPostion(Vector3{1.f,1.f,-0.2f});
 	pTrasnform->SetScale(Vector3{ 1.f,1.f,1.f });
-	pObject->SetComponent(pTrasnform);
+	pUI->SetComponent(pTrasnform);
 
 
 	shared_ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DefaultMaterial", RESOURCE_TYPE::MATERIAL);
@@ -91,13 +96,13 @@ void CRoomMgr::init()
 	pMeshRender->SetMesh(pMesh);
 
 	pMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"TemTex", RESOURCE_TYPE::TEXTURE));
-	pObject->SetComponent(pMeshRender);
+	pUI->SetComponent(pMeshRender);
 
 
 	/*///////////////////////
 			CMAERA
 	*////////////////////////
-	pObject = new CObject();
+	CObject* pObject  = new CObject();
 	pObject->SetName(L"MAIN_CAMERA");
 	m_pCurRoom->AddObject(LAYER_TYPE::CAMERA, pObject);
 

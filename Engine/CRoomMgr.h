@@ -9,7 +9,7 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CEngine;
 	friend class CCamera;
 	friend class CRenderMgr;
-
+	friend class CUIMgr;
 public:
 	
 private:
@@ -21,6 +21,8 @@ private:
 	
 	const vector<CLayer*>& GetCurLayers();
 	CLayer* GetCurLayer(LAYER_TYPE _eLayerType);
+
+	const vector<CObject*>& GetUIs();
 private:
 	void tick();
 	void init();

@@ -23,7 +23,7 @@ CRoom::~CRoom()
 
 void CRoom::begin()
 {
-	for (int i = 0; i < m_vecLayer.size(); ++i)
+	for (int i = 0; i <(int)LAYER_TYPE::END; ++i)
 	{
 		m_vecLayer[i]->begin();
 	}
@@ -31,7 +31,7 @@ void CRoom::begin()
 
 void CRoom::tick()
 {
-	for (int i = 0; i < m_vecLayer.size(); ++i)
+	for (int i = 0; i <(int)LAYER_TYPE::END; ++i)
 	{
 		m_vecLayer[i]->tick();
 	}
@@ -39,7 +39,7 @@ void CRoom::tick()
 
 void CRoom::finaltick()
 {
-	for (int i = 0; i < m_vecLayer.size(); ++i)
+	for (int i = 0; i < (int)LAYER_TYPE::END; ++i)
 	{
 		m_vecLayer[i]->finaltick();
 	}

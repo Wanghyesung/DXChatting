@@ -129,6 +129,7 @@ enum class LAYER_TYPE
 	PLAYER,
 	BUBBLE,
 	CAMERA,
+	UI,
 	END,
 };
 

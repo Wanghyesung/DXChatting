@@ -6,7 +6,8 @@
 #include "CRoomMgr.h"
 #include "CTimeMgr.h"
 #include "CRenderMgr.h"
-
+#include "CKeyMgr.h"
+#include "CUIMgr.h"
 int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 {
     m_hWnd = _hWnd;
@@ -29,6 +30,10 @@ int CEngine::init_mgr()
 {
     CPathMgr::GetInst()->Init();
 
+    CTimeMgr::GetInst()->init();
+
+    CKeyMgr::GetInst()->init();
+
     CResMgr::GetInst()->Init();
 
     CRoomMgr::GetInst()->init();
@@ -46,7 +51,9 @@ void CEngine::progress()
 void CEngine::tick()
 {
     CTimeMgr::GetInst()->tick();
+    CKeyMgr::GetInst()->tick();
 
+    CUIMgr::GetInst()->tick();
     CRoomMgr::GetInst()->tick();
 
 }
