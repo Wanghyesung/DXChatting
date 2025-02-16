@@ -11,6 +11,7 @@ public:
 
 public:
 	void AddChild(CUI* _pUI);
+	void DeleteChild(CUI* _pUI);
 
 protected:
 	virtual void tick()override;
@@ -22,10 +23,12 @@ protected:
 	virtual void MouseLbtnClicked();
 
 private:
-	bool check();
+	bool check_mouse();
 	
 private:
 	vector<CUI*> m_vecChildUI;
+
+	CUI* m_pParentUI;
 
 	bool m_bMouseOn;
 	bool m_bLbntDown;

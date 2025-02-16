@@ -8,6 +8,8 @@
 #include "CRenderMgr.h"
 #include "CKeyMgr.h"
 #include "CUIMgr.h"
+#include "CFontMgr.h"
+
 int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 {
     m_hWnd = _hWnd;
@@ -34,6 +36,8 @@ int CEngine::init_mgr()
 
     CKeyMgr::GetInst()->init();
 
+    CFontMgr::GetInst()->init();
+
     CResMgr::GetInst()->Init();
 
     CRoomMgr::GetInst()->init();
@@ -44,8 +48,11 @@ int CEngine::init_mgr()
 void CEngine::progress()
 {
     tick();
-
+    
     render();
+    CTimeMgr::GetInst()->render();
+    CFontMgr::GetInst()->render();
+
 }
 
 void CEngine::tick()

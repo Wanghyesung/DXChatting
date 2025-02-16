@@ -39,3 +39,11 @@ struct tGlobal
 extern tTransform g_transform;
 extern tGlobal g_Global;
 
+
+struct tFontInfo
+{
+	wstring Str;
+	float fPosX; float fPosY;
+	float fFontSize;
+	UINT Color;
+};

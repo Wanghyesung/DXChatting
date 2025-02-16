@@ -14,6 +14,16 @@ CMaterial::CMaterial():
 
 }
 
+CMaterial::CMaterial(const CMaterial& _other):
+	CResource(RESOURCE_TYPE::MATERIAL),
+	m_pShader(_other.m_pShader),
+	m_arrTex{},
+	m_mtrlConst{},
+	m_eRenderType(_other.m_eRenderType)
+{
+
+}
+
 
 
 CMaterial::~CMaterial()

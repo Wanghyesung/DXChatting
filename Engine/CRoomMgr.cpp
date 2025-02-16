@@ -7,8 +7,7 @@
 #include "CMaterial.h"
 #include "CCamera.h"
 #include "CUI.h"
-
-
+#include "CSpeechBar.h"
 CRoomMgr::CRoomMgr() :
 	m_pCurRoom(nullptr)
 {
@@ -65,6 +64,21 @@ const vector<CObject*>& CRoomMgr::GetUIs()
 	return m_pCurRoom->m_vecLayer[(UINT)LAYER_TYPE::UI]->m_vecObject;
 }
 
+void CRoomMgr::EraseUI(CObject* _pObject)
+{
+	vector<CObject*>& vecObj = m_pCurRoom->m_vecLayer[(UINT)LAYER_TYPE::UI]->m_vecObject;
+	
+	vector<CObject*>::iterator iter = vecObj.begin();
+	for (iter; iter != vecObj.end(); ++iter)
+	{
+		if (*iter == _pObject)
+		{
+			vecObj.erase(iter);
+			return;
+		}
+	}
+}
+
 
 void CRoomMgr::tick()
 {
@@ -76,8 +90,7 @@ void CRoomMgr::tick()
 void CRoomMgr::init()
 {
 	m_pCurRoom = new CRoom();
-	m_mapRoom.insert(make_pair(L"StartRoom", m_pCurRoom));
-
+	m_mapRoom.insert(make_pair(L"lobby", m_pCurRoom));
 
 	CUI* pUI = new CUI();
 	pUI->SetName(L"TemObject");
@@ -98,6 +111,27 @@ void CRoomMgr::init()
 	pMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"TemTex", RESOURCE_TYPE::TEXTURE));
 	pUI->SetComponent(pMeshRender);
 
+	/*///////////////////////
+			SPEECHBAR
+	*////////////////////////
+	CSpeechBar* pSpeechBar = new CSpeechBar();
+	pUI->SetName(L"SpeechBar");
+	m_pCurRoom->AddObject(LAYER_TYPE::UI, pSpeechBar);
+
+	pTrasnform = new CTransform();
+	pTrasnform->SetPostion(Vector3{ 1.f,-3.f,-0.2f });
+	pTrasnform->SetScale(Vector3{ 1.f,1.f,1.f });
+	pSpeechBar->SetComponent(pTrasnform);
+
+	pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DefaultMaterial", RESOURCE_TYPE::MATERIAL);
+	pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
+	pMeshRender = new CMeshRender();
+	pMeshRender->SetMaterial(pMtrl);
+	shared_ptr<CMaterial> pDynamicMtrl = pMeshRender->GetDynamicMaterial();
+	pMeshRender->SetMaterial(pDynamicMtrl);
+
+	pMeshRender->SetMesh(pMesh);
+	pSpeechBar->SetComponent(pMeshRender);
 
 	/*///////////////////////
 			CMAERA

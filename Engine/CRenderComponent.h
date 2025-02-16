@@ -18,15 +18,13 @@ public:
 
 public:
 	void SetMesh(std::shared_ptr<CMesh> _pMesh) { m_pMesh = _pMesh; }
-	void SetMaterial(std::shared_ptr<CMaterial> _pMaterial) { m_pMaterial = _pMaterial; m_pSharedMaterial = _pMaterial; }
-	std::shared_ptr<CMaterial> GetMaterial();
-	std::shared_ptr<CMaterial> GetSharedMaterial();
+	void SetMaterial(std::shared_ptr<CMaterial> _pMaterial) { m_pMaterial = _pMaterial;}
+	std::shared_ptr<CMaterial> GetMaterial() {return m_pMaterial;}
 	std::shared_ptr<CMaterial> GetDynamicMaterial();
 	std::shared_ptr<CMesh> GetMesh() { return m_pMesh; }
 
 private:
 	shared_ptr<CMaterial> m_pMaterial;
-	shared_ptr<CMaterial> m_pSharedMaterial;
 	shared_ptr<CMaterial> m_pDynamicMaterial;
 
 	shared_ptr<CMesh> m_pMesh;

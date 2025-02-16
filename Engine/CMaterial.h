@@ -7,7 +7,7 @@ class CMaterial : public CResource
 {
 public:
 	CMaterial();
-	
+	CMaterial(const CMaterial& _otehr);
 	virtual ~CMaterial();
 
 	
