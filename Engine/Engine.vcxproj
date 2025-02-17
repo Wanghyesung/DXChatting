@@ -187,6 +187,7 @@
     <ClInclude Include="CSingleton.h" />
     <ClInclude Include="CSpeechBar.h" />
     <ClInclude Include="CSpeechBubble.h" />
+    <ClInclude Include="CSpeechObject.h" />
     <ClInclude Include="CStructuredBuffer.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimeMgr.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="CSingleton.cpp" />
     <ClCompile Include="CSpeechBar.cpp" />
     <ClCompile Include="CSpeechBubble.cpp" />
+    <ClCompile Include="CSpeechObject.cpp" />
     <ClCompile Include="CStructuredBuffer.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeMgr.cpp" />

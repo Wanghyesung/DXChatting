@@ -61,7 +61,7 @@ public:
 
 public:
 	KEY_STATE GetKeyState(KEY _key) { return m_vecKey[(UINT)_key].state; }
-	FORCEINLINE const Vector2& GetMousePos() { return m_vNDCMousePos; }
+	FORCEINLINE const Vector2& GetMousePos() { return m_vMousePos; }
 	Vector2 GetMouseDir() { return m_vMouseDir; }
 
 private:

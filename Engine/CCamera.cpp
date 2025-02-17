@@ -26,7 +26,7 @@ CCamera::CCamera():
 	m_fFOV(XM_2PI / 6.f),
 	m_OrthoHeight(0),
 	m_OrthoWidth(0),
-	m_fScale(10),
+	m_fScale(1000.f),
 	m_eProjType(PROJ_TYPE::ORTHOGRAPHIC)
 {
 

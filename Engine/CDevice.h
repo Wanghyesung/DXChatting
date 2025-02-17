@@ -3,6 +3,8 @@
 
 class CConstBuffer;
 
+#define Resolution CDevice::GetInst()->GetResolution() 
+
 class CDevice : public CSingleton<CDevice>
 {
 	friend class CSingleton;
@@ -18,7 +20,7 @@ public:
 	ID3D11Device* GetDevice() { return m_device.Get(); }
 	ID3D11DeviceContext* GetContext() { return m_deviceContex.Get(); }
 
-	Vec2 GetResolution() { return m_vRenderResolution; }
+	Vector2 GetResolution() { return m_vRenderResolution; }
 
 	ComPtr<ID3D11DepthStencilState> GetDSState(DS_TYPE _eType) { return m_DSState[(UINT)_eType];}
 	ComPtr<ID3D11RasterizerState> GetRSState(RS_TYPE _eType) { return m_RSState[(UINT)_eType];}

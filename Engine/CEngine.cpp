@@ -24,7 +24,7 @@ int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 
     if (init_mgr() == FALSE)
         return FALSE;
-
+   
     return TRUE;
 }
 

@@ -97,8 +97,8 @@ void CRoomMgr::init()
 	m_pCurRoom->AddObject(LAYER_TYPE::UI, pUI);
 	
 	CTransform* pTrasnform = new CTransform();
-	pTrasnform->SetPostion(Vector3{1.f,1.f,-0.2f});
-	pTrasnform->SetScale(Vector3{ 1.f,1.f,1.f });
+	pTrasnform->SetPostion(Vector3{0.f,0.f,-0.2f});
+	pTrasnform->SetScale(Vector3{ 200.f,200.f,1.f });
 	pUI->SetComponent(pTrasnform);
 
 
@@ -119,8 +119,8 @@ void CRoomMgr::init()
 	m_pCurRoom->AddObject(LAYER_TYPE::UI, pSpeechBar);
 
 	pTrasnform = new CTransform();
-	pTrasnform->SetPostion(Vector3{ 1.f,-3.f,-0.2f });
-	pTrasnform->SetScale(Vector3{ 1.f,1.f,1.f });
+	pTrasnform->SetPostion(Vector3{ 200.f,-200.f,-0.2f });
+	pTrasnform->SetScale(Vector3{ 200.f,200.f,1.f });
 	pSpeechBar->SetComponent(pTrasnform);
 
 	pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DefaultMaterial", RESOURCE_TYPE::MATERIAL);

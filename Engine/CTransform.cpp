@@ -43,7 +43,6 @@ void CTransform::final_tick()
 	Matrix m_matPosition = XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
 	m_matWorld = m_matSclae * m_matRotation * m_matPosition;
-
 }
 
 void CTransform::UpdateData()
@@ -57,8 +56,9 @@ void CTransform::UpdateData()
 	g_transform.matWV = g_transform.matWorld * g_transform.matView;
 	g_transform.matWVP = g_transform.matWV * g_transform.matProj;
 
-
 	CConstBuffer* pTrConstBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	pTrConstBuffer->SetData(&g_transform, sizeof(tTransform));
 	pTrConstBuffer->UpdateData();
 }
+
+

@@ -22,9 +22,10 @@ protected:
 	virtual void MouseLbtnUp();
 	virtual void MouseLbtnClicked();
 
+
 private:
 	bool check_mouse();
-	
+
 private:
 	vector<CUI*> m_vecChildUI;
 

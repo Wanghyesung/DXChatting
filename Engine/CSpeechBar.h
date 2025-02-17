@@ -1,7 +1,7 @@
 #pragma once
-#include "CUI.h"
+#include "CSpeechObject.h"
 
-class CSpeechBar : public CUI
+class CSpeechBar : public CSpeechObject
 {
 public:
 	CSpeechBar();
@@ -19,9 +19,9 @@ protected:
 private:
 	void check_time();
 	void repeat_startbar();
+
 private:
-	wstring m_strSpeech;
-	tFontInfo m_tSpeechInfo;
+	class CSpeechBubble* m_pTarget;
 
 	bool m_bStartBar;
 	float m_fRepeatTimer;

@@ -45,9 +45,6 @@ int g_arrVK[(UINT)KEY::END]
 };
 
 
-
-
-
 CKeyMgr::CKeyMgr()
 {
 

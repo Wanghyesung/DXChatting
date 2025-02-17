@@ -20,15 +20,17 @@ public:
 	const Vector3& GetScale() { return m_vScale; }
 	const Matrix& GetWorldMatrix() { return m_matWorld; }
 
-	void SetPostion(const Vector3& _vecPosition) { m_vPosition = _vecPosition; }
-	void SetRotation(const Vector3& _vecLotation) { m_vRotation = _vecLotation; }
-	void SetScale(const Vector3& _vecScale) { m_vScale = _vecScale; }
+	void SetPostion(const Vector3& _vPosition) { m_vPosition = _vPosition; }
+	void SetRotation(const Vector3& _vLotation) { m_vRotation = _vLotation; }
+	void SetScale(const Vector3& _vScale) { m_vScale = _vScale; }
+
 
 	Vector3 Foward() { return m_vFoward; }
 	Vector3 Right() { return m_vRight; }
 	Vector3 Up() { return m_vUp; }
 
 private:
+
 	Vector3 m_vPosition;
 	Vector3 m_vScale;
 	Vector3 m_vRotation;
