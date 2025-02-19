@@ -47,3 +47,10 @@ struct tFontInfo
 	float fFontSize;
 	UINT Color;
 };
+
+struct tEvent
+{
+	EVENT_TYPE eEvent;
+	void* wParam;
+	void* lParam;
+};

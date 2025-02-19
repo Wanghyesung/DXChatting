@@ -83,22 +83,26 @@ void CUI::tick()
 
 void CUI::MouseOn()
 {
-	int a = 10;
+	if (m_tUIEvent.pMouseOn != nullptr)
+		m_tUIEvent.pMouseUp();
 }
 
 void CUI::MouseLbtnDown()
 {
-	int a = 10;
+	if (m_tUIEvent.pMouseOn != nullptr)
+		m_tUIEvent.pMouseDown();
 }
 
 void CUI::MouseLbtnUp()
 {
-	int a = 10;
+	if (m_tUIEvent.pMouseOn != nullptr)
+		m_tUIEvent.pMouseUp();
 }
 
 void CUI::MouseLbtnClicked()
 {
-	int a = 10;
+	if (m_tUIEvent.pMouseOn != nullptr)
+		m_tUIEvent.pMouseClicked();
 }
 
 

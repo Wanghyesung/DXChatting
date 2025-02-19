@@ -20,8 +20,14 @@ private:
 	void check_time();
 	void repeat_startbar();
 
+	void check_key();
+	void tick_speech();
+
+	void send_data();
+	void recv_data();
 private:
-	class CSpeechBubble* m_pTarget;
+
+	wstring m_strTemWchar;
 
 	bool m_bStartBar;
 	float m_fRepeatTimer;

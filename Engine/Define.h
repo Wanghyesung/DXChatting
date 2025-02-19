@@ -1,4 +1,8 @@
 
+#define KEY_TAP(Key) CKeyMgr::GetInst()->GetKeyState(Key) == KEY_STATE::TAP		
+#define KEY_RELEASE(Key) CKeyMgr::GetInst()->GetKeyState(Key) == KEY_STATE::RELEASE
+#define KEY_PRESSED(Key) CKeyMgr::GetInst()->GetKeyState(Key) == KEY_STATE::PRESSED
+
 enum class RESOURCE_TYPE
 {
 	MESH,			// วüลย
@@ -144,4 +148,10 @@ enum class RENDER_TYPE
 	R_OPAQUE,
 	R_TRANSLUCENT,
 	R_TRANSPARENT,
+};
+
+enum EVENT_TYPE
+{
+	CREATE_CATTING,
+
 };

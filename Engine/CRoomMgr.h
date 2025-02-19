@@ -12,7 +12,9 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CUIMgr;
 	friend class CUI;
 public:
-	
+	Vector2 FindSpawnPoint(const Vector2& vObjectScale);
+	void AddObject(LAYER_TYPE _eLayerType, CObject* _pObj);
+
 private:
 	CRoomMgr();
 	virtual ~CRoomMgr();
@@ -26,11 +28,16 @@ private:
 	const vector<CObject*>& GetUIs();
 
 	void EraseUI(CObject* _pObject);
+
 private:
 	void tick();
 	void init();
+
 private:
 	CRoom* m_pCurRoom;
 	map<wstring, CRoom*>m_mapRoom;
+
+	Vector2 m_vChattingStartPos;
+	float m_fChattingLine;
 };
 

@@ -112,7 +112,7 @@ void CDevice::Clear()
 
     m_deviceContex->OMSetRenderTargets(1, RTV.GetAddressOf(), DSV.Get());
 
-    FLOAT fBackColor[4] = { 0.2f, 0.2f, 0.2f, 0.2f };
+    FLOAT fBackColor[4] = { 0.9f, 0.9f, 0.9f, 0.9f };
     m_deviceContex->ClearRenderTargetView(RTV.Get(), fBackColor);
     m_deviceContex->ClearDepthStencilView(DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0.f);
  
@@ -180,7 +180,6 @@ int CDevice::CreateView()
     
     int x1 =pRenderTex->GetDesc().Width;
     int x2 = pDeapthTex->GetDesc().Width;
-  
 
     m_deviceContex->OMSetRenderTargets(1, pRenderTex->GetRTV().GetAddressOf(), pDeapthTex->GetDSV().Get());
 

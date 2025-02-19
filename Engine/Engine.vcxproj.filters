@@ -28,6 +28,9 @@
     <Filter Include="UI">
       <UniqueIdentifier>{acfe4154-d6b2-474e-ad08-51fdfbac72f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Room">
+      <UniqueIdentifier>{13bc3dec-0bb3-4140-99a8-a8a42975d4ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -126,9 +129,6 @@
     <ClInclude Include="CRenderMgr.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CRoom.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="CLayer.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -147,13 +147,22 @@
     <ClInclude Include="CFontMgr.h">
       <Filter>Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CSpeechBubble.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="CSpeechBar.h">
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="CSpeechObject.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CEventMgr.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CRoom.h">
+      <Filter>Room</Filter>
+    </ClInclude>
+    <ClInclude Include="CChattingRoom.h">
+      <Filter>Room</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpeechBubble.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -245,9 +254,6 @@
     <ClCompile Include="CRenderMgr.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="CRoom.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="CLayer.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -269,13 +275,22 @@
     <ClCompile Include="CFontMgr.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
-    <ClCompile Include="CSpeechBubble.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="CSpeechBar.cpp">
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="CSpeechObject.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventMgr.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CRoom.cpp">
+      <Filter>Room</Filter>
+    </ClCompile>
+    <ClCompile Include="CChattingRoom.cpp">
+      <Filter>Room</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpeechBubble.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>

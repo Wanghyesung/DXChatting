@@ -8,9 +8,16 @@
 #include "CCamera.h"
 #include "CUI.h"
 #include "CSpeechBar.h"
+#include "CEngine.h"
+
+
 CRoomMgr::CRoomMgr() :
-	m_pCurRoom(nullptr)
+	m_pCurRoom(nullptr),
+	m_vChattingStartPos(Vector2::Zero)
 {
+	m_vChattingStartPos = Vector2{ -200.f, 300.f };
+	m_fChattingLine = -250.f;
+
 }
 
 CRoomMgr::~CRoomMgr()
@@ -24,6 +31,32 @@ CRoomMgr::~CRoomMgr()
 	m_mapRoom.clear();
 }
 
+Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale)
+{
+	CLayer* pLayer = GetCurLayer(LAYER_TYPE::CAMERA);
+	CObject* pCamera = pLayer->m_vecObject[0];
+
+	CTransform* pTransform = pCamera->GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
+	Vector3 vCameraPos = pTransform->GetPosition();
+	//기준점 밖으로 나갔다면 내 카메라 위치 내리기
+
+	m_vChattingStartPos.y += vObjectScale.y;
+	if (m_vChattingStartPos.y >= m_fChattingLine)
+	{
+		float fDiff = m_vChattingStartPos.y - m_fChattingLine;
+		m_fChattingLine += m_vChattingStartPos.y;
+
+		vCameraPos.y += fDiff;
+		pTransform->SetPostion(vCameraPos);
+	}
+
+	return m_vChattingStartPos;
+}
+
+void CRoomMgr::AddObject(LAYER_TYPE _eLayerType, CObject* _pObj)
+{
+	m_pCurRoom->AddObject(_eLayerType, _pObj);
+}
 
 CRoom* CRoomMgr::FindRoom(const wstring& _strName)
 {
@@ -89,16 +122,27 @@ void CRoomMgr::tick()
 
 void CRoomMgr::init()
 {
-	m_pCurRoom = new CRoom();
-	m_mapRoom.insert(make_pair(L"lobby", m_pCurRoom));
+	CRoom* pChattingRoom = new CRoom();
+	m_mapRoom.insert(make_pair(L"Chatting", m_pCurRoom));
 
-	CUI* pUI = new CUI();
+	CRoom* pLobby = new CRoom();
+	m_mapRoom.insert(make_pair(L"lobby", pLobby));
+	m_pCurRoom = pChattingRoom;
+
+	/*//////////////
+		 Lobby
+	*///////////////
+	CSpeechObject* pUI = new CSpeechObject();
 	pUI->SetName(L"TemObject");
-	m_pCurRoom->AddObject(LAYER_TYPE::UI, pUI);
+	pUI->SetSpeech(L"채팅방 참가");
+	
+	pUI->SetFontSize(50.f);
+	
+	pLobby->AddObject(LAYER_TYPE::UI, pUI);
 	
 	CTransform* pTrasnform = new CTransform();
-	pTrasnform->SetPostion(Vector3{0.f,0.f,-0.2f});
-	pTrasnform->SetScale(Vector3{ 200.f,200.f,1.f });
+	pTrasnform->SetPostion(Vector3{0.f,100.f,-0.2f});
+	pTrasnform->SetScale(Vector3{ 300.f,100.f,1.f });
 	pUI->SetComponent(pTrasnform);
 
 
@@ -107,8 +151,7 @@ void CRoomMgr::init()
 	CMeshRender* pMeshRender = new CMeshRender();
 	pMeshRender->SetMaterial(pMtrl);
 	pMeshRender->SetMesh(pMesh);
-
-	pMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"TemTex", RESOURCE_TYPE::TEXTURE));
+	//pMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"TemTex", RESOURCE_TYPE::TEXTURE));
 	pUI->SetComponent(pMeshRender);
 
 	/*///////////////////////
@@ -116,7 +159,7 @@ void CRoomMgr::init()
 	*////////////////////////
 	CSpeechBar* pSpeechBar = new CSpeechBar();
 	pUI->SetName(L"SpeechBar");
-	m_pCurRoom->AddObject(LAYER_TYPE::UI, pSpeechBar);
+	pLobby->AddObject(LAYER_TYPE::UI, pSpeechBar);
 
 	pTrasnform = new CTransform();
 	pTrasnform->SetPostion(Vector3{ 200.f,-200.f,-0.2f });
@@ -137,8 +180,8 @@ void CRoomMgr::init()
 			CMAERA
 	*////////////////////////
 	CObject* pObject  = new CObject();
-	pObject->SetName(L"MAIN_CAMERA");
-	m_pCurRoom->AddObject(LAYER_TYPE::CAMERA, pObject);
+	pObject->SetName(L"LOBBY_CAMERA");
+	pLobby->AddObject(LAYER_TYPE::CAMERA, pObject);
 
 	pTrasnform = new CTransform();
 	pTrasnform->SetPostion(Vector3(1.f, 1.f, 10.f));
@@ -146,4 +189,43 @@ void CRoomMgr::init()
 
 	CCamera* pCamera = new CCamera();
 	pObject->SetComponent(pCamera);
+
+
+	/*//////////////
+		 Chatting
+	*///////////////
+
+	pObject = new CObject();
+	pObject->SetName(L"CHATTING_CAMERA");
+	pChattingRoom->AddObject(LAYER_TYPE::CAMERA, pObject);
+
+	pTrasnform = new CTransform();
+	pTrasnform->SetPostion(Vector3(1.f, 1.f, 10.f));
+	pObject->SetComponent(pTrasnform);
+
+	pCamera = new CCamera();
+	pObject->SetComponent(pCamera);
+
+	//SpeechBar
+	pSpeechBar = new CSpeechBar();
+	pChattingRoom->AddObject(LAYER_TYPE::UI, pSpeechBar);
+
+	pTrasnform = new CTransform();
+	pTrasnform->SetPostion(Vector3{ 100.f,-300.f,-0.2f });
+	pTrasnform->SetScale(Vector3{ 500.f,50.f,1.f });
+	pSpeechBar->SetComponent(pTrasnform);
+
+
+	pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DefaultMaterial", RESOURCE_TYPE::MATERIAL);
+	pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
+	pMeshRender = new CMeshRender();
+	pMeshRender->SetMaterial(pMtrl);
+	pDynamicMtrl = pMeshRender->GetDynamicMaterial();
+	pDynamicMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"SpeechBarTex", RESOURCE_TYPE::TEXTURE));
+	pMeshRender->SetMaterial(pDynamicMtrl);
+
+	pMeshRender->SetMesh(pMesh);
+	pSpeechBar->SetComponent(pMeshRender);
+
+
 }

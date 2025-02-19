@@ -2,6 +2,7 @@
 #include "CUI.h"
 #include "CFontMgr.h"
 
+
 class CSpeechObject : public CUI
 {
 public:
@@ -10,6 +11,10 @@ public:
 
 public:
 	void SetFontColor(float r, float g, float b, float a) { m_iFontColor = FONT_RGBA(r, g, b, a); }
+	void SetFontSize(float _fSize) { m_fFontSize = _fSize; }
+	void SetSpeech(const wstring& _strSpeech) { m_strSpeech = _strSpeech; };
+
+	float GetFontSize() { return m_fFontSize; }
 protected:
 	virtual void tick()override;
 
@@ -22,6 +27,8 @@ protected:
 
 protected:
 	Vector2 GetWindowPosition();
+	void Speech(const wstring& _strSpeech);
+	void Speech(const wstring& _strSpeech, bool _bCenterAlignedX, bool _bCenterAlignedY, const Vector2& _vOffset = Vector2::Zero);
 
 protected:
 	wstring m_strSpeech;

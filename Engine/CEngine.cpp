@@ -9,6 +9,7 @@
 #include "CKeyMgr.h"
 #include "CUIMgr.h"
 #include "CFontMgr.h"
+#include "CEventMgr.h"
 
 int CEngine::init(HWND _hWnd, UINT _iWidth, UINT _iHeight)
 {
@@ -62,7 +63,8 @@ void CEngine::tick()
 
     CUIMgr::GetInst()->tick();
     CRoomMgr::GetInst()->tick();
-
+    
+    CEventMgr::GetInst()->tick();
 }
 
 void CEngine::render()

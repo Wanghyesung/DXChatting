@@ -1,17 +1,26 @@
 #pragma once
+#include "CSpeechObject.h"
 
-#include "CUI.h"
-
-class CSpeechBubble : public CUI
+class CSpeechBubble : public CSpeechObject
 {
 public:
 	CSpeechBubble();
 	virtual ~CSpeechBubble();
+	
+public:
+	void init(bool _bClientBubble);
+
+protected:
+	virtual void tick()override;
+
+protected:
+	virtual void MouseOn()override;
+	virtual void MouseLbtnDown()override;
+	virtual void MouseLbtnUp()override;
+	virtual void MouseLbtnClicked()override;
 
 
 private:
-	wstring m_strSpeech;
-	CSpeechBubble* m_pSpeechTarget;
 
 };
 

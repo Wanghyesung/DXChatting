@@ -21,8 +21,8 @@ void CResMgr::Init()
 {
 	InitMesh();
 	InitShader();
-	InitMaterial();
 	InitTexture();
+	InitMaterial();
 }
 
 void CResMgr::InitMesh()
@@ -107,16 +107,38 @@ void CResMgr::InitMaterial()
 	shared_ptr<CMaterial> pDefaultMaterial = make_shared<CMaterial>();
 	pDefaultMaterial->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
 	AddRes<CMaterial>(L"DefaultMaterial", pDefaultMaterial, RESOURCE_TYPE::MATERIAL);
+
+	shared_ptr<CMaterial> pBubbleMaterial1 = make_shared<CMaterial>();
+	pBubbleMaterial1->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
+	pBubbleMaterial1->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"spBubbleTex", RESOURCE_TYPE::TEXTURE));
+	AddRes<CMaterial>(L"BubbleMaterial1", pBubbleMaterial1, RESOURCE_TYPE::MATERIAL);
 }
 
 void CResMgr::InitTexture()
-{
-	shared_ptr<CTexture> pTexture = make_shared<CTexture>();
-	
+{	
 	wstring strCurPath = CPathMgr::GetInst()->GetCurrentPath();
-
+	
+	shared_ptr<CTexture> pTexture = make_shared<CTexture>();
     pTexture->Load(strCurPath+ L"Texture\\tem.jpg");
 	AddRes<CTexture>(L"TemTex", pTexture, RESOURCE_TYPE::TEXTURE);
+
+	pTexture = make_shared<CTexture>();
+	pTexture->Load(strCurPath + L"Texture\\speechBar.png");
+	AddRes<CTexture>(L"SpeechBarTex", pTexture, RESOURCE_TYPE::TEXTURE);
+
+
+	pTexture = make_shared<CTexture>();
+	pTexture->Load(strCurPath + L"Texture\\spBubble2.png");
+	AddRes<CTexture>(L"spBubble2Tex", pTexture, RESOURCE_TYPE::TEXTURE);
+
+	pTexture = make_shared<CTexture>();
+	pTexture->Load(strCurPath + L"Texture\\spBubble.png");
+	AddRes<CTexture>(L"spBubbleTex", pTexture, RESOURCE_TYPE::TEXTURE);
+
+	pTexture = make_shared<CTexture>();
+	pTexture->Load(strCurPath + L"Texture\\profile.png");
+	AddRes<CTexture>(L"profileTex", pTexture, RESOURCE_TYPE::TEXTURE);
+
 }
 
 void CResMgr::AddInputLayout(DXGI_FORMAT _eFormat, const char* _strSemanticName, UINT _iSlotNum, UINT _iSemanticIdx)
