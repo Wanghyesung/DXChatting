@@ -13,10 +13,11 @@
 
 CRoomMgr::CRoomMgr() :
 	m_pCurRoom(nullptr),
-	m_vChattingStartPos(Vector2::Zero)
+	m_vChattingStartPos(Vector2::Zero),
+	m_fUIOffset(0.f)
 {
 	m_vChattingStartPos = Vector2{ -200.f, 300.f };
-	m_fChattingLine = -250.f;
+	m_fChattingLine = -200.f;
 
 }
 
@@ -40,13 +41,14 @@ Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale)
 	Vector3 vCameraPos = pTransform->GetPosition();
 	//기준점 밖으로 나갔다면 내 카메라 위치 내리기
 
-	m_vChattingStartPos.y += vObjectScale.y;
-	if (m_vChattingStartPos.y >= m_fChattingLine)
+	m_vChattingStartPos.y -= (vObjectScale.y + 10.f);
+	if (m_vChattingStartPos.y <= m_fChattingLine)
 	{
-		float fDiff = m_vChattingStartPos.y - m_fChattingLine;
-		m_fChattingLine += m_vChattingStartPos.y;
+		//카메라와 같이 라인 내리기
+		m_fChattingLine -= (vObjectScale.y + 10.f);
+		m_fUIOffset -= (vObjectScale.y + 10.f);
 
-		vCameraPos.y += fDiff;
+		vCameraPos.y -= (vObjectScale.y + 10.f);
 		pTransform->SetPostion(vCameraPos);
 	}
 
@@ -211,6 +213,7 @@ void CRoomMgr::init()
 	pChattingRoom->AddObject(LAYER_TYPE::UI, pSpeechBar);
 
 	pTrasnform = new CTransform();
+	pSpeechBar->SetStaticPos(Vector3{ 100.f,-300.f,-0.2f });
 	pTrasnform->SetPostion(Vector3{ 100.f,-300.f,-0.2f });
 	pTrasnform->SetScale(Vector3{ 500.f,50.f,1.f });
 	pSpeechBar->SetComponent(pTrasnform);

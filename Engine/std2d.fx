@@ -76,7 +76,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
            if (LeftTop.x < vUV.x && vUV.x < LeftTop.x + Slice.x
                && LeftTop.y < vUV.y && vUV.y < LeftTop.y + Slice.y)
            {
-               output = tex_0.Sample(sam_0, vUV);
+               output = tex_0.Sample(sam_1, vUV);
            }
            else
            {
@@ -87,7 +87,7 @@ float4 PS_Std2D(VS_OUT _in) : SV_Target
         }
         else
         {
-            output = tex_0.Sample(sam_0, _in.vUV);
+            output = tex_0.Sample(sam_1, _in.vUV);
         }
     }
     else

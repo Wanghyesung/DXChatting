@@ -21,6 +21,6 @@ protected:
 
 
 private:
-
+	Vector2 m_vOffset;
 };
 

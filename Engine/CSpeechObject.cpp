@@ -3,11 +3,12 @@
 #include "CEngine.h"
 #include "CTransform.h"
 #include "CDevice.h"
+#include "CRoomMgr.h"
 CSpeechObject::CSpeechObject():
 	m_strSpeech{},
 	m_tSpeechInfo{},
-	m_fFontSize(0.f),
-	m_iFontColor(FONT_RGBA(255, 255, 255, 255))
+	m_fFontSize(20.f),
+	m_iFontColor(FONT_RGBA(0.f, 0.f, 0.f, 255))
 {
 }
 
@@ -22,8 +23,6 @@ void CSpeechObject::tick()
 {
 	CUI::tick();
 
-	if (!m_strSpeech.empty())
-		Speech(m_strSpeech);
 }
 
 void CSpeechObject::MouseOn()
@@ -66,6 +65,8 @@ void CSpeechObject::Speech(const wstring& _strSpeech)
 {
 	Vector2 vWindowPos = GetWindowPosition();
 	vWindowPos -= (m_fFontSize / 2.f);
+	vWindowPos.y += CRoomMgr::GetInst()->GetUIOffset();
+
 	CFontMgr::GetInst()->AddFont(_strSpeech, vWindowPos.x , vWindowPos.y , m_fFontSize, m_iFontColor);
 }
 
@@ -74,14 +75,15 @@ void CSpeechObject::Speech(const wstring& _strSpeech, bool _bCenterAlignedX, boo
 	Vector3 vTransformScale = GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM)->GetScale();
 
 	Vector2 vWindowPos = GetWindowPosition();
-	vWindowPos -= (m_fFontSize / 2.f);
 
 	if (_bCenterAlignedX == false)
 		vWindowPos.x -= (vTransformScale.x /2.f);
 	if (_bCenterAlignedY == false)
 		vWindowPos.y -= (vTransformScale.y / 2.f);
 	
+	vWindowPos -= (m_fFontSize / 2.f); //center
 	vWindowPos += _vOffset;
+	vWindowPos.y += CRoomMgr::GetInst()->GetUIOffset();
 
 	CFontMgr::GetInst()->AddFont(_strSpeech, vWindowPos.x, vWindowPos.y, m_fFontSize, m_iFontColor);
 }

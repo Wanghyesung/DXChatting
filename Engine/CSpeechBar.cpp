@@ -7,6 +7,7 @@
 #include "CKeyMgr.h"
 #include "CEventMgr.h"
 #include "CSpeechBubble.h"
+#include "CRoomMgr.h"
 
 CSpeechBar::CSpeechBar():
 	m_fRepeatTimer(0.5f),
@@ -25,10 +26,10 @@ CSpeechBar::~CSpeechBar()
 
 void CSpeechBar::tick()
 {
-	CUI::tick();
 	
 	//카메라 위치와 맞게 y축
-	
+	tick_offsetpos();
+
 	check_key();
 
 	if (m_strTemWchar.empty() && m_strSpeech.empty())
@@ -43,6 +44,8 @@ void CSpeechBar::tick()
 		else
 			tick_speech();
 	}
+
+	CUI::tick();
 }
 
 void CSpeechBar::check_key()
@@ -78,11 +81,25 @@ void CSpeechBar::send_data()
 	CSpeechBubble* pSpeechBubble = new CSpeechBubble();
 	pSpeechBubble->init(true);
 
-	//CEventMgr::GetInst()->CreateChatting()
+	
+	CEventMgr::GetInst()->CreateChatting(pSpeechBubble, m_strSpeech.c_str());
+	//m_strSpeech.clear();
 }
 
 void CSpeechBar::recv_data()
 {
+
+}
+
+void CSpeechBar::tick_offsetpos()
+{
+	CTransform* pTransform = GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
+
+	float fOffset = CRoomMgr::GetInst()->GetUIOffset();
+	Vector3 vPos = m_vStaticPos;
+	vPos.y += fOffset;
+
+	pTransform->SetPostion(vPos);
 
 }
 

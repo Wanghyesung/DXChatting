@@ -13,6 +13,8 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CUI;
 public:
 	Vector2 FindSpawnPoint(const Vector2& vObjectScale);
+	float GetUIOffset() { return m_fUIOffset; }
+
 	void AddObject(LAYER_TYPE _eLayerType, CObject* _pObj);
 
 private:
@@ -26,7 +28,6 @@ private:
 	CLayer* GetCurLayer(LAYER_TYPE _eLayerType);
 
 	const vector<CObject*>& GetUIs();
-
 	void EraseUI(CObject* _pObject);
 
 private:
@@ -39,5 +40,6 @@ private:
 
 	Vector2 m_vChattingStartPos;
 	float m_fChattingLine;
+	float m_fUIOffset;
 };
 

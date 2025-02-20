@@ -3,8 +3,10 @@
 #include "CMeshRender.h"
 #include "CTransform.h"
 #include "CResMgr.h"
+#include "CEventMgr.h"
 
-CSpeechBubble::CSpeechBubble()
+CSpeechBubble::CSpeechBubble():
+	m_vOffset(20.f, -10.f)
 {
 
 }
@@ -30,7 +32,13 @@ void CSpeechBubble::init(bool _bClientBubble)
 
 void CSpeechBubble::tick()
 {
-	CSpeechObject::tick();
+	CUI::tick();
+
+	int iLen = m_strSpeech.size();
+	int iNewLineCnt = iLen / MAX_FONT_COUNT;
+	int iYOffset = (iLen - iNewLineCnt) / MAX_FONT_COUNT;
+	if (!m_strSpeech.empty())
+		Speech(m_strSpeech, false, true, Vector2{ m_vOffset.x, m_vOffset.y * iYOffset });
 }
 
 void CSpeechBubble::MouseOn()
