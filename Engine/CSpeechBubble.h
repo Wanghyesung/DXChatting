@@ -8,7 +8,7 @@ public:
 	virtual ~CSpeechBubble();
 	
 public:
-	void init(bool _bClientBubble);
+	void init(bool _bOther = false);
 
 protected:
 	virtual void tick()override;

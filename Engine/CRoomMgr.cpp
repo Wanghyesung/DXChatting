@@ -32,7 +32,7 @@ CRoomMgr::~CRoomMgr()
 	m_mapRoom.clear();
 }
 
-Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale)
+Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr)
 {
 	CLayer* pLayer = GetCurLayer(LAYER_TYPE::CAMERA);
 	CObject* pCamera = pLayer->m_vecObject[0];
@@ -41,7 +41,12 @@ Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale)
 	Vector3 vCameraPos = pTransform->GetPosition();
 	//기준점 밖으로 나갔다면 내 카메라 위치 내리기
 
+	Vector2 vRetPos = Vector2::Zero;
 	m_vChattingStartPos.y -= (vObjectScale.y + 10.f);
+	vRetPos = m_vChattingStartPos;
+	if (_bOtehr)
+		vRetPos.x *= -1;
+
 	if (m_vChattingStartPos.y <= m_fChattingLine)
 	{
 		//카메라와 같이 라인 내리기
@@ -52,7 +57,7 @@ Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale)
 		pTransform->SetPostion(vCameraPos);
 	}
 
-	return m_vChattingStartPos;
+	return vRetPos;
 }
 
 void CRoomMgr::AddObject(LAYER_TYPE _eLayerType, CObject* _pObj)

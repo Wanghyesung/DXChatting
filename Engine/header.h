@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <queue>
 #include <memory>
+#include <typeindex>
 
 using std::vector;
 using std::list;

@@ -112,6 +112,12 @@ void CResMgr::InitMaterial()
 	pBubbleMaterial1->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
 	pBubbleMaterial1->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"spBubbleTex", RESOURCE_TYPE::TEXTURE));
 	AddRes<CMaterial>(L"BubbleMaterial1", pBubbleMaterial1, RESOURCE_TYPE::MATERIAL);
+
+	shared_ptr<CMaterial> pBubbleMaterial2 = make_shared<CMaterial>();
+	pBubbleMaterial2->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
+	pBubbleMaterial2->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"spBubble2Tex", RESOURCE_TYPE::TEXTURE));
+	AddRes<CMaterial>(L"BubbleMaterial2", pBubbleMaterial2, RESOURCE_TYPE::MATERIAL);
+
 }
 
 void CResMgr::InitTexture()

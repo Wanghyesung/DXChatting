@@ -18,16 +18,17 @@ void CEventMgr::tick()
 	excute();
 }
 
-void CEventMgr::CreateChatting(CObject* _pObj, const WCHAR* _strPoint)
+void CEventMgr::CreateChatting(CObject* _pObj, const WCHAR* _strPoint, bool _bOther)
 {
-
 	tEvent tEvn = {};
 	tEvn.eEvent =  EVENT_TYPE::CREATE_CATTING;
-	tEvn.lParam = _pObj;
-	tEvn.wParam = const_cast<void*>(static_cast<const void*>(_strPoint));
+	tEvn.lParam = _pObj; //이미 new로 할당한 객체는 delete를 2번할 위험이 있음
+	tEvn.wParam = make_shared<wstring>(_strPoint); // const_cast<void*>(static_cast<const void*>(_strPoint));
+	tEvn.xParam = make_shared<bool>(_bOther);
+
 	m_vecEvent.push_back(tEvn);
-	
 }
+
 
 
 
@@ -39,12 +40,15 @@ void CEventMgr::excute()
 		{
 		case CREATE_CATTING:
 		{
-			CObject* pObject = static_cast<CObject*>(tEvn.lParam);
-			const WCHAR* strPoint = static_cast<const WCHAR*>(tEvn.wParam);
-			create_chatting(pObject, strPoint);
+			CObject* pObject = static_cast<CObject*>(tEvn.lParam); 
+			const wstring& strChat = *static_cast<wstring*>(tEvn.wParam.get()); //값복사가 없게 참조로 받기
+			bool bOther = *static_cast<bool*>(tEvn.xParam.get());
+			create_chatting(pObject, strChat, bOther);
 		}
 		break;
-			
+
+		break;
+
 		default:
 			break;
 		}
@@ -55,23 +59,22 @@ void CEventMgr::excute()
 }
 
 
-void CEventMgr::create_chatting(CObject* _pObj, const WCHAR* _strPoint)
+void CEventMgr::create_chatting(CObject* _pObj, const wstring& _strChat, bool _bOther)
 {
-	 
 	 //문자열 가공
-	 wstring strChat = adjustment_string(_strPoint);
+	 wstring strChat = adjustment_string(_strChat);
 	 //크기 조정
 	 Vector2 vScale = square_root_scaling(_pObj, strChat);
 
-
 	 //위치
 	 CTransform* pTransform = _pObj->GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
-	 Vector2 vSpawnPos = CRoomMgr::GetInst()->FindSpawnPoint(vScale);
+	 Vector2 vSpawnPos = CRoomMgr::GetInst()->FindSpawnPoint(vScale, _bOther);
 	 vSpawnPos += (vScale / 2.f);
 	 pTransform->SetPostion(Vector3(vSpawnPos.x, vSpawnPos.y,-0.1f));
 	
 	 CRoomMgr::GetInst()->AddObject(LAYER_TYPE::UI, _pObj);
 }
+
 
 Vector2 CEventMgr::square_root_scaling(CObject* _pObj, const wstring& _strChat)
 {
@@ -99,18 +102,18 @@ Vector2 CEventMgr::square_root_scaling(CObject* _pObj, const wstring& _strChat)
 	return vScale;
 }
 
-wstring CEventMgr::adjustment_string(const WCHAR* _strPoint)
+wstring CEventMgr::adjustment_string(const wstring& _strChat)
 {
-	int iLen = lstrlenW(_strPoint);
+	int iLen = _strChat.size();
 	wstring strChat = {};
-	strChat.push_back(_strPoint[0]);
+	strChat.push_back(_strChat[0]);
 
 	for (int i = 1; i < iLen; ++i)
 	{
 		if (i % MAX_FONT_COUNT == 0)
 			strChat.push_back(L'\n');
 
-		strChat.push_back(_strPoint[i]);
+		strChat.push_back(_strChat[i]);
 	}
 
 	return strChat;

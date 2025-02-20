@@ -16,13 +16,17 @@ CSpeechBubble::~CSpeechBubble()
 
 }
 
-void CSpeechBubble::init(bool _bClientBubble)
+void CSpeechBubble::init(bool _bOther)
 {
 	//내가 보낸 채팅인지 상대방인지 구분
 
 	SetComponent(new CTransform());
 
-	shared_ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"BubbleMaterial1", RESOURCE_TYPE::MATERIAL);
+	wstring MtrlName = L"BubbleMaterial1";
+	if (_bOther)
+		MtrlName = L"BubbleMaterial2";
+
+	shared_ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(MtrlName, RESOURCE_TYPE::MATERIAL);
 	shared_ptr<CMesh> pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
 	CMeshRender* pMeshRender = new CMeshRender();
 	pMeshRender->SetMaterial(pMtrl);

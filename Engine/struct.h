@@ -51,6 +51,22 @@ struct tFontInfo
 struct tEvent
 {
 	EVENT_TYPE eEvent;
-	void* wParam;
 	void* lParam;
+	shared_ptr<void> wParam;
+	
+	//지역 변수로 넘길시 다음 프레임에서 원본 데이터가 사라지게 때문에 shared로 저장
+	shared_ptr<void> xParam;
+	
+	//std::unordered_map<std::type_index, std::shared_ptr<void>> xParam;
+	//template <typename T>
+	//void SetParam(shared_ptr<T> _ptr)
+	//{
+	//	xParam[typeid(T)] = _ptr;
+	//}
+	//
+	//template <typename T>
+	//shared_ptr<T> GetParam()
+	//{
+	//	return static_pointer_cast<T>(xParam[typeid(T)]);
+	//}
 };

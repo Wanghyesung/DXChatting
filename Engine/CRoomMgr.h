@@ -12,7 +12,7 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CUIMgr;
 	friend class CUI;
 public:
-	Vector2 FindSpawnPoint(const Vector2& vObjectScale);
+	Vector2 FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr = false);
 	float GetUIOffset() { return m_fUIOffset; }
 
 	void AddObject(LAYER_TYPE _eLayerType, CObject* _pObj);

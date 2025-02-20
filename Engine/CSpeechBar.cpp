@@ -26,7 +26,6 @@ CSpeechBar::~CSpeechBar()
 
 void CSpeechBar::tick()
 {
-	
 	//카메라 위치와 맞게 y축
 	tick_offsetpos();
 
@@ -58,6 +57,9 @@ void CSpeechBar::check_key()
 			m_strTemWchar += static_cast<WCHAR>(g_arrVK[i]);
 		}
 	}
+
+	if (KEY_TAP(KEY::SPACE))
+		test = !test;
 }
 
 void CSpeechBar::tick_speech()
@@ -79,10 +81,11 @@ void CSpeechBar::send_data()
 	//패킷 만들고 던지는 용 -> 서버에서 다른 클라로 보냈다고 확인 ack패킷이 오면  recv_data()함수에서 말풍선 추가
 
 	CSpeechBubble* pSpeechBubble = new CSpeechBubble();
-	pSpeechBubble->init(true);
+	pSpeechBubble->init(test);
 
 	
-	CEventMgr::GetInst()->CreateChatting(pSpeechBubble, m_strSpeech.c_str());
+	CEventMgr::GetInst()->CreateChatting(pSpeechBubble, m_strSpeech.c_str(), test);
+	m_strSpeech.clear();
 	//m_strSpeech.clear();
 }
 

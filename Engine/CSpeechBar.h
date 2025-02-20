@@ -38,5 +38,8 @@ private:
 	bool m_bStartBar;
 	float m_fRepeatTimer;
 	float m_fCurTime;
+
+
+	bool test = false;
 };
 
