@@ -14,6 +14,8 @@ public:
 	void SetFontSize(float _fSize) { m_fFontSize = _fSize; }
 	void SetSpeech(const wstring& _strSpeech) { m_strSpeech = _strSpeech; };
 
+	const wstring& GetSpeech() { return m_strSpeech; }
+
 	float GetFontSize() { return m_fFontSize; }
 protected:
 	virtual void tick()override;
@@ -23,7 +25,7 @@ protected:
 	virtual void MouseLbtnDown()override;
 	virtual void MouseLbtnUp()override;
 	virtual void MouseLbtnClicked()override;
-
+	virtual void MouseRelease()override;
 
 protected:
 	Vector2 GetWindowPosition();

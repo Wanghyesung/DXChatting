@@ -22,7 +22,6 @@ CSpeechObject::~CSpeechObject()
 void CSpeechObject::tick()
 {
 	CUI::tick();
-
 }
 
 void CSpeechObject::MouseOn()
@@ -46,6 +45,11 @@ void CSpeechObject::MouseLbtnClicked()
 {
 	CUI::MouseLbtnClicked();
 
+}
+
+void CSpeechObject::MouseRelease()
+{
+	CUI::MouseRelease();
 }
 
 Vector2 CSpeechObject::GetWindowPosition()

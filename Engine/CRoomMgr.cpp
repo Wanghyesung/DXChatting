@@ -10,6 +10,8 @@
 #include "CSpeechBar.h"
 #include "CEngine.h"
 #include "CPersonList.h"
+#include "CEventMgr.h"
+#include "CLoginUI.h"
 
 CPersonList* CRoomMgr::GPersonList = nullptr;
 
@@ -32,6 +34,17 @@ CRoomMgr::~CRoomMgr()
 		iter->second = nullptr;
 	}
 	m_mapRoom.clear();
+}
+
+void CRoomMgr::ChanageRoom(const wstring& _strName)
+{
+	auto iter = m_mapRoom.find(_strName);
+	if (iter != m_mapRoom.end())
+	{
+		//exit
+		m_pCurRoom = iter->second;
+		//enter
+	}
 }
 
 Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr)
@@ -108,6 +121,24 @@ const vector<CObject*>& CRoomMgr::GetUIs()
 	return m_pCurRoom->m_vecLayer[(UINT)LAYER_TYPE::UI]->m_vecObject;
 }
 
+void CRoomMgr::ClientLogin()
+{
+	//서버에 패킷 전송
+
+	Login(); //나중에 session recv에서 처리
+}
+
+void CRoomMgr::Login()
+{
+	//로그린 패킷 먼저 보내고 서버에서 허락후 session recv에서 Login함수로 
+	CEventMgr::GetInst()->ChanageRoom(L"Chatting");
+
+	if (m_strClientName.size() == 0)
+		assert(nullptr);
+
+	GPersonList->add_propile(m_strClientName);
+}
+
 void CRoomMgr::EraseObject(CObject* _pObject, LAYER_TYPE _eLayer)
 {
 	vector<CObject*>& vecObj = m_pCurRoom->m_vecLayer[(UINT)_eLayer]->m_vecObject;
@@ -134,21 +165,23 @@ void CRoomMgr::tick()
 void CRoomMgr::init()
 {
 	CRoom* pChattingRoom = new CRoom();
-	m_mapRoom.insert(make_pair(L"Chatting", m_pCurRoom));
+	m_mapRoom.insert(make_pair(L"Chatting", pChattingRoom));
 
 	CRoom* pLobby = new CRoom();
 	m_mapRoom.insert(make_pair(L"lobby", pLobby));
-	m_pCurRoom = pChattingRoom;
+	m_pCurRoom = pLobby;
 
 	/*//////////////
 		 Lobby
 	*///////////////
-	CSpeechObject* pUI = new CSpeechObject();
+	CLoginUI* pUI = new CLoginUI();
 	pUI->SetName(L"TemObject");
 	pUI->SetSpeech(L"채팅방 참가");
-	
 	pUI->SetFontSize(50.f);
-	
+
+	//bind 함수를 "고정된 인자"와 함께 저장하여 나중에 실행할 수 있도록 만드는 것.
+	pUI->SetMouseClickedFunction(std::bind(&CRoomMgr::ClientLogin, this)); //콜백함수
+
 	pLobby->AddObject(LAYER_TYPE::UI, pUI);
 	
 	CTransform* pTrasnform = new CTransform();
@@ -157,33 +190,32 @@ void CRoomMgr::init()
 	pUI->SetComponent(pTrasnform);
 
 
-	shared_ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DefaultMaterial", RESOURCE_TYPE::MATERIAL);
+	shared_ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"BorderMaterial", RESOURCE_TYPE::MATERIAL);
 	shared_ptr<CMesh> pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
 	CMeshRender* pMeshRender = new CMeshRender();
 	pMeshRender->SetMaterial(pMtrl);
 	pMeshRender->SetMesh(pMesh);
-	//pMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"TemTex", RESOURCE_TYPE::TEXTURE));
 	pUI->SetComponent(pMeshRender);
 
 	/*///////////////////////
 			SPEECHBAR
 	*////////////////////////
 	CSpeechBar* pSpeechBar = new CSpeechBar();
-	pUI->SetName(L"SpeechBar");
+	pUI->SetSpeechBar(pSpeechBar);
+	pSpeechBar->SetBaseSpeech(L"NAME :");
+	pSpeechBar->SetName(L"SpeechBar");
 	pLobby->AddObject(LAYER_TYPE::UI, pSpeechBar);
+	pSpeechBar->SetFontSize(40.f);
 
 	pTrasnform = new CTransform();
-	pTrasnform->SetPostion(Vector3{ 200.f,-200.f,-0.2f });
-	pTrasnform->SetScale(Vector3{ 200.f,200.f,1.f });
+	pSpeechBar->SetStaticPos(Vector3{ 0.f,-100.f,-0.2f });
+	pTrasnform->SetScale(Vector3{ 400.f,100.f,1.f });
 	pSpeechBar->SetComponent(pTrasnform);
 
-	pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"DefaultMaterial", RESOURCE_TYPE::MATERIAL);
+	pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(L"BorderMaterial", RESOURCE_TYPE::MATERIAL);
 	pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
 	pMeshRender = new CMeshRender();
 	pMeshRender->SetMaterial(pMtrl);
-	shared_ptr<CMaterial> pDynamicMtrl = pMeshRender->GetDynamicMaterial();
-	pMeshRender->SetMaterial(pDynamicMtrl);
-
 	pMeshRender->SetMesh(pMesh);
 	pSpeechBar->SetComponent(pMeshRender);
 
@@ -219,9 +251,9 @@ void CRoomMgr::init()
 	pObject->SetComponent(pCamera);
 
 	//back
-	pObject = new CUI();
+	pObject = new CObject();
 	pObject->SetName(L"CAHTTING_BACK");
-	pChattingRoom->AddObject(LAYER_TYPE::PLAYER, pObject);
+	pChattingRoom->AddObject(LAYER_TYPE::BASE, pObject);
 	
 	pTrasnform = new CTransform();
 	pTrasnform->SetPostion(Vector3(1.f, 1.f, -0.4f));
@@ -249,7 +281,7 @@ void CRoomMgr::init()
 	pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
 	pMeshRender = new CMeshRender();
 	pMeshRender->SetMaterial(pMtrl);
-	pDynamicMtrl = pMeshRender->GetDynamicMaterial();
+	shared_ptr<CMaterial> pDynamicMtrl = pMeshRender->GetDynamicMaterial();
 	pDynamicMtrl->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"SpeechBarTex", RESOURCE_TYPE::TEXTURE));
 	pMeshRender->SetMaterial(pDynamicMtrl);
 
@@ -273,9 +305,9 @@ void CRoomMgr::init()
 	pMeshRender->SetMaterial(pMtrl);
 	pMeshRender->SetMesh(pMesh);
 	GPersonList->SetComponent(pMeshRender);
-	GPersonList->add_propile(L"Me");
-	GPersonList->add_propile(L"왕혜성");
-	GPersonList->add_propile(L"ㅇㄴㄹㄷㅈㄹㅈㄷㄹ");
-	GPersonList->add_propile(L"ㅇㄴㄹㄷ");
-	GPersonList->add_propile(L"ㅇㄴㄹ");
+	//GPersonList->add_propile(L"Me");
+	//GPersonList->add_propile(L"왕혜성");
+	//GPersonList->add_propile(L"ㅇㄴㄹㄷㅈㄹㅈㄷㄹ");
+	//GPersonList->add_propile(L"ㅇㄴㄹㄷ");
+	//GPersonList->add_propile(L"ㅇㄴㄹ");
 }

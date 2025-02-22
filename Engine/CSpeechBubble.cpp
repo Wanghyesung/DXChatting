@@ -68,3 +68,8 @@ void CSpeechBubble::MouseLbtnClicked()
 	CSpeechObject::MouseLbtnClicked();
 
 }
+
+void CSpeechBubble::MouseRelease()
+{
+	CSpeechObject::MouseRelease();
+}

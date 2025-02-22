@@ -7,6 +7,7 @@ struct tUIEvent
 	std::function<void(void)> pMouseDown;
 	std::function<void(void)> pMouseUp;
 	std::function<void(void)> pMouseClicked;
+	std::function<void(void)> pMouseRelease;
 };
 
 class CUI : public CObject
@@ -22,6 +23,7 @@ public:
 	void SetMouseDownFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseDown = _pFunc; }
 	void SetMouseUpFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseUp = _pFunc; }
 	void SetMouseClickedFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseClicked = _pFunc; }
+	void SetMouseReleaseFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseRelease = _pFunc; }
 
 
 protected:
@@ -32,6 +34,7 @@ protected:
 	virtual void MouseLbtnDown();
 	virtual void MouseLbtnUp();
 	virtual void MouseLbtnClicked();
+	virtual void MouseRelease();
 
 private:
 	bool check_mouse();

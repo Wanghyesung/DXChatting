@@ -40,20 +40,29 @@ void CPropile::tick()
 
 void CPropile::MouseOn()
 {
-
+	CUI::MouseOn();
 }
 
 void CPropile::MouseLbtnDown()
 {
-
+	CUI::MouseLbtnDown();
 }
 
 void CPropile::MouseLbtnUp()
 {
+	CUI::MouseLbtnUp();
 
 }
 
 void CPropile::MouseLbtnClicked()
 {
+	CUI::MouseLbtnClicked();
 
 }
+
+void CPropile::MouseRelease()
+{
+	CUI::MouseRelease();
+
+}
+

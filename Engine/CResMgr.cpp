@@ -106,6 +106,12 @@ void CResMgr::InitShader()
 	pShader->CreatePixelShader(L"std2d_entire.fx", "PS_Std2D");
 	
 	AddRes<CShader>(L"std2dEntireShader", pShader, RESOURCE_TYPE::SHADER);
+
+	pShader = make_shared<CGraphicsShader>();
+	pShader->CreateVertexShader(L"outline.fx", "VS_Std2D");
+	pShader->CreatePixelShader(L"outline.fx", "PS_Std2D");
+
+	AddRes<CShader>(L"outlineShader", pShader, RESOURCE_TYPE::SHADER);
 }
 
 
@@ -140,6 +146,14 @@ void CResMgr::InitMaterial()
 	pPropileMaterial->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
 	pPropileMaterial->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"propileTex", RESOURCE_TYPE::TEXTURE));
 	AddRes<CMaterial>(L"PropileMaterial", pPropileMaterial, RESOURCE_TYPE::MATERIAL);
+
+	shared_ptr<CMaterial> pBorderMaterial = make_shared<CMaterial>();
+	pBorderMaterial->SetShader(FindRes<CGraphicsShader>(L"outlineShader", RESOURCE_TYPE::SHADER));
+	float fXWeight = 0.02f;
+	float fYWeight = 0.05f;
+	pBorderMaterial->SetMtrlParm(MTRL_PARAM::FLOAT_0, &fXWeight);
+	pBorderMaterial->SetMtrlParm(MTRL_PARAM::FLOAT_1, &fYWeight);
+	AddRes<CMaterial>(L"BorderMaterial", pBorderMaterial, RESOURCE_TYPE::MATERIAL);
 
 }
 

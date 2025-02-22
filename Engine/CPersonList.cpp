@@ -42,6 +42,11 @@ void CPersonList::MouseLbtnClicked()
 	CUI::MouseLbtnClicked();
 }
 
+void CPersonList::MouseRelease()
+{
+	CUI::MouseRelease();
+}
+
 void CPersonList::add_propile(const wstring& _strName)
 {
 	CPropile* pPropile = new CPropile();

@@ -171,6 +171,9 @@
     <ClInclude Include="CPropile.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="CLoginUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -305,6 +308,9 @@
     <ClCompile Include="CPropile.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="CLoginUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -319,6 +325,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="std2d_entire.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="outline.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -5,7 +5,9 @@
 #include "CKeyMgr.h"
 
 CUIMgr::CUIMgr():
-	m_pTargetUI(nullptr)
+	m_pTargetUI(nullptr),
+	m_pClickUI(nullptr),
+	m_pPrevClickUI(nullptr)
 {
 
 }
@@ -46,6 +48,14 @@ void CUIMgr::tick()
 		{
 			m_pTargetUI->MouseLbtnClicked();
 			m_pTargetUI->m_bLbntDown = false;
+
+			m_pClickUI = m_pTargetUI;
+			if (m_pPrevClickUI && m_pClickUI != m_pPrevClickUI)
+			{
+				m_pPrevClickUI->MouseRelease();
+			}
+			m_pPrevClickUI = m_pClickUI;
+
 		}
 
 		m_pTargetUI->m_bMouseOn = false;

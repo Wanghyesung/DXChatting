@@ -21,7 +21,7 @@ protected:
 	virtual void MouseLbtnDown();
 	virtual void MouseLbtnUp();
 	virtual void MouseLbtnClicked();
-	
+	virtual void MouseRelease();
 private:
 	void add_propile(const wstring& _strName);
 

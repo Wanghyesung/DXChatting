@@ -21,5 +21,7 @@ private:
 private:
 	CUI* m_pTargetUI;
 
+	CUI* m_pClickUI;
+	CUI* m_pPrevClickUI;
 };
 

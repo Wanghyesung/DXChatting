@@ -13,7 +13,9 @@ CSpeechBar::CSpeechBar():
 	m_fRepeatTimer(0.5f),
 	m_fCurTime(0.f),
 	m_bStartBar(false),
-	m_strTemWchar(L"")
+	m_bCheckTime(false),
+	m_strBaseSpeech(L""),
+	m_strPrevBaseSpeech(L"")
 {
 	m_fFontSize = 20.f;
 	m_iFontColor = FONT_RGBA(0, 0, 0, 255);
@@ -29,19 +31,15 @@ void CSpeechBar::tick()
 	//카메라 위치와 맞게 y축
 	tick_offsetpos();
 
-	check_key();
-
-	if (m_strTemWchar.empty() && m_strSpeech.empty())
+	if (m_strSpeech.empty() && m_bStartBar == false)
 	{
-		repeat_startbar();
+		base_speech();
 	}
-
-	else
+	else 
 	{
-		if (KEY_TAP(KEY::ENTER))
-			send_data();
-		else
-			tick_speech();
+		check_key();
+	
+		CSpeechObject::Speech(m_strSpeech, false, true, Vector2{ 30.f,0.f });
 	}
 
 	CUI::tick();
@@ -49,31 +47,32 @@ void CSpeechBar::tick()
 
 void CSpeechBar::check_key()
 {
-	m_strTemWchar.clear();
 	for (UINT i = (UINT)KEY::A; i <= (UINT)KEY::_9; ++i)
 	{
 		if (KEY_TAP((KEY)i))
 		{
-			m_strTemWchar += static_cast<WCHAR>(g_arrVK[i]);
+			m_strSpeech += static_cast<WCHAR>(g_arrVK[i]);
 		}
 	}
 
-	if (KEY_TAP(KEY::SPACE))
-		test = !test;
-}
-
-void CSpeechBar::tick_speech()
-{
 	if (KEY_TAP(KEY::BACK_SPACE))
 		m_strSpeech.pop_back();
-	else if (KEY_TAP(KEY::SPACE))
+	if (KEY_TAP(KEY::SPACE))
 		m_strSpeech.push_back(L' ');
 
+	if (KEY_TAP(KEY::SPACE))
+		test = !test;
 
-	for (WCHAR ch : m_strTemWchar)
-		m_strSpeech += ch;
+	if (KEY_TAP(KEY::ENTER))
+		enter();
+}
 
-	CSpeechObject::Speech(m_strSpeech, false, true, Vector2{ 30.f,0.f });
+void CSpeechBar::enter()
+{
+	if (m_strSpeech.empty() || m_bStartBar == false)
+		return;
+
+	send_data();
 }
 
 void CSpeechBar::send_data()
@@ -106,15 +105,27 @@ void CSpeechBar::tick_offsetpos()
 
 }
 
+void CSpeechBar::base_speech()
+{
+	//기본말 세팅이 없다면
+	if (m_strBaseSpeech.empty())
+	{
+		repeat_startbar();
+	}
+	else
+	{
+		CSpeechObject::Speech(m_strBaseSpeech, false, true, Vector2{30.f,0.f});
+	}
+
+}
 
 void CSpeechBar::repeat_startbar()
 {
 	check_time();
 
-	if (m_bStartBar == false)
-	{
+	if(m_bCheckTime)
 		CSpeechObject::Speech(L"|", false, true, Vector2{30.f,0.f});
-	}
+	
 }
 
 void CSpeechBar::check_time()
@@ -123,7 +134,7 @@ void CSpeechBar::check_time()
 	if (m_fCurTime >= m_fRepeatTimer)
 	{
 		m_fCurTime = 0.f;
-		m_bStartBar = !m_bStartBar;
+		m_bCheckTime = !m_bCheckTime;
 	}
 }
 
@@ -135,6 +146,8 @@ void CSpeechBar::MouseOn()
 
 void CSpeechBar::MouseLbtnDown()
 {
+	m_bStartBar = true;
+
 	CUI::MouseLbtnDown();
 	//m_bStartBar = true;
 }
@@ -146,7 +159,15 @@ void CSpeechBar::MouseLbtnUp()
 
 void CSpeechBar::MouseLbtnClicked()
 {
+	
 	CUI::MouseLbtnClicked();
 
+}
+
+void CSpeechBar::MouseRelease()
+{
+	m_bStartBar = false;
+
+	CUI::MouseRelease();
 }
 

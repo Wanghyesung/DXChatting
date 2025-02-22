@@ -18,6 +18,15 @@ void CEventMgr::tick()
 	excute();
 }
 
+void CEventMgr::ChanageRoom(const WCHAR* _strPoint)
+{
+	tEvent tEvn = {};
+	tEvn.eEvent = EVENT_TYPE::CHANAGE_ROOM;
+	tEvn.wParam = make_shared<wstring>(_strPoint);
+	//tEvn.lParam = const_cast<void*>(static_cast<const void*>(_strPoint));
+	m_vecEvent.push_back(tEvn);
+}
+
 void CEventMgr::CreateChatting(CObject* _pObj, const WCHAR* _strPoint, bool _bOther)
 {
 	tEvent tEvn = {};
@@ -49,6 +58,13 @@ void CEventMgr::excute()
 	{
 		switch (tEvn.eEvent)
 		{
+		case CHANAGE_ROOM:
+		{
+			wstring strRoomName = *static_cast<wstring*>(tEvn.wParam.get());
+			CRoomMgr::GetInst()->ChanageRoom(strRoomName);
+		}
+		break;
+
 		case CREATE_OBJECT:
 		{
 			CObject* pObject = static_cast<CObject*>(tEvn.lParam);
