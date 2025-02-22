@@ -23,6 +23,7 @@ public:
 	COMPONENT_TYPE GetComponentType() { return m_eComponentType; }
 public:
 	void SetOwner(CObject* _pOwner) { m_pOwner = _pOwner; }
+	CObject* GetOwner() { return m_pOwner; }
 
 private:
 	CObject* m_pOwner;

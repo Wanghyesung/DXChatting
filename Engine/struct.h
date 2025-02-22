@@ -51,9 +51,10 @@ struct tFontInfo
 struct tEvent
 {
 	EVENT_TYPE eEvent;
+	LAYER_TYPE eLayer;
+
 	void* lParam;
 	shared_ptr<void> wParam;
-	
 	//지역 변수로 넘길시 다음 프레임에서 원본 데이터가 사라지게 때문에 shared로 저장
 	shared_ptr<void> xParam;
 	

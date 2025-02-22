@@ -88,8 +88,9 @@ CUI* CUIMgr::GetTargetUI(CUI* _pFocuseUI)
 		pTargetUI = queueUI.front();
 		queueUI.pop();
 
-		for (CUI* pChildUI : pTargetUI->m_vecChildUI)
+		for (CObject* pChild : pTargetUI->GetChilds())
 		{
+			CUI* pChildUI = static_cast<CUI*>(pChild);
 			if (pChildUI->m_bMouseOn)
 			{
 				//기존 UI 해제

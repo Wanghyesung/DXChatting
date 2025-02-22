@@ -22,9 +22,20 @@ void CEventMgr::CreateChatting(CObject* _pObj, const WCHAR* _strPoint, bool _bOt
 {
 	tEvent tEvn = {};
 	tEvn.eEvent =  EVENT_TYPE::CREATE_CATTING;
-	tEvn.lParam = _pObj; //이미 new로 할당한 객체는 delete를 2번할 위험이 있음
-	tEvn.wParam = make_shared<wstring>(_strPoint); // const_cast<void*>(static_cast<const void*>(_strPoint));
+	tEvn.lParam = _pObj; //이미 new로 할당한 객체는 delete를 2번할 위험이 있음 (shared_ptr<class>(_pObj);)
+	tEvn.wParam = make_shared<wstring>(_strPoint); //_strPoint의 값을 복사한 새로운 std::wstring 객체를 힙(Heap) 메모리에 생성
+	// const_cast<void*>(static_cast<const void*>(_strPoint));
 	tEvn.xParam = make_shared<bool>(_bOther);
+
+	m_vecEvent.push_back(tEvn);
+}
+
+void CEventMgr::CreateObject(CObject* _pObj, LAYER_TYPE _eType)
+{
+	tEvent tEvn = {};
+	tEvn.eEvent = EVENT_TYPE::CREATE_OBJECT;
+	tEvn.eLayer = _eType;
+	tEvn.lParam = _pObj;
 
 	m_vecEvent.push_back(tEvn);
 }
@@ -38,6 +49,15 @@ void CEventMgr::excute()
 	{
 		switch (tEvn.eEvent)
 		{
+		case CREATE_OBJECT:
+		{
+			CObject* pObject = static_cast<CObject*>(tEvn.lParam);
+			LAYER_TYPE eLayerType = tEvn.eLayer;
+
+			CRoomMgr::GetInst()->AddObject(eLayerType, pObject);
+		}
+		break;
+
 		case CREATE_CATTING:
 		{
 			CObject* pObject = static_cast<CObject*>(tEvn.lParam); 
@@ -46,8 +66,7 @@ void CEventMgr::excute()
 			create_chatting(pObject, strChat, bOther);
 		}
 		break;
-
-		break;
+		
 
 		default:
 			break;

@@ -207,7 +207,7 @@ void Session::ProcessSend(int _iNumOfBytes)
 
 	OnSend(_iNumOfBytes);
 
-	//아직 데이터를 다 처리하지 못했다면
+	//아직 데이터를 다 처리
 	if (m_qSendBuffer.empty())
 		m_atRegisterSend.store(false);
 	else

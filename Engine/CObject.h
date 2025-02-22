@@ -24,6 +24,22 @@ public:
 
 	void SetComponent(CComponent* _pComponent);
 
+	CObject* GetParent() { return m_pParent; }
+	void SetLayer(LAYER_TYPE _eLayer) { m_eCurLayer = _eLayer; }
+	LAYER_TYPE GetLayer() { return m_eCurLayer; }
+
+protected:
+	const vector<CObject*>& GetChilds() { return m_vecChild; }
+
+	void AddChild(CObject* _pObj);
+	bool DeleteChild(CObject* _pObj);
+	bool DeleteChild(const wstring& _strName);
+
+protected:
+	vector<CObject*> m_vecChild;
+	CObject* m_pParent;
+	LAYER_TYPE m_eCurLayer;
+
 protected:
 	CComponent* m_arrComponent[COMPONENT_TYPE::END];
 	CRenderComponent* m_pRenderComponent;

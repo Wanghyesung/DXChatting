@@ -18,13 +18,11 @@ public:
 	virtual ~CUI();
 
 public:
-	void AddChild(CUI* _pUI);
-	void DeleteChild(CUI* _pUI);
-
 	void SetMouseOnFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseOn = _pFunc; }
 	void SetMouseDownFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseDown = _pFunc; }
 	void SetMouseUpFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseUp = _pFunc; }
 	void SetMouseClickedFunction(std::function<void(void)> _pFunc) { m_tUIEvent.pMouseClicked = _pFunc; }
+
 
 protected:
 	virtual void tick()override;
@@ -39,12 +37,8 @@ private:
 	bool check_mouse();
 
 private:
-	vector<CUI*> m_vecChildUI;
-	CUI* m_pParentUI;
-
 	tUIEvent m_tUIEvent;
 	bool m_bMouseOn;
 	bool m_bLbntDown;
-	bool m_bParent;
 };
 

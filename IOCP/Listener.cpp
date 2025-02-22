@@ -62,7 +62,7 @@ void Listener::RegisterAccept(IOCPAcceptEvent* _pAcceptEvent)
 	shared_ptr<Session> pSession = GetService()->CreateSession(); //여기서 클라전용 세션으로
 	
 	_pAcceptEvent->init();
-	_pAcceptEvent->m_pSession = pSession; //내 클라소켓 등록
+	_pAcceptEvent->m_pSession = pSession; //내 클라소켓 등록 (서버에서 클라랑 데이터를 주고받기 위해)
 
 
 	DWORD bytesRecved = 0;
@@ -83,7 +83,7 @@ void Listener::ProcessAccept(IOCPAcceptEvent* _pAcceptEvent)
 {
 	shared_ptr<Session> session = _pAcceptEvent->m_pSession; //아까 만들어둔 클라소켓
 
-	//서버로
+	//서버로 (서버에서 클라와 소통하기위한 소캣)
 	if (SockHelper::SetUpdateAcceptSocket(session->GetSocket(), m_socket) == false)
 		assert(nullptr);
 

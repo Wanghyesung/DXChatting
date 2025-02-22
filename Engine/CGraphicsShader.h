@@ -13,6 +13,9 @@ public:
 	int CreateGeometryShader(const wstring& _strFileName, const string& _strFunctionName);
 	int CreatePixelShader(const wstring& _strFileName, const string& _strFunctionName);
 
+	void SetDSType(DS_TYPE _eDSType) { m_eDSType = _eDSType; }
+	void SetRSType(RS_TYPE _eRSType) { m_eRSType = _eRSType; }
+	void SetBSType(BS_TYPE _eBSType) { m_eBSType = _eBSType; }
 
 public:
 	virtual void UpdateData()override;

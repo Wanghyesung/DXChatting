@@ -8,7 +8,8 @@ CTransform::CTransform() :
 	CComponent(COMPONENT_TYPE::TRANSFORM),
 	m_vRotation(Vector3::Zero),
 	m_vPosition(Vector3::Zero),
-	m_vScale(Vector3::One)
+	m_vScale(Vector3::One),
+	m_eSclaeMode(SCALE_MODE::S_NONE)
 {
 
 }
@@ -30,6 +31,7 @@ void CTransform::final_tick()
 	m_matSclae = XMMatrixIdentity();
 	m_matSclae *= XMMatrixScaling(m_vScale.x, m_vScale.y, m_vScale.z);
 
+	//m_matSclaeInv = XMMatrixInverse(nullptr, m_matSclae);
 	
 	m_matRotation = XMMatrixIdentity();
 	m_matRotation *= XMMatrixRotationX(m_vRotation.x);
@@ -43,6 +45,11 @@ void CTransform::final_tick()
 	Matrix m_matPosition = XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
 	m_matWorld = m_matSclae * m_matRotation * m_matPosition;
+
+
+	CObject* pParent = GetOwner()->GetParent();
+	if (pParent != nullptr)
+		calculate_scale();
 }
 
 void CTransform::UpdateData()
@@ -59,6 +66,35 @@ void CTransform::UpdateData()
 	CConstBuffer* pTrConstBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	pTrConstBuffer->SetData(&g_transform, sizeof(tTransform));
 	pTrConstBuffer->UpdateData();
+}
+
+void CTransform::calculate_scale()
+{
+	CObject* pParent = GetOwner()->GetParent();
+	CTransform* pParentTransform = pParent->GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
+	
+	switch (m_eSclaeMode)
+	{
+	case SCALE_MODE::S_INHERIT:
+	{
+		//부모 크기게 영향을 받음
+		Matrix matParentWorld = pParentTransform->m_matWorld;
+		m_matSclae = pParentTransform->m_matSclae;
+		m_matWorld = m_matWorld * matParentWorld;
+	}
+	break;
+
+	case SCALE_MODE::S_ABSOLUTE:
+	{
+		Matrix matParentWorld = pParentTransform->m_matWorld;
+		Matrix matParentScale = pParentTransform->m_matSclae;
+		Matrix matParentScaleInv = XMMatrixInverse(nullptr, matParentScale);
+
+		m_matWorld = m_matWorld * matParentScaleInv * matParentWorld;
+	}
+	break;
+
+	}
 }
 
 

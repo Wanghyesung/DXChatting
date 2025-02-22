@@ -165,6 +165,12 @@
     <ClInclude Include="CSpeechBubble.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="CPersonList.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CPropile.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -293,6 +299,12 @@
     <ClCompile Include="CSpeechBubble.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="CPersonList.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CPropile.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -304,6 +316,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="value.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="std2d_entire.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

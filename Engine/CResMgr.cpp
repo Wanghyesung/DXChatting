@@ -99,6 +99,13 @@ void CResMgr::InitShader()
 	pShader->CreateVertexShader(L"std2d.fx", "VS_Std2D");
 	pShader->CreatePixelShader(L"std2d.fx", "PS_Std2D");
 	AddRes<CShader>(L"std2dShader", pShader, RESOURCE_TYPE::SHADER);
+
+	pShader = make_shared<CGraphicsShader>();
+	//pShader->SetDSType(DS_TYPE::NO_TEST_NO_WRITE);
+	pShader->CreateVertexShader(L"std2d_entire.fx", "VS_Std2D");
+	pShader->CreatePixelShader(L"std2d_entire.fx", "PS_Std2D");
+	
+	AddRes<CShader>(L"std2dEntireShader", pShader, RESOURCE_TYPE::SHADER);
 }
 
 
@@ -117,6 +124,22 @@ void CResMgr::InitMaterial()
 	pBubbleMaterial2->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
 	pBubbleMaterial2->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"spBubble2Tex", RESOURCE_TYPE::TEXTURE));
 	AddRes<CMaterial>(L"BubbleMaterial2", pBubbleMaterial2, RESOURCE_TYPE::MATERIAL);
+
+
+	shared_ptr<CMaterial> pChattingRoomMaterial = make_shared<CMaterial>();
+	pChattingRoomMaterial->SetShader(FindRes<CGraphicsShader>(L"std2dEntireShader", RESOURCE_TYPE::SHADER));
+	pChattingRoomMaterial->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"listTex", RESOURCE_TYPE::TEXTURE));
+	AddRes<CMaterial>(L"ChattingRoomMaterial", pChattingRoomMaterial, RESOURCE_TYPE::MATERIAL);
+
+	shared_ptr<CMaterial> pListMaterial = make_shared<CMaterial>();
+	pListMaterial->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
+	pListMaterial->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"listTex", RESOURCE_TYPE::TEXTURE));
+	AddRes<CMaterial>(L"ListMaterial", pListMaterial, RESOURCE_TYPE::MATERIAL);
+
+	shared_ptr<CMaterial> pPropileMaterial = make_shared<CMaterial>();
+	pPropileMaterial->SetShader(FindRes<CGraphicsShader>(L"std2dShader", RESOURCE_TYPE::SHADER));
+	pPropileMaterial->SetTex(TEX_0, CResMgr::GetInst()->FindRes<CTexture>(L"propileTex", RESOURCE_TYPE::TEXTURE));
+	AddRes<CMaterial>(L"PropileMaterial", pPropileMaterial, RESOURCE_TYPE::MATERIAL);
 
 }
 
@@ -142,8 +165,16 @@ void CResMgr::InitTexture()
 	AddRes<CTexture>(L"spBubbleTex", pTexture, RESOURCE_TYPE::TEXTURE);
 
 	pTexture = make_shared<CTexture>();
-	pTexture->Load(strCurPath + L"Texture\\profile.png");
-	AddRes<CTexture>(L"profileTex", pTexture, RESOURCE_TYPE::TEXTURE);
+	pTexture->Load(strCurPath + L"Texture\\propile.png");
+	AddRes<CTexture>(L"propileTex", pTexture, RESOURCE_TYPE::TEXTURE);
+
+	pTexture = make_shared<CTexture>();
+	pTexture->Load(strCurPath + L"Texture\\list.png");
+	AddRes<CTexture>(L"listTex", pTexture, RESOURCE_TYPE::TEXTURE);
+
+	pTexture = make_shared<CTexture>();
+	pTexture->Load(strCurPath + L"Texture\\chattingRoom.png");
+	AddRes<CTexture>(L"chattingRoomTex", pTexture, RESOURCE_TYPE::TEXTURE);
 
 }
 

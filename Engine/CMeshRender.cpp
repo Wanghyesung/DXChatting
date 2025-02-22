@@ -32,7 +32,8 @@ void CMeshRender::render()
 
 	//tr
 	CTransform* pTransform = GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
-	pTransform->UpdateData();
+	if(pTransform != nullptr)
+		pTransform->UpdateData();
 
 	//anim
 	CAnimator2D* pAnimator = GetComponent<CAnimator2D>(COMPONENT_TYPE::ANIMATOR);
