@@ -124,12 +124,6 @@ const vector<CObject*>& CRoomMgr::GetUIs()
 void CRoomMgr::ClientLogin()
 {
 	//서버에 패킷 전송
-
-	Login(); //나중에 session recv에서 처리
-}
-
-void CRoomMgr::Login()
-{
 	//로그린 패킷 먼저 보내고 서버에서 허락후 session recv에서 Login함수로 
 	CEventMgr::GetInst()->ChanageRoom(L"Chatting");
 
@@ -138,6 +132,12 @@ void CRoomMgr::Login()
 
 	GPersonList->add_propile(m_strClientName);
 }
+
+void CRoomMgr::AddProPile(const wstring& _strName)
+{
+	GPersonList->add_propile(_strName);
+}
+
 
 void CRoomMgr::EraseObject(CObject* _pObject, LAYER_TYPE _eLayer)
 {

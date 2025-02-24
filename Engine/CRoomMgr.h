@@ -12,14 +12,18 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CRenderMgr;
 	friend class CUIMgr;
 	friend class CEventMgr;
-
+	
 public:
 	Vector2 FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr = false);
 	float GetUIOffset() { return m_fUIOffset; }
 
 	void EraseObject(CObject* _pObject, LAYER_TYPE _eLayer); //todo :EventMgr에서 처리하게
 	
-	void SetClientName(const wstring _strName) { m_strClientName = _strName; }
+	void SetClientName(const wstring& _strName) { m_strClientName = _strName; }
+	const wstring& GetClientName() { return m_strClientName; }
+
+	void ClientLogin();
+	void AddProPile(const wstring& _strName);
 private:
 	CRoomMgr();
 	virtual ~CRoomMgr();
@@ -36,10 +40,6 @@ private:
 
 	const vector<CObject*>& GetUIs();
 
-	//패킷 전송용
-private:
-	void ClientLogin();
-	void Login();
 
 	//recv로 받으면 ICOP에서 함수로 받아서 씬 이동
 

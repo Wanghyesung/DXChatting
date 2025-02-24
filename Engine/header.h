@@ -21,6 +21,8 @@ using std::priority_queue;
 using std::queue;
 using std::shared_ptr;
 using std::make_shared;
+using std::weak_ptr;
+using std::static_pointer_cast;
 
 #include <typeinfo>
 #include <assert.h>

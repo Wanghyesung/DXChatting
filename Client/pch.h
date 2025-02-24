@@ -5,10 +5,13 @@
 // 여기에 자주 업데이트할 파일을 추가하지 마세요. 그러면 성능이 저하됩니다.
 #pragma once
 
+#include "Corepch.h"
+
 #include <header.h>
 #include<CEngine.h>
 #include <Define.h>
 #include <CDevice.h>
+
 
 #ifndef PCH_H
 #define PCH_H

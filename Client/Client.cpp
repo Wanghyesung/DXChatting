@@ -5,9 +5,13 @@
 
 #include "framework.h"
 #include "Client.h"
+#include "SockHelper.h"
 
-// Client.cpp : 애플리케이션에 대한 진입점을 정의합니다.
-//
+//shared_ptr<CServerSession> MakeSharedSesion()
+//{
+//    return make_shared<CServerSession>();
+//}
+
 
 // 전역 변수:
 HINSTANCE   hInst;                                // 현재 인스턴스입니다.
@@ -39,7 +43,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (CEngine::GetInst()->init(g_hWnd, 1280, 740) == FALSE)
         assert(nullptr);
 
-   
+    SockHelper::init();
+    //shared_ptr<ClientService> pClientService = make_shared< ClientService>(NetAddress(L"127.0.0.1", 7777),
+    //    make_shared<IOCP>(), MakeSharedSesion, 1);
+
     // 메세지 루프
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg;

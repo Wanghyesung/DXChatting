@@ -25,6 +25,7 @@
 
 #include "container.h"
 #include "Global.h"
+#include "SendBufferChunk.h"
 //#include "Allocator.h"
 
 using namespace std;

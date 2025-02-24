@@ -28,6 +28,18 @@
     <ClInclude Include="pch.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="CServerSession.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="CServerPacketHandler.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Chatting.pb.h" />
+    <ClInclude Include="Enter.pb.h" />
+    <ClInclude Include="Exit.pb.h" />
+    <ClInclude Include="NetFunc.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -48,6 +60,18 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source\Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="CServerSession.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CServerPacketHandler.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Chatting.pb.cc" />
+    <ClCompile Include="Enter.pb.cc" />
+    <ClCompile Include="Exit.pb.cc" />
+    <ClCompile Include="NetFunc.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
