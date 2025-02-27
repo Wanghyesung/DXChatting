@@ -6,7 +6,7 @@ class PacketSession : public Session
 {
 public:
 	PacketSession();
-	~PacketSession();
+	virtual ~PacketSession();
 
 	shared_ptr<PacketSession> GetPacketSessionRef() { return static_pointer_cast<PacketSession>(shared_from_this()); }
 

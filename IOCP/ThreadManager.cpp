@@ -47,6 +47,9 @@ void ThreadManager::init()
 
 void ThreadManager::clear()
 {
-
+	//if (T_SendBufferChunk != nullptr)
+	//{
+	//	T_SendBufferChunk.reset();
+	//}
 }
 

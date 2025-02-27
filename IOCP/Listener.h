@@ -7,7 +7,7 @@ class Listener : public Session
 {
 public:
 	Listener();
-	~Listener();
+	virtual ~Listener();
 
 public:
 	void Start();

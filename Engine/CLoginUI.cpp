@@ -45,9 +45,12 @@ void CLoginUI::MouseRelease()
 
 void CLoginUI::MouseLbtnClicked()
 {
-	if (m_pNameBar == nullptr || m_bLogin == true)
+	if (m_bLogin == true)
+	{
+		MessageBox(nullptr, L"로그인 요청 실패, 프로세스를 다시 실행해주세요", L"로그인 실패", MB_OK);
 		return;
-
+	}
+		
 	const wstring& strName = m_pNameBar->GetSpeech();
 	if (strName.size() == 0)
 	{

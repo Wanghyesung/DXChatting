@@ -20,7 +20,7 @@ class Session : public enable_shared_from_this<Session>
 
 public:
 	Session();
-	~Session();
+	virtual ~Session();
 
 	virtual void DisPatch(IOCPEvent* _pEvent, int _iNumOfBytes);
 

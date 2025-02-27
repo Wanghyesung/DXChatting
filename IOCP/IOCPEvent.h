@@ -26,7 +26,7 @@ public:
 private:
 	eIocpEvent m_eEventType;
 
-	shared_ptr<Session> m_pOwner;
+	shared_ptr<Session> m_pOwner;//session 이벤트에서 자기 자신을 물고있음 (순환참조)
 
 };
 

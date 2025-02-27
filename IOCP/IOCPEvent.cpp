@@ -8,6 +8,7 @@ IOCPEvent::IOCPEvent(eIocpEvent _eType):
 
 IOCPEvent::~IOCPEvent()
 {
+	m_pOwner = nullptr;
 }
 
 void IOCPEvent::init()
