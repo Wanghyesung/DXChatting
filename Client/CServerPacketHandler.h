@@ -37,6 +37,7 @@ bool Handle_S_NEW_ENTER(shared_ptr<Session> _pSession, Protocol::S_NEW_ENTER& _p
 bool Handle_S_CHATTING(shared_ptr<Session> _pSession, Protocol::S_CHATTING& _pkt);
 bool Handle_S_NEW_CHATTING(shared_ptr<Session> _pSession, Protocol::S_NEW_CHATTING& _pkt);
 bool Handle_S_EXIT(shared_ptr<Session> _pSession, Protocol::S_EXIT& _pkt);
+bool Handle_S_NEW_EXIT(shared_ptr<Session> _pSession, Protocol::S_NEW_EXIT& _pkt);
 
 
 class CServerPacketHandler
@@ -62,8 +63,10 @@ public:
 			{return  HandlePacket<Protocol::S_CHATTING>(Handle_S_CHATTING, _pSession, _pBuffer, _iLen); };
 		GPacketHandler[S_NEW_CHATTING] = [](shared_ptr<PacketSession>& _pSession, BYTE* _pBuffer, INT _iLen)
 			{return  HandlePacket<Protocol::S_NEW_CHATTING>(Handle_S_NEW_CHATTING, _pSession, _pBuffer, _iLen); };
-		GPacketHandler[S_ENTER] = [](shared_ptr<PacketSession>& _pSession, BYTE* _pBuffer, INT _iLen)
+		GPacketHandler[S_EXIT] = [](shared_ptr<PacketSession>& _pSession, BYTE* _pBuffer, INT _iLen)
 			{return  HandlePacket<Protocol::S_EXIT>(Handle_S_EXIT, _pSession, _pBuffer, _iLen); };
+		GPacketHandler[S_NEW_EXIT] = [](shared_ptr<PacketSession>& _pSession, BYTE* _pBuffer, INT _iLen)
+			{return  HandlePacket<Protocol::S_NEW_EXIT>(Handle_S_NEW_EXIT, _pSession, _pBuffer, _iLen); };
 	}
 
 	template <typename T, typename Func>
@@ -85,7 +88,7 @@ template<typename T>
 inline shared_ptr<SendBuffer> _MakeSendBuffer(T& _pkt, UINT _ID)
 {
 	const UINT16 iDataSize = static_cast<UINT16>(_pkt.ByteSizeLong());
-	const UINT16 iPacketSize = iDataSize + sizeof(iPacketSize);
+	const UINT16 iPacketSize = iDataSize + sizeof(PacketHeader);
 
 	shared_ptr<SendBuffer> pSendBuffer = SendBufferMgr->Open(iPacketSize);
 	PacketHeader* pHeader = reinterpret_cast<PacketHeader*>(pSendBuffer->GetData());

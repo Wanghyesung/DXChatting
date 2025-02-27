@@ -77,4 +77,10 @@ public:
 
 public:
 	virtual void Start() override;
+	void Stop();
+	void Connect();
+	shared_ptr<Session> GetClientSession() { return m_pClientSession; }
+
+private:
+	shared_ptr<Session> m_pClientSession; 
 };

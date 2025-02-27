@@ -88,7 +88,7 @@ public:
 
 private:
 	//비슷한 크기의 버퍼를 찾는 용도
-	Vector<MemoryBlock*> m_vecMemory;
+	vector<MemoryBlock*> m_vecMemory;
 	BYTE m_Buffer[MAX_SIZE];
 };
 

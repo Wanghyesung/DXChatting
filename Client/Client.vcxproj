@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Chatting.pb.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="ClientGlobal.h" />
     <ClInclude Include="CServerPacketHandler.h" />
     <ClInclude Include="CServerSession.h" />
     <ClInclude Include="Enter.pb.h" />
@@ -194,6 +195,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="ClientGlobal.cpp" />
     <ClCompile Include="CServerPacketHandler.cpp" />
     <ClCompile Include="CServerSession.cpp" />
     <ClCompile Include="Enter.pb.cc">

@@ -4,6 +4,11 @@
 
 class CEngine : public CSingleton<CEngine>
 {
+	friend class CSingleton;
+
+private:
+	CEngine();
+	virtual ~CEngine();
 
 public:
 	Vector2 GetWindowResolution() { return m_vResolution; }
@@ -19,9 +24,6 @@ private:
 	void tick();
 	void render();
 	
-public:
-	CEngine();
-	virtual ~CEngine() {} ;
 
 private:
 	HWND m_hWnd;

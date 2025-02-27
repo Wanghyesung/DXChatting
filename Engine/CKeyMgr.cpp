@@ -14,7 +14,6 @@ int g_arrVK[(UINT)KEY::END]
 	 VK_LEFT,
 	 VK_RIGHT,
 
-	 VK_SPACE,
 	 VK_RETURN,
 	 VK_ESCAPE,
 	 VK_LMENU,
@@ -25,7 +24,7 @@ int g_arrVK[(UINT)KEY::END]
 	 VK_LBUTTON,
 	 VK_RBUTTON,
 
-
+	 VK_SPACE,
 	 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
 	 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
 	 'U', 'V', 'W', 'X', 'Y', 'Z',

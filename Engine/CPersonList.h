@@ -24,6 +24,7 @@ protected:
 	virtual void MouseRelease();
 private:
 	void add_propile(const wstring& _strName);
+	void erase_propile(const wstring& _strName);
 
 	Vector2 find_spawn_pos();
 

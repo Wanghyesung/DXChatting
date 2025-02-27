@@ -8,10 +8,10 @@
 #include "Corepch.h"
 
 #include <header.h>
-#include<CEngine.h>
-#include <Define.h>
+#include <CEngine.h>
 #include <CDevice.h>
 
+#include "ClientGlobal.h"
 
 #ifndef PCH_H
 #define PCH_H

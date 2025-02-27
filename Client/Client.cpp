@@ -6,16 +6,22 @@
 #include "framework.h"
 #include "Client.h"
 #include "SockHelper.h"
+#include "CServerPacketHandler.h"
+#include "Service.h"
+#include "CServerSession.h"
+#include "ThreadManager.h"
+#include "IOCP.h"
 
-//shared_ptr<CServerSession> MakeSharedSesion()
-//{
-//    return make_shared<CServerSession>();
-//}
-
+shared_ptr<CServerSession> MakeSharedSesion()
+{
+    return make_shared<CServerSession>();
+}
 
 // 전역 변수:
 HINSTANCE   hInst;                                // 현재 인스턴스입니다.
 HWND        g_hWnd;
+
+atomic<bool> bIsRunning = true;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -28,8 +34,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    // _CrtSetBreakAlloc(60966);
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+     //_CrtSetBreakAlloc(1974);
 
     MyRegisterClass(hInstance);
 
@@ -43,9 +49,29 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (CEngine::GetInst()->init(g_hWnd, 1280, 740) == FALSE)
         assert(nullptr);
 
-    SockHelper::init();
-    //shared_ptr<ClientService> pClientService = make_shared< ClientService>(NetAddress(L"127.0.0.1", 7777),
-    //    make_shared<IOCP>(), MakeSharedSesion, 1);
+    //SockHelper::init();
+    CServerPacketHandler::Init();
+    InitChattingBar();
+    InitLoginBar();
+
+    GClientService = make_shared< ClientService>(NetAddress(L"127.0.0.1", 7777),
+        make_shared<IOCP>(), MakeSharedSesion, 1);
+
+    GClientService->Start();
+
+    for (int i = 0; i < 5; ++i)
+    {
+        //참조 캡쳐
+        ThreadMgr->Excute(
+            [=]()
+            {
+                while (bIsRunning)
+                {
+                    GClientService->GetIOCP()->Excute();
+                }
+            }
+        );
+    }
 
     // 메세지 루프
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
@@ -57,7 +83,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (WM_QUIT == msg.message)
+            {
+                
+                //만약 처음부터 연결이 안되었다면 IO큐에서 신호가 올때까지 블록상태여서 Join이 안됨
                 break;
+            }
+              
 
             if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
             {
@@ -78,6 +109,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
 
+    this_thread::sleep_for(2s);
+    ThreadMgr->Join();
 
     return (int)msg.wParam;
 }
@@ -166,8 +199,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     }
     break;
     case WM_DESTROY:
+    {
+   
+        bIsRunning.store(false);
+        GClientService->Stop();
+
         PostQuitMessage(0);
-        break;
+    } 
+    break;
 
 
 

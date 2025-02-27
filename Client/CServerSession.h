@@ -12,8 +12,8 @@ public:
     virtual void OnSend(int len);
     virtual void OnDisConnected();
 
+
 private:
-
-
+   
 };
 

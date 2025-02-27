@@ -17,20 +17,24 @@ public:
 	Vector2 FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr = false);
 	float GetUIOffset() { return m_fUIOffset; }
 
-	void EraseObject(CObject* _pObject, LAYER_TYPE _eLayer); //todo :EventMgr에서 처리하게
+	CObject* FindParentObject(const wstring& _strName, LAYER_TYPE _eLayer);
+	void EraseObject(CObject* _pObject, LAYER_TYPE _eLayer); 
 	
 	void SetClientName(const wstring& _strName) { m_strClientName = _strName; }
 	const wstring& GetClientName() { return m_strClientName; }
 
 	void ClientLogin();
 	void AddProPile(const wstring& _strName);
+	void EraseProPile(const wstring& _strName);
+
+	void AddObject(LAYER_TYPE _eLayerType, CObject* _pObj);
+	void AddObject(const wstring& _strRoomName, LAYER_TYPE _eLayerType, CObject* _pObj);
+
 private:
 	CRoomMgr();
 	virtual ~CRoomMgr();
 
 	void ChanageRoom(const wstring& _strName);
-
-	void AddObject(LAYER_TYPE _eLayerType, CObject* _pObj);
 
 	CRoom* FindRoom(const wstring& _strName);
 	void SetCurRoom(const wstring& _strName);

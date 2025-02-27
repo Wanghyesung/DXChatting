@@ -76,4 +76,9 @@ void CEngine::render()
 
 CEngine::CEngine()
 {
+
+}
+CEngine::~CEngine()
+{
+    int a = 10;
 }

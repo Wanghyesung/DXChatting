@@ -3,7 +3,8 @@
 #include "CRoomMgr.h"
 #include "CSpeechBar.h"
 CLoginUI::CLoginUI():
-	m_pNameBar(nullptr)
+	m_pNameBar(nullptr),
+	m_bLogin(false)
 {
 
 }
@@ -44,7 +45,7 @@ void CLoginUI::MouseRelease()
 
 void CLoginUI::MouseLbtnClicked()
 {
-	if (m_pNameBar == nullptr)
+	if (m_pNameBar == nullptr || m_bLogin == true)
 		return;
 
 	const wstring& strName = m_pNameBar->GetSpeech();
@@ -56,6 +57,8 @@ void CLoginUI::MouseLbtnClicked()
 
 	CRoomMgr::GetInst()->SetClientName(strName);
 
+	m_bLogin = true;
+	//connect
 	CUI::MouseLbtnClicked();
 }
 

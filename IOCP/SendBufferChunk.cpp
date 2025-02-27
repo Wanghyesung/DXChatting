@@ -2,7 +2,7 @@
 #include "GThread.h"
 #include "Allocator.h"
 #include "SendBuffer.h"
-
+atomic<bool> SendBufferManager::m_bShutDown = false;
 
 SendBufferManager::SendBufferManager():
     m_Lock{}
@@ -11,6 +11,8 @@ SendBufferManager::SendBufferManager():
 
 SendBufferManager::~SendBufferManager()
 {
+    m_bShutDown.store(true);
+    m_vecSendBufferChunk.clear();
 }
 
 shared_ptr<SendBuffer> SendBufferManager::Open(size_t _size)
@@ -60,7 +62,9 @@ void SendBufferManager::Push(shared_ptr<SendBufferChunk> _pSendBufferChunk)
 
 void SendBufferManager::PushGlobal(SendBufferChunk* _pSendBufferChunk)
 {
-    //처음에먄 new 그 다음부터는 재사용
+    if (m_bShutDown == true)
+        return;
+
     SendBufferMgr->Push(shared_ptr<SendBufferChunk>(_pSendBufferChunk, PushGlobal));
 }
 

@@ -59,5 +59,6 @@ typedef Vector2 Vec2;
 typedef Vector3 Vec3;
 typedef Vector4 Vec4;
 
+#include "Define.h"
+#include "struct.h"
 #include "CSingleton.h"
-

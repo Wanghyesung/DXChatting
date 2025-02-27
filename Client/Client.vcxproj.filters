@@ -40,6 +40,9 @@
     <ClInclude Include="NetFunc.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="ClientGlobal.h">
+      <Filter>Source\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -72,6 +75,9 @@
     <ClCompile Include="Exit.pb.cc" />
     <ClCompile Include="NetFunc.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientGlobal.cpp">
+      <Filter>Source\Framework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

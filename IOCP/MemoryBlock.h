@@ -24,7 +24,7 @@ private:
 메모리 접근 속도 향상.
 */
 
-	Vector<BYTE*> m_Memroy;//받은 바이트를 내 사이즈만큼 나눠서 보관
+	vector<BYTE*> m_Memroy;//받은 바이트를 내 사이즈만큼 나눠서 보관
 	MemoryPool* m_pOwner;
 
 

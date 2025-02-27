@@ -35,29 +35,29 @@ std::shared_ptr<T> MakeShared(Args && ...args)
 }
 
 
-template<typename T>
-class StlAllocator
-{
-public:
-	//stl value_type를 내 T타입으로
-	using value_type = T;
-
-
-	StlAllocator() {};
-
-	template<typename Other>
-	StlAllocator(const StlAllocator<Other>&) {};
-
-	//컨테이너 사이즈
-	T* allocate(size_t count)
-	{
-		int iSize = static_cast<int>(count * (sizeof(T)));
-		return static_cast<T*>(PoolAllocator::Alloc(iSize));
-	}
-
-	void deallocate(T* ptr, size_t count)
-	{
-		PoolAllocator::Release(ptr);
-	}
-};
+//template<typename T>
+//class StlAllocator
+//{
+//public:
+//	//stl value_type를 내 T타입으로
+//	using value_type = T;
+//
+//
+//	StlAllocator() {};
+//
+//	template<typename Other>
+//	StlAllocator(const StlAllocator<Other>&) {};
+//
+//	//컨테이너 사이즈
+//	T* allocate(size_t count)
+//	{
+//		int iSize = static_cast<int>(count * (sizeof(T)));
+//		return static_cast<T*>(PoolAllocator::Alloc(iSize));
+//	}
+//
+//	void deallocate(T* ptr, size_t count)
+//	{
+//		PoolAllocator::Release(ptr);
+//	}
+//};
 

@@ -59,5 +59,7 @@ private:
 	vector<shared_ptr<SendBufferChunk>> m_vecSendBufferChunk;
 
 	RWLock m_Lock;
+
+	static atomic<bool> m_bShutDown;
 };
 

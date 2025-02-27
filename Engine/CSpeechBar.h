@@ -11,6 +11,15 @@ public:
 public:
 	void SetStaticPos(Vector3 _vPos) { m_vStaticPos = _vPos; }
 	void SetBaseSpeech(const wstring& _strBaseSpeech) { m_strBaseSpeech = _strBaseSpeech; }
+	void SetSendPktFunc(std::function<void(void)> _pFunc) { m_pSendPktFunc = _pFunc; }
+	
+	void SetMaxSpeechSize(UINT _iSize) { m_iMaxSpeechSize = _iSize; }
+	UINT GetMaxSpeechSize() { return m_iMaxSpeechSize; }
+
+
+	void ShowText();
+	void ShowOtherText(const wstring& _strText);
+
 
 protected:
 	virtual void tick()override;
@@ -21,6 +30,7 @@ protected:
 	virtual void MouseLbtnUp()override;
 	virtual void MouseLbtnClicked()override;
 	virtual void MouseRelease()override;
+
 private:
 	void check_time();
 	void base_speech();
@@ -29,11 +39,9 @@ private:
 	void check_key();
 	void enter();
 
-	void send_data();
-	void recv_data();
-
 	void tick_offsetpos();
 
+	void create_text(const wstring& _strText = L"");
 private:
 	wstring m_strBaseSpeech;
 	wstring m_strPrevBaseSpeech;
@@ -45,6 +53,8 @@ private:
 	float m_fRepeatTimer;
 	float m_fCurTime;
 
-	bool test = false;
+	UINT m_iMaxSpeechSize;
+
+	std::function<void(void)> m_pSendPktFunc;
 };
 

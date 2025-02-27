@@ -49,6 +49,14 @@ void CEventMgr::CreateObject(CObject* _pObj, LAYER_TYPE _eType)
 	m_vecEvent.push_back(tEvn);
 }
 
+void CEventMgr::DeleteObject(CObject* _pObj)
+{
+	tEvent tEvn = {};
+	tEvn.eEvent = EVENT_TYPE::DELETE_OBJECT;
+	tEvn.lParam = _pObj;
+	m_vecEvent.push_back(tEvn);
+}
+
 
 
 
@@ -83,6 +91,21 @@ void CEventMgr::excute()
 		}
 		break;
 		
+		case DELETE_OBJECT:
+		{
+			CObject* pObject = static_cast<CObject*>(tEvn.lParam);
+			if (pObject->GetParent() != nullptr)
+			{
+				pObject->GetParent()->EraseChild(pObject);
+			}
+			else
+			{
+				if (pObject->GetLayer() != LAYER_TYPE::END)
+					CRoomMgr::GetInst()->EraseObject(pObject, pObject->GetLayer());
+			}
+			delete pObject;
+		}
+		break;
 
 		default:
 			break;

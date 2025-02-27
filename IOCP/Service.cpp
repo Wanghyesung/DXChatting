@@ -105,12 +105,30 @@ void ClientService::Start()
 
 	SockHelper::Start();
 
-	int iCount = GetMaxSessionCount();
+	m_pClientSession = CreateSession();
+	//int iCount = GetMaxSessionCount();
+	//
+	//for (int i = 0; i < iCount; ++i)
+	//{
+	//	shared_ptr<Session> pSession = CreateSession();
+	//	pSession->Connect();
+	//}
 
-	for (int i = 0; i < iCount; ++i)
+}
+
+void ClientService::Stop()
+{
+	// IOCP 스레드를 강제 종료할 수 있도록 종료 패킷 전송
+	for (int i = 0; i < 5; ++i)  // 실행 중인 스레드 개수만큼
 	{
-		shared_ptr<Session> pSession = CreateSession();
-		pSession->Connect();
+		GetIOCP()->RegisterDummyPacket();
 	}
+}
 
+void ClientService::Connect()
+{
+	if (m_pClientSession == nullptr)
+		assert(nullptr);
+
+	m_pClientSession->Connect();
 }

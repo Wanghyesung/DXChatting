@@ -3,6 +3,7 @@
 #include "CMeshRender.h"
 #include "CTransform.h"
 #include "CRoomMgr.h"
+#include "CEventMgr.h"
 
 CObject::CObject():
 	m_arrComponent{},
@@ -110,7 +111,7 @@ void CObject::AddChild(CObject* _pObj)
 	//추가할 오브젝트가 부모 오브젝트가 있다면
 	if (_pObj->m_pParent != nullptr)
 	{
-		_pObj->m_pParent->DeleteChild(_pObj);
+		_pObj->m_pParent->EraseChild(_pObj);
 	}
 	else
 	{
@@ -133,39 +134,96 @@ void CObject::AddChild(CObject* _pObj)
 
 }
 
-bool CObject::DeleteChild(CObject* _pObj)
+CObject* CObject::EraseChild(CObject* _pObj)
 {
-	vector<CObject*>& vecChild = _pObj->m_vecChild;
-	vector<CObject*>::iterator iter = vecChild.begin();
+	vector<CObject*>::iterator iter = m_vecChild.begin();
 
-	for (iter; iter != vecChild.end(); ++iter)
+	for (iter; iter != m_vecChild.end(); ++iter)
 	{
 		if (*iter == this)
 		{
-			(*iter)->m_pParent = nullptr;
-			vecChild.erase(iter);
+			CObject* pTarget = (*iter);
+			pTarget->m_pParent = nullptr;
+			m_vecChild.erase(iter);
 
-			return true;
+			return pTarget;
 		}
 	}
-	return false;
+	return nullptr;
+}
+
+CObject* CObject::EraseChild(const wstring& _strName)
+{
+	vector<CObject*>::iterator iter = m_vecChild.begin();
+
+	for (iter; iter != m_vecChild.end(); ++iter)
+	{
+		if ((*iter)->GetName() == _strName)
+		{
+			CObject* pTarget = (*iter);
+			pTarget->m_pParent = nullptr;
+			m_vecChild.erase(iter);
+
+			return pTarget;
+		}
+	}
+
+	return nullptr;
+}
+
+CObject* CObject::FindChild(CObject* _pObj)
+{
+	
+	vector<CObject*>::iterator iter = m_vecChild.begin();
+
+	for (iter; iter != m_vecChild.end(); ++iter)
+	{
+		if (*iter == this)
+		{
+			return *iter;
+		}
+	}
+	return nullptr;
+}
+
+CObject* CObject::FindChild(const wstring& _strName)
+{
+	vector<CObject*>::iterator iter = m_vecChild.begin();
+
+	for (iter; iter != m_vecChild.end(); ++iter)
+	{
+		if ((*iter)->GetName() == _strName)
+		{
+			return *iter;
+		}
+	}
+	return nullptr;
 }
 
 bool CObject::DeleteChild(const wstring& _strName)
 {
-	vector<CObject*>& vecUI = m_pParent->m_vecChild;
-	vector<CObject*>::iterator iter = vecUI.begin();
-
-	for (iter; iter != vecUI.end(); ++iter)
+	CObject* pEraseObject = EraseChild(_strName);
+	if (pEraseObject != nullptr)
 	{
-		if ((*iter)->GetName() == _strName)
+		//찾은 오브젝트의 자식들이 있다면 내쪽으로 편입
+		const vector<CObject*>& vecChild = pEraseObject->GetChilds();
+		if (vecChild.empty() == false)
 		{
-			(*iter)->m_pParent = nullptr;
-			vecUI.erase(iter);
-
-			return true;
+			for (CObject* pChild : vecChild)
+			{
+				AddChild(pChild);
+			}
 		}
-	}
+		pEraseObject->m_pParent = nullptr;
+		CEventMgr::GetInst()->DeleteObject(pEraseObject);
 
+		return true;
+	}
+	
+	return false;
+}
+
+bool CObject::DeleteChild(CObject* _pObj)
+{
 	return false;
 }

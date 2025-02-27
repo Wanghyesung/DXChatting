@@ -51,6 +51,7 @@ void CPersonList::add_propile(const wstring& _strName)
 {
 	CPropile* pPropile = new CPropile();
 	pPropile->SetSpeech(_strName);
+	pPropile->SetName(_strName);
 	pPropile->Init();
 
 	//위치 체크
@@ -59,6 +60,12 @@ void CPersonList::add_propile(const wstring& _strName)
 	pTransform->SetPostion(Vector3{ vPos.x,vPos.y,0.f });
 
 	AddChild(pPropile);
+}
+
+void CPersonList::erase_propile(const wstring& _strName)
+{
+	DeleteChild(_strName);
+	//재정렬
 }
 
 Vector2 CPersonList::find_spawn_pos()

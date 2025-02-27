@@ -8,6 +8,8 @@
 #define PCH_H
 
 // 여기에 미리 컴파일하려는 헤더 추가
+#pragma once
+
 #include "framework.h"
 
 #include <stdlib.h>
@@ -15,10 +17,8 @@
 
 
 #include "header.h"
-
-#include "Define.h"
 #include "func.h"
-#include "struct.h"
+
 
 
 #endif //PCH_H

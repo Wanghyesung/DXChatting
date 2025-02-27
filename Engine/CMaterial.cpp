@@ -21,7 +21,7 @@ CMaterial::CMaterial(const CMaterial& _other):
 	m_mtrlConst{},
 	m_eRenderType(_other.m_eRenderType)
 {
-
+	int a = 10;
 }
 
 

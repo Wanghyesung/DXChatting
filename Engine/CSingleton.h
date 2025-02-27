@@ -1,5 +1,6 @@
 #pragma once
 
+
 template <typename T>
 class CSingleton
 {
@@ -23,13 +24,17 @@ template<typename T>
 inline T* CSingleton<T>::GetInst()
 {
 	if (m_Inst == nullptr)
+	{
 		m_Inst = new T();
+		atexit(reinterpret_cast<void(*)()>(&CSingleton<T>::Delete));
+	}
+		
 
 	return m_Inst;
 }
 
-template<typename t>
-inline void CSingleton<t>::Delete()
+template<typename T>
+inline void CSingleton<T>::Delete()
 {
 	delete m_Inst;
 	m_Inst = nullptr;

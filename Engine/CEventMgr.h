@@ -21,6 +21,8 @@ public:
 	void ChanageRoom(const WCHAR* _strPoint);
 	void CreateChatting(CObject* _pObj, const WCHAR* _strPoint, bool _bOther);
 	void CreateObject(CObject* _pObj, LAYER_TYPE _eType);
+	void DeleteObject(CObject* _pObj);
+
 private:
 	void excute();
 

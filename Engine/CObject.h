@@ -7,6 +7,7 @@ class CObject : public CEntity
 {
 	friend class CLayer;
 	friend class CCamera;
+	friend class CEventMgr;
 
 public:
 	CObject();
@@ -32,8 +33,14 @@ protected:
 	const vector<CObject*>& GetChilds() { return m_vecChild; }
 
 	void AddChild(CObject* _pObj);
-	bool DeleteChild(CObject* _pObj);
+	CObject* EraseChild(CObject* _pObj);
+	CObject* EraseChild(const wstring& _strName);
+
+	CObject* FindChild(CObject* _pObj);
+	CObject* FindChild(const wstring& _strName);
+
 	bool DeleteChild(const wstring& _strName);
+	bool DeleteChild(CObject* _pObj);
 
 protected:
 	vector<CObject*> m_vecChild;
