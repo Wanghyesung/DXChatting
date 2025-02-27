@@ -42,7 +42,7 @@ void CEventMgr::CreateChatting(CObject* _pObj, const WCHAR* _strPoint, bool _bOt
 void CEventMgr::CreateObject(CObject* _pObj, LAYER_TYPE _eType)
 {
 	tEvent tEvn = {};
-	tEvn.eEvent = EVENT_TYPE::CREATE_OBJECT;
+	tEvn.eEvent = EVENT_TYPE::CREATE_OBJECT;	
 	tEvn.eLayer = _eType;
 	tEvn.lParam = _pObj;
 

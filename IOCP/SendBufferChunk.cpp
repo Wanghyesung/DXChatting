@@ -63,7 +63,10 @@ void SendBufferManager::Push(shared_ptr<SendBufferChunk> _pSendBufferChunk)
 void SendBufferManager::PushGlobal(SendBufferChunk* _pSendBufferChunk)
 {
     if (m_bShutDown == true)
+    {
         return;
+    }
+       
 
     SendBufferMgr->Push(shared_ptr<SendBufferChunk>(_pSendBufferChunk, PushGlobal));
 }
