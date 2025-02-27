@@ -65,7 +65,25 @@ void CPersonList::add_propile(const wstring& _strName)
 void CPersonList::erase_propile(const wstring& _strName)
 {
 	DeleteChild(_strName);
+
 	//ÀçÁ¤·Ä
+	SortPropile();
+}
+
+void CPersonList::SortPropile()
+{
+	const vector<CObject*> vecChild = GetChilds();
+	
+	Vector2 vFinalPos = m_vStartSpawnPos;
+	
+	for (CObject* pChild : vecChild)
+	{
+		CTransform* pTransform = pChild->GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
+		float fOriginZ = pTransform->GetPosition().z;
+		pTransform->SetPostion(Vector3{ vFinalPos.x,vFinalPos.y,fOriginZ });
+
+		vFinalPos.y += m_vOffsetSpawnPos.y;
+	}
 }
 
 Vector2 CPersonList::find_spawn_pos()
@@ -74,7 +92,6 @@ Vector2 CPersonList::find_spawn_pos()
 	int iChildCount = vecChild.size();
 	if (iChildCount <= 0)
 		return m_vStartSpawnPos;
-
 
 	Vector2 vFinalPos = m_vStartSpawnPos;
 

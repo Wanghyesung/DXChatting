@@ -12,7 +12,7 @@ IOCP::IOCP()
 
 IOCP::~IOCP()
 {
-
+	CloseHandle(m_IOCPHandle);
 }
 
 void IOCP::RegisterEvent(shared_ptr<Session> _pSession)

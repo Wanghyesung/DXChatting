@@ -11,7 +11,11 @@ CDevice::CDevice()
 
 CDevice::~CDevice()
 {
-    
+    for (int i = 0; i < (UINT)CB_TYPE::END; ++i)
+    {
+        delete m_arrConstBuffer[i];
+        m_arrConstBuffer[i] = nullptr;
+    }
 }
 
 bool CDevice::init(HWND _hwnd, UINT _iWidth, UINT _iHeight)

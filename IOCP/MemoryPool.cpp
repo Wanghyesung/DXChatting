@@ -74,7 +74,23 @@ MemoryPool::MemoryPool()
 
 MemoryPool::~MemoryPool()
 {
+	// 중복 해제를 방지하기 위해 set을 사용
+	std::set<MemoryBlock*> setMemory;
 
+	for (int i = 1; i <= MAX_POOLING_SIZE; ++i)
+	{
+		setMemory.insert(m_vecMemory[i]);
+	}
+
+	 for (MemoryBlock* pBlock : setMemory)
+	 {
+	 	delete pBlock;
+		pBlock = nullptr;
+	 }
+	 
+	 m_vecMemory.clear();
+	 
+	
 }
 
 MemoryHeader* MemoryPool::Pop(size_t _size)

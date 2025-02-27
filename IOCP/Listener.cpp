@@ -13,7 +13,12 @@ Listener::Listener()
 
 Listener::~Listener()
 {
+	SockHelper::Close(m_socket);
 
+	for (IOCPAcceptEvent* pEvent : m_vecEvent)
+	{
+		delete pEvent;
+	}
 }
 
 void Listener::Start()

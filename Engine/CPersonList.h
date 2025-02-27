@@ -22,9 +22,11 @@ protected:
 	virtual void MouseLbtnUp();
 	virtual void MouseLbtnClicked();
 	virtual void MouseRelease();
+
 private:
 	void add_propile(const wstring& _strName);
 	void erase_propile(const wstring& _strName);
+	void SortPropile();
 
 	Vector2 find_spawn_pos();
 

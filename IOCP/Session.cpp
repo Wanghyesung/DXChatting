@@ -17,7 +17,7 @@ Session::Session() :
 
 Session::~Session()
 {
-
+	SockHelper::Close(m_socket);
 }
 
 void Session::DisPatch(IOCPEvent* _pEvent, int _iNumOfBytes)

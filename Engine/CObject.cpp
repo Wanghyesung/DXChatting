@@ -28,6 +28,12 @@ CObject::~CObject()
 			m_arrComponent[i] = nullptr;
 		}
 	}
+
+	for (int i = 0; i < m_vecChild.size(); ++i)
+	{
+		delete m_vecChild[i];
+		m_vecChild[i] = nullptr;
+	}
 }
 
 void CObject::begin()

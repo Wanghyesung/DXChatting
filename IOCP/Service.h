@@ -19,7 +19,7 @@ class Service : public enable_shared_from_this<Service>
 public:
 	//Service(const wstring& _strAddr , UINT _iProt);
 	Service(eServiceType _eType, NetAddress _addr, shared_ptr<IOCP> _pIOCP, function<shared_ptr<Session>(void)> _pCreateSessionFunc, UINT _iMaxSessionCount);
-	~Service();
+	virtual ~Service();
 
 	virtual void Start() =0;
 
@@ -56,7 +56,7 @@ class ServerService : public Service
 {
 public:
 	ServerService(NetAddress _addr, shared_ptr<IOCP> _pIOCP, function<shared_ptr<Session>(void)> _pCreateSessionFunc, UINT _iMaxSessionCount);
-	~ServerService();
+	virtual ~ServerService();
 
 
 public:
@@ -72,7 +72,7 @@ class ClientService : public Service
 {
 public:
 	ClientService(NetAddress _targetAddr, shared_ptr<IOCP> _pIOCP, function<shared_ptr<Session>(void)> _pCreateSessionFunc, UINT _iMaxSessionCount);
-	~ClientService();
+	virtual ~ClientService();
 
 
 public:

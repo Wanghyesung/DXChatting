@@ -13,6 +13,11 @@ CMesh::CMesh():
 
 CMesh::~CMesh()
 {
+    if (nullptr != m_pVertex)
+        delete m_pVertex;
+
+    if (nullptr != m_pIndex)
+        delete m_pIndex;
 
 }
 
