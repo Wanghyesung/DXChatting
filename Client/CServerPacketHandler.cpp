@@ -43,7 +43,7 @@ bool Handle_S_NEW_CHATTING(shared_ptr<Session> _pSession, Protocol::S_NEW_CHATTI
 {   
     string strOtherText = _pkt.text();
     string strOtherClientName = _pkt.name();
-    //다른 애들 말풍선 그리기
+    //다른 말풍선 그리기
     if (GChattingBar != nullptr)
         GChattingBar->ShowOtherText(StringToWString(strOtherText), StringToWString(strOtherClientName));
 

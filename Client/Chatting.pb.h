@@ -181,24 +181,9 @@ class C_CHATTING final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kNameFieldNumber = 1,
-    kTextFieldNumber = 2,
+    kTextFieldNumber = 1,
   };
-  // string name = 1;
-  void clear_name();
-  const std::string& name() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_name(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_name();
-  PROTOBUF_FUTURE_MUST_USE_RESULT std::string* release_name();
-  void set_allocated_name(std::string* name);
-  private:
-  const std::string& _internal_name() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
-  std::string* _internal_mutable_name();
-  public:
-
-  // string text = 2;
+  // string text = 1;
   void clear_text();
   const std::string& text() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -219,7 +204,6 @@ class C_CHATTING final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Chatting_2eproto;
@@ -520,52 +504,7 @@ class S_NEW_CHATTING final :
 #endif  // __GNUC__
 // C_CHATTING
 
-// string name = 1;
-inline void C_CHATTING::clear_name() {
-  name_.ClearToEmpty();
-}
-inline const std::string& C_CHATTING::name() const {
-  // @@protoc_insertion_point(field_get:Protocol.C_CHATTING.name)
-  return _internal_name();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void C_CHATTING::set_name(ArgT0&& arg0, ArgT... args) {
- 
- name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:Protocol.C_CHATTING.name)
-}
-inline std::string* C_CHATTING::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:Protocol.C_CHATTING.name)
-  return _internal_mutable_name();
-}
-inline const std::string& C_CHATTING::_internal_name() const {
-  return name_.Get();
-}
-inline void C_CHATTING::_internal_set_name(const std::string& value) {
-  
-  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
-}
-inline std::string* C_CHATTING::_internal_mutable_name() {
-  
-  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
-}
-inline std::string* C_CHATTING::release_name() {
-  // @@protoc_insertion_point(field_release:Protocol.C_CHATTING.name)
-  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
-}
-inline void C_CHATTING::set_allocated_name(std::string* name) {
-  if (name != nullptr) {
-    
-  } else {
-    
-  }
-  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
-      GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:Protocol.C_CHATTING.name)
-}
-
-// string text = 2;
+// string text = 1;
 inline void C_CHATTING::clear_text() {
   text_.ClearToEmpty();
 }

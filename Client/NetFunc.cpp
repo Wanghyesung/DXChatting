@@ -102,8 +102,7 @@ void SenPkt()
 	const wstring& strname = CRoomMgr::GetInst()->GetClientName();
 
 	pkt.set_text(WstringToString((GChattingBar->GetSpeech())));
-	pkt.set_name(WstringToString(strname)); //이거 어차피 안 보내도 됨 (서버에서 Session에 등록해둠) 나중에 수정)
-	
+
 	shared_ptr<SendBuffer> pSendBuffer = CServerPacketHandler::MakeSendBuffer(pkt);
 
 	shared_ptr<CServerSession> pClientSession = static_pointer_cast<CServerSession>(GClientService->GetClientSession());

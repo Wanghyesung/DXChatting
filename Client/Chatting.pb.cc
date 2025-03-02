@@ -19,8 +19,7 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace Protocol {
 constexpr C_CHATTING::C_CHATTING(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  : text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct C_CHATTINGDefaultTypeInternal {
   constexpr C_CHATTINGDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -66,7 +65,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Chatting_2eproto::offsets[] PR
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::Protocol::C_CHATTING, name_),
   PROTOBUF_FIELD_OFFSET(::Protocol::C_CHATTING, text_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::Protocol::S_CHATTING, _internal_metadata_),
@@ -84,8 +82,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Chatting_2eproto::offsets[] PR
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Protocol::C_CHATTING)},
-  { 7, -1, sizeof(::Protocol::S_CHATTING)},
-  { 13, -1, sizeof(::Protocol::S_NEW_CHATTING)},
+  { 6, -1, sizeof(::Protocol::S_CHATTING)},
+  { 12, -1, sizeof(::Protocol::S_NEW_CHATTING)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -95,14 +93,14 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_Chatting_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\016Chatting.proto\022\010Protocol\"(\n\nC_CHATTING"
-  "\022\014\n\004name\030\001 \001(\t\022\014\n\004text\030\002 \001(\t\"\035\n\nS_CHATTI"
-  "NG\022\017\n\007success\030\001 \001(\010\",\n\016S_NEW_CHATTING\022\014\n"
-  "\004name\030\001 \001(\t\022\014\n\004text\030\002 \001(\tb\006proto3"
+  "\n\016Chatting.proto\022\010Protocol\"\032\n\nC_CHATTING"
+  "\022\014\n\004text\030\001 \001(\t\"\035\n\nS_CHATTING\022\017\n\007success\030"
+  "\001 \001(\010\",\n\016S_NEW_CHATTING\022\014\n\004name\030\001 \001(\t\022\014\n"
+  "\004text\030\002 \001(\tb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Chatting_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Chatting_2eproto = {
-  false, false, 153, descriptor_table_protodef_Chatting_2eproto, "Chatting.proto", 
+  false, false, 139, descriptor_table_protodef_Chatting_2eproto, "Chatting.proto", 
   &descriptor_table_Chatting_2eproto_once, nullptr, 0, 3,
   schemas, file_default_instances, TableStruct_Chatting_2eproto::offsets,
   file_level_metadata_Chatting_2eproto, file_level_enum_descriptors_Chatting_2eproto, file_level_service_descriptors_Chatting_2eproto,
@@ -130,11 +128,6 @@ C_CHATTING::C_CHATTING(::PROTOBUF_NAMESPACE_ID::Arena* arena)
 C_CHATTING::C_CHATTING(const C_CHATTING& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
-  }
   text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_text().empty()) {
     text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
@@ -144,7 +137,6 @@ C_CHATTING::C_CHATTING(const C_CHATTING& from)
 }
 
 void C_CHATTING::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -156,7 +148,6 @@ C_CHATTING::~C_CHATTING() {
 
 void C_CHATTING::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -176,7 +167,6 @@ void C_CHATTING::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
   text_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -187,18 +177,9 @@ const char* C_CHATTING::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
     ::PROTOBUF_NAMESPACE_ID::uint32 tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // string name = 1;
+      // string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "Protocol.C_CHATTING.name"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string text = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
           auto str = _internal_mutable_text();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "Protocol.C_CHATTING.text"));
@@ -234,24 +215,14 @@ failure:
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // string name = 1;
-  if (!this->name().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "Protocol.C_CHATTING.name");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_name(), target);
-  }
-
-  // string text = 2;
+  // string text = 1;
   if (!this->text().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_text().data(), static_cast<int>(this->_internal_text().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
       "Protocol.C_CHATTING.text");
     target = stream->WriteStringMaybeAliased(
-        2, this->_internal_text(), target);
+        1, this->_internal_text(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -270,14 +241,7 @@ size_t C_CHATTING::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string name = 1;
-  if (!this->name().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_name());
-  }
-
-  // string text = 2;
+  // string text = 1;
   if (!this->text().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -315,9 +279,6 @@ void C_CHATTING::MergeFrom(const C_CHATTING& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from.name().empty()) {
-    _internal_set_name(from._internal_name());
-  }
   if (!from.text().empty()) {
     _internal_set_text(from._internal_text());
   }
@@ -344,11 +305,6 @@ bool C_CHATTING::IsInitialized() const {
 void C_CHATTING::InternalSwap(C_CHATTING* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, GetArenaForAllocation(),
-      &other->name_, other->GetArenaForAllocation()
-  );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &text_, GetArenaForAllocation(),

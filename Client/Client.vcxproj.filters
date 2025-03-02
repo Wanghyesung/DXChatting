@@ -34,15 +34,15 @@
     <ClInclude Include="CServerPacketHandler.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Chatting.pb.h" />
-    <ClInclude Include="Enter.pb.h" />
-    <ClInclude Include="Exit.pb.h" />
     <ClInclude Include="NetFunc.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="ClientGlobal.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="Chatting.pb.h" />
+    <ClInclude Include="Enter.pb.h" />
+    <ClInclude Include="Exit.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -70,14 +70,14 @@
     <ClCompile Include="CServerPacketHandler.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Chatting.pb.cc" />
-    <ClCompile Include="Enter.pb.cc" />
-    <ClCompile Include="Exit.pb.cc" />
     <ClCompile Include="NetFunc.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="ClientGlobal.cpp">
       <Filter>Source\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Chatting.pb.cc" />
+    <ClCompile Include="Enter.pb.cc" />
+    <ClCompile Include="Exit.pb.cc" />
   </ItemGroup>
 </Project>
