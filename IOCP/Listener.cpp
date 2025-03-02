@@ -21,6 +21,14 @@ Listener::~Listener()
 	}
 }
 
+void Listener::Clear()
+{
+	for (IOCPAcceptEvent* pEvent : m_vecEvent)
+	{
+		pEvent->SetOwner(nullptr);
+	}
+}
+
 void Listener::Start()
 {
 	m_socket = SockHelper::Create_Socket();

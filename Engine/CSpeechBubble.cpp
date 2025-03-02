@@ -6,7 +6,8 @@
 #include "CEventMgr.h"
 
 CSpeechBubble::CSpeechBubble():
-	m_vOffset(20.f, -10.f)
+	m_vOffset(20.f, -10.f),
+	m_vSubOffset(-220.f,-40.f)
 {
 
 }
@@ -24,7 +25,11 @@ void CSpeechBubble::init(bool _bOther)
 
 	wstring MtrlName = L"BubbleMaterial1";
 	if (_bOther)
+	{
+		m_vSubOffset.x = 140.f;
 		MtrlName = L"BubbleMaterial2";
+	}
+		
 
 	shared_ptr<CMaterial> pMtrl = CResMgr::GetInst()->FindRes<CMaterial>(MtrlName, RESOURCE_TYPE::MATERIAL);
 	shared_ptr<CMesh> pMesh = CResMgr::GetInst()->FindRes<CMesh>(L"RectMesh", RESOURCE_TYPE::MESH);
@@ -43,6 +48,11 @@ void CSpeechBubble::tick()
 	int iYOffset = (iLen - iNewLineCnt) / MAX_FONT_COUNT;
 	if (!m_strSpeech.empty())
 		Speech(m_strSpeech, false, true, Vector2{ m_vOffset.x, m_vOffset.y * iYOffset });
+
+	if (!m_strClientName.empty())
+	{
+		SubSpeech(m_strClientName, 15, m_vSubOffset);
+	}
 }
 
 void CSpeechBubble::MouseOn()

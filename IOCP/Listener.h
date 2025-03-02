@@ -9,6 +9,7 @@ public:
 	Listener();
 	virtual ~Listener();
 
+	virtual void Clear()override;
 public:
 	void Start();
 

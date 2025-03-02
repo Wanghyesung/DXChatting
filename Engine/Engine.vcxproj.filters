@@ -330,5 +330,8 @@
     <FxCompile Include="outline.fx">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="propile.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

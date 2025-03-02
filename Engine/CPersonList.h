@@ -13,6 +13,7 @@ public:
 	CPersonList();
 	virtual ~CPersonList();
 
+	void SetStaticPos(const Vector3& _vStaticPos) { m_vStaticPos = _vStaticPos; }
 protected:
 	virtual void tick()override;
 
@@ -28,10 +29,13 @@ private:
 	void erase_propile(const wstring& _strName);
 	void SortPropile();
 
+	void tick_offsetpos();
+
 	Vector2 find_spawn_pos();
 
 private:
 	const Vector2 m_vStartSpawnPos;
 	const Vector2 m_vOffsetSpawnPos;
+	Vector3 m_vStaticPos;
 };
 

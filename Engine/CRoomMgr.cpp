@@ -47,7 +47,7 @@ void CRoomMgr::ChanageRoom(const wstring& _strName)
 	}
 }
 
-Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr)
+Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale, bool _bOther)
 {
 	//lock
 	CLayer* pLayer = GetCurLayer(LAYER_TYPE::CAMERA);
@@ -55,12 +55,12 @@ Vector2 CRoomMgr::FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr)
 
 	CTransform* pTransform = pCamera->GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
 	Vector3 vCameraPos = pTransform->GetPosition();
-	//기준점 밖으로 나갔다면 내 카메라 위치 내리기
+	//기준선 밖으로 나갔다면 내 카메라 위치 내리기
 
 	Vector2 vRetPos = Vector2::Zero;
 	m_vChattingStartPos.y -= (vObjectScale.y + 10.f);
 	vRetPos = m_vChattingStartPos;
-	if (_bOtehr)
+	if (_bOther)
 		vRetPos.x *= -1;
 
 	if (m_vChattingStartPos.y <= m_fChattingLine)
@@ -264,6 +264,7 @@ void CRoomMgr::init()
 	
 	pTrasnform = new CTransform();
 	pTrasnform->SetPostion(Vector3{-450.f,0.f,-0.2f });
+	GPersonList->SetStaticPos(Vector3{ -450.f,0.f,-0.2f });
 	pTrasnform->SetScale(Vector3{ 300.f,500.f,1.f });
 	GPersonList->SetComponent(pTrasnform);
 

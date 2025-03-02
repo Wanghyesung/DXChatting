@@ -52,7 +52,7 @@ void CSpeechObject::MouseRelease()
 	CUI::MouseRelease();
 }
 
-Vector2 CSpeechObject::GetWindowPosition()
+Vector2 CSpeechObject::GetOffsetPosition()
 {
 	CTransform* pTrasnform = GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
 	Vector3 vPosition = pTrasnform->GetPosition();
@@ -62,14 +62,18 @@ Vector2 CSpeechObject::GetWindowPosition()
 	float fX = vPosition.x + vOffset.x;
 	float fY = vOffset.y - vPosition.y;
 
-	return Vector2{ fX,fY };
+	Vector2 vWindowPos = Vector2{ fX,fY };
+	vWindowPos.y += CRoomMgr::GetInst()->GetUIOffset();
+	return vWindowPos;
 }
 
 void CSpeechObject::Speech(const wstring& _strSpeech)
 {
-	Vector2 vWindowPos = GetWindowPosition();
+	Vector2 vWindowPos = GetOffsetPosition();
 	vWindowPos -= (m_fFontSize / 2.f);
-	vWindowPos.y += CRoomMgr::GetInst()->GetUIOffset();
+	
+	if (vWindowPos.y < 0)
+		return;
 
 	CFontMgr::GetInst()->AddFont(_strSpeech, vWindowPos.x , vWindowPos.y , m_fFontSize, m_iFontColor);
 }
@@ -78,7 +82,7 @@ void CSpeechObject::Speech(const wstring& _strSpeech, bool _bCenterAlignedX, boo
 {
 	Vector3 vTransformScale = GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM)->GetScale();
 
-	Vector2 vWindowPos = GetWindowPosition();
+	Vector2 vWindowPos = GetOffsetPosition();
 
 	if (_bCenterAlignedX == false)
 		vWindowPos.x -= (vTransformScale.x /2.f);
@@ -87,9 +91,24 @@ void CSpeechObject::Speech(const wstring& _strSpeech, bool _bCenterAlignedX, boo
 	
 	vWindowPos -= (m_fFontSize / 2.f); //center
 	vWindowPos += _vOffset;
-	vWindowPos.y += CRoomMgr::GetInst()->GetUIOffset();
+	
+	if (vWindowPos.y < 0)
+		return;
 
 	CFontMgr::GetInst()->AddFont(_strSpeech, vWindowPos.x, vWindowPos.y, m_fFontSize, m_iFontColor);
+}
+
+void CSpeechObject::SubSpeech(const wstring& _strSpeech, float _fFontSize, const Vector2& _vOffset)
+{
+	Vector2 vWindowPos = GetOffsetPosition();
+
+	vWindowPos += _vOffset;
+	vWindowPos -= (_fFontSize / 2.f);
+
+	if (vWindowPos.y < 0)
+		return;
+
+	CFontMgr::GetInst()->AddFont(_strSpeech, vWindowPos.x, vWindowPos.y, _fFontSize, m_iFontColor);
 }
 
 

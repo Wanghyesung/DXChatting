@@ -18,7 +18,7 @@ public:
 
 
 	void ShowText();
-	void ShowOtherText(const wstring& _strText);
+	void ShowOtherText(const wstring& _strText, const wstring& _strOtherName);
 
 
 protected:
@@ -41,7 +41,7 @@ private:
 
 	void tick_offsetpos();
 
-	void create_text(const wstring& _strText = L"");
+	void create_text(const wstring& _strText = L"", const wstring& _strOtherName = L"");
 private:
 	wstring m_strBaseSpeech;
 	wstring m_strPrevBaseSpeech;

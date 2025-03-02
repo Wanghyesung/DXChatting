@@ -7,7 +7,8 @@
 
 CPersonList::CPersonList():
 	m_vStartSpawnPos(Vector2{-530.f,170.f}),
-	m_vOffsetSpawnPos(Vector2{0.f,-95.f})
+	m_vOffsetSpawnPos(Vector2{0.f,-95.f}),
+	m_vStaticPos(Vector3::Zero)
 {
 
 }
@@ -19,6 +20,8 @@ CPersonList::~CPersonList()
 
 void CPersonList::tick()
 {
+	tick_offsetpos();
+
 	CUI::tick();
 }
 
@@ -45,6 +48,28 @@ void CPersonList::MouseLbtnClicked()
 void CPersonList::MouseRelease()
 {
 	CUI::MouseRelease();
+}
+
+void CPersonList::tick_offsetpos()
+{
+	CTransform* pTransform = GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
+
+	float fOffset = CRoomMgr::GetInst()->GetUIOffset();
+	Vector3 vPos = m_vStaticPos;
+	vPos.y += fOffset;
+
+	pTransform->SetPostion(vPos);
+
+	for (int i = 0; i < m_vecChild.size(); ++i)
+	{
+		 CTransform* pChildTransform = m_vecChild[i]->GetComponent<CTransform>(COMPONENT_TYPE::TRANSFORM);
+		 Vector2 vChildOffset = m_vStartSpawnPos + m_vOffsetSpawnPos * i;
+		 vChildOffset.y += fOffset;
+
+		 Vector3 vChildPos = pChildTransform->GetPosition();
+		 vChildPos.y = vChildOffset.y;
+		 pChildTransform->SetPostion(vChildPos);
+	}
 }
 
 void CPersonList::add_propile(const wstring& _strName)

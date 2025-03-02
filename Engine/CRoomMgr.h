@@ -14,7 +14,7 @@ class CRoomMgr : public CSingleton<CRoomMgr>
 	friend class CEventMgr;
 	
 public:
-	Vector2 FindSpawnPoint(const Vector2& vObjectScale, bool _bOtehr = false);
+	Vector2 FindSpawnPoint(const Vector2& vObjectScale, bool _bOther = false);
 	float GetUIOffset() { return m_fUIOffset; }
 
 	CObject* FindParentObject(const wstring& _strName, LAYER_TYPE _eLayer);

@@ -74,6 +74,14 @@ void Session::Send(shared_ptr<SendBuffer> _pBuffer)
 	
 }
 
+void Session::Clear()
+{
+	m_ConnectEvent.SetOwner(nullptr);
+	m_DisConnectEvent.SetOwner(nullptr);
+	m_sendEvent.SetOwner(nullptr);
+	m_recvEvent.SetOwner(nullptr);
+}
+
 void Session::RegisterConnect()
 {	
 	if (GetService()->GetServiceType() != eServiceType::Client)

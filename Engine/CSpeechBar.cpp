@@ -16,7 +16,7 @@ CSpeechBar::CSpeechBar():
 	m_bCheckTime(false),
 	m_strBaseSpeech(L""),
 	m_strPrevBaseSpeech(L""),
-	m_iMaxSpeechSize(10)
+	m_iMaxSpeechSize(6)
 {
 	m_fFontSize = 20.f;
 	m_iFontColor = FONT_RGBA(0, 0, 0, 255);
@@ -53,23 +53,25 @@ void CSpeechBar::ShowText()
 	create_text();
 }
 
-void CSpeechBar::ShowOtherText(const wstring& _strText)
+void CSpeechBar::ShowOtherText(const wstring& _strText, const wstring& _strOtherName)
 {
-	create_text(_strText);
+	create_text(_strText, _strOtherName);
 }
 
-void CSpeechBar::create_text(const wstring& _strText)
+void CSpeechBar::create_text(const wstring& _strText, const wstring& _strOtherName)
 {
 	CSpeechBubble* pSpeechBubble = new CSpeechBubble();
 	if (_strText.empty())
 	{
 		pSpeechBubble->init(false);
+		pSpeechBubble->SetClientName(CRoomMgr::GetInst()->GetClientName());
 		CEventMgr::GetInst()->CreateChatting(pSpeechBubble, m_strSpeech.c_str(), false);
 		m_strSpeech.clear();
 	}
 	else
 	{
 		pSpeechBubble->init(true);
+		pSpeechBubble->SetClientName(_strOtherName);
 		CEventMgr::GetInst()->CreateChatting(pSpeechBubble, _strText.c_str(), true);
 	}
 }

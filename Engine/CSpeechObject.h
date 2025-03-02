@@ -28,9 +28,11 @@ protected:
 	virtual void MouseRelease()override;
 
 protected:
-	Vector2 GetWindowPosition();
+	Vector2 GetOffsetPosition();
+
 	void Speech(const wstring& _strSpeech);
 	void Speech(const wstring& _strSpeech, bool _bCenterAlignedX, bool _bCenterAlignedY, const Vector2& _vOffset = Vector2::Zero);
+	void SubSpeech(const wstring& _strSpeech, float _fFontSize, const Vector2& _vOffset = Vector2::Zero);
 
 protected:
 	wstring m_strSpeech;

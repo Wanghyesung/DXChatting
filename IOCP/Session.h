@@ -31,7 +31,7 @@ public:
 	SOCKET GetSocket() { return m_socket; }
 	shared_ptr<Service> GetService() { return m_weakService.lock(); }
 
-
+	virtual void Clear();
 public:
 	virtual void RegisterAccept(IOCPAcceptEvent* _pIocpEvent) {};
 	virtual void ProcessAccept(IOCPAcceptEvent* _pIocpEvent) {};

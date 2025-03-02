@@ -93,7 +93,7 @@ ClientService::ClientService(NetAddress _targetAddr, shared_ptr<IOCP> _pIOCP, fu
 
 ClientService::~ClientService()
 {
-
+	m_pClientSession->Clear();
 }
 
 void ClientService::Start()

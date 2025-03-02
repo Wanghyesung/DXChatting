@@ -17,7 +17,7 @@ void InitChattingBar()
 {
 	GChattingBar = new CSpeechBar();
 	CRoomMgr::GetInst()->AddObject(L"Chatting", LAYER_TYPE::UI, GChattingBar);
-	GChattingBar->SetMaxSpeechSize(30);
+	GChattingBar->SetMaxSpeechSize(20);
 
 	CTransform* pTrasnform = new CTransform();
 	GChattingBar->SetStaticPos(Vector3{ 100.f,-300.f,-0.2f });
@@ -91,8 +91,8 @@ void InitLoginBar()
 
 void ClientLogin()
 {
-	shared_ptr<CServerSession> pClientSession = static_pointer_cast<CServerSession>(GClientService->GetClientSession());
-	pClientSession->Connect();
+	shared_ptr<Session> pSession = GClientService->GetClientSession();
+	pSession->Connect();
 }
 
 

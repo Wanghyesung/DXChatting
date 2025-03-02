@@ -42,10 +42,10 @@ bool Handle_S_CHATTING(shared_ptr<Session> _pSession, Protocol::S_CHATTING& _pkt
 bool Handle_S_NEW_CHATTING(shared_ptr<Session> _pSession, Protocol::S_NEW_CHATTING& _pkt)
 {   
     string strOtherText = _pkt.text();
-
+    string strOtherClientName = _pkt.name();
     //다른 애들 말풍선 그리기
     if (GChattingBar != nullptr)
-        GChattingBar->ShowOtherText(StringToWString(strOtherText));
+        GChattingBar->ShowOtherText(StringToWString(strOtherText), StringToWString(strOtherClientName));
 
     return true;
 }
